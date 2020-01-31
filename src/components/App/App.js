@@ -21,6 +21,15 @@ import PledgePage from '../PledgePage/PledgePage';
 import PartnersPage from '../PartnersPage/ParntersPage';
 import ContactPage from '../ContactPage/ContactPage';
 
+import AdminHome from '../AdminHomePage/AdminHomePage';
+import AdminAbout from '../AdminAboutPage/AdminAboutPage';
+import AdminPhotos from '../AdminPhotosPage/AdminPhotosPage';
+import AdminGolfers from '../AdminGolfersPage/AdminGolfersPage';
+import AdminPledges from '../AdminPledgesPage/AdminPledgesPage';
+import AdminPartners from '../AdminPartnersPage/AdminPartnersPage';
+import AdminContact from '../AdminContactPage/AdminContactPage';
+
+
 import './App.css';
 
 class App extends Component {
@@ -73,8 +82,39 @@ class App extends Component {
             <ProtectedRoute
               exact
               path="/admin"
-              component={ContactPage}
+              component={AdminHome}
             />
+            <ProtectedRoute
+              exact
+              path="/admin/about"
+              component={AdminAbout}
+            />
+            <ProtectedRoute
+              exact
+              path="/admin/photos"
+              component={AdminPhotos}
+            />
+            <ProtectedRoute
+              exact
+              path="/admin/golfers"
+              component={AdminGolfers}
+            />
+            <ProtectedRoute
+              exact
+              path="/admin/pledges"
+              component={AdminPledges}
+            />
+            <ProtectedRoute
+              exact
+              path="/admin/partners"
+              component={AdminPartners}
+            />
+            <ProtectedRoute
+              exact
+              path="/admin/contact"
+              component={AdminContact}
+            />
+           
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
