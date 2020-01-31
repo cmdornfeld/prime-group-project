@@ -7,7 +7,9 @@ class AdminHomePage extends Component {
 
     state = {
         editLocation: false,
-        editDate: false
+        editDate: false,
+        location: '',
+        date: ''
     }
 
     componentDidMount(){
@@ -39,6 +41,12 @@ class AdminHomePage extends Component {
             })
         }
     }
+
+    handleInputChangeFor = propertyName => (event) => {
+        this.setState({
+          [propertyName]: event.target.value,
+        });
+    };
     
     render() {
 
@@ -53,7 +61,10 @@ class AdminHomePage extends Component {
             </Fragment>
         ) : (
             <Fragment>
-                <input />
+                <input 
+                value={this.state.location}
+                onChange={this.handleInputChangeFor('location')}
+                />
                 <button
                 onClick={this.editLocation}
                 >
@@ -73,7 +84,10 @@ class AdminHomePage extends Component {
             </Fragment>
         ) : (
             <Fragment>
-                <input />
+                <input 
+                value={this.state.date}
+                onChange={this.handleInputChangeFor('date')}
+                />
                 <button
                 onClick={this.editDate}
                 >
