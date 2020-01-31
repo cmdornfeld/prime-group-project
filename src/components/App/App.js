@@ -32,7 +32,6 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Nav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -69,6 +68,11 @@ class App extends Component {
             <Route
               exact
               path="/contact"
+              component={ContactPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/admin"
               component={ContactPage}
             />
             {/* If none of the other routes matched, we will show a 404. */}
