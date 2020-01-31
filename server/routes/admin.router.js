@@ -24,6 +24,26 @@ router.put('/location/:id', rejectUnauthenticated, (req, res) => {
     .catch(() => res.sendStatus(500))
 });
 
+//GET route for contact info
+router.get('/contact-info', rejectUnauthenticated, (req, res) => {
+    pool.query(`SELECT * FROM "contact";`)
+        .then(results => res.send(results.rows[0]))
+        .catch(error => {
+            console.log('Error GETTING contact:', error);
+            res.sendStatus(500);
+    });
+});
+
+//GET route for address info
+router.get('/address-info', rejectUnauthenticated, (req, res) => {
+    pool.query(`SELECT * FROM "address";`)
+        .then(results => res.send(results.rows[0]))
+        .catch(error => {
+            console.log('Error GETTING contact:', error);
+            res.sendStatus(500);
+    });
+});
+
 
 
 
