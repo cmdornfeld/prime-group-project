@@ -7,10 +7,15 @@ class UserPage extends Component {
 
   componentDidMount() {
     this.getVideo();
+    this.getEvent();
 }
 
 getVideo = ()=> {
   this.props.dispatch({ type: "GET_VIDEOS"});
+}
+
+getEvent = ()=> {
+  this.props.dispatch({ type: "GET_EVENTS"});
 }
 
   render() {
@@ -18,8 +23,9 @@ getVideo = ()=> {
       <div>
         <Nav />
         <p>home</p>
-        {JSON.stringify(this.props.reduxState.videoReducer)}
-        {this.props.reduxState.videoReducer.map( (item) => {
+        {JSON.stringify(this.props.eventInfoReducer)}
+        {JSON.stringify(this.props.videoReducer)}
+        {this.props.videoReducer.map( (item) => {
           return(
               <iframe src={item.url} width='auto' height='auto' />
           )
@@ -28,8 +34,9 @@ getVideo = ()=> {
     );
   }
 }
-const putReduxStateonProps = (reduxState) => ({
-  reduxState
-})
+const putReduxStateOnProps = (reduxStore) => ({
+  videoReducer: reduxStore.videoReducer,
+  eventInfoReducer: reduxStore.eventInfoReducer
+});
 
-export default connect(putReduxStateonProps)(UserPage);
+export default connect(putReduxStateOnProps)(UserPage);
