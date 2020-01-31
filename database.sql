@@ -164,3 +164,36 @@ image'), ('https://image.shutterstock.com/image-vector/test-icon-260nw-577403899
 INSERT INTO "donation" ("first_name", "last_name", "phone_number", "email", "type", "amount", "max", "golfer_id") VALUES ('Jon', 'Smith', 
 '6515555555', 'test@test.com', 'flat', '50', null, 1), ('Jane', 'Doe', '6515555556', 'test2@test.com', 'per birdie', '5', '100', 2), 
 ('Bill', 'Thomas', '6515555557', 'test3@test.com', 'flat', '25', null, 3);
+
+
+-- GET h4h address, phone and fax
+SELECT * FROM "address";
+
+-- GET h4h contact name and email
+SELECT * FROM "contact";
+
+-- GET all donation information
+SELECT * FROM "donation";
+
+-- GET h4h event information
+SELECT * FROM "event";
+
+-- GET all foundation information
+SELECT * FROM "foundation";
+
+-- GET all golfer information
+SELECT * FROM "golfer";
+
+-- GET h4h mission statement
+SELECT * FROM "mission";
+
+-- GET all photos
+SELECT * FROM "photos";
+
+-- GET all sponsors and their level
+SELECT "sponsor"."id", "img_url", "sponsor_level"."title", "sponsor_level"."amount"
+FROM "sponsor"
+JOIN "sponsor_level" ON "sponsor_level"."id" = "sponsor"."level";
+
+-- GET all videos
+SELECT * FROM "videos";
