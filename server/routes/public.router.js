@@ -5,7 +5,7 @@ const pool = require('../modules/pool');
 //Get all customer
 router.get('/videos', (req, res)=>{
     console.log('video route for get');
-    const queryVideos = 'SELECT "id", "url" FROM "video"';
+    const queryVideos = 'SELECT "id", "url" FROM "videos"';
     
     pool.query(queryVideos).then(( results ) =>{
         res.send(results.rows);
