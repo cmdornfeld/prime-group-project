@@ -10,13 +10,8 @@ const Nav = (props) => (
       <h2 className="nav-title">Prime Solo Project</h2>
     </Link>
     <div className="nav-right">
-      <Link className="nav-link" to="/home">
-        {/* Show this link if they are logged in or not,
-        but call this link 'Home' if they are logged in,
-        and call this link 'Login / Register' if they are not */}
-        {props.user.id ? 'Home' : 'Login / Register'}
-      </Link>
-      {/* Show the link to the info page and the logout button if the user is logged in */}
+    
+      {/* Show the link to the info page and the logout button if the user is logged in
       {props.user.id && (
         <>
           <Link className="nav-link" to="/info">
@@ -24,10 +19,28 @@ const Nav = (props) => (
           </Link>
           <LogOutButton className="nav-link"/>
         </>
-      )}
+      )} */}
       {/* Always show this link since the about page is not protected */}
+      <Link className="nav-link" to="/home">
+        Home
+      </Link>
       <Link className="nav-link" to="/about">
         About
+      </Link>
+      <Link className="nav-link" to="/photos">
+        Photos
+      </Link>
+      <Link className="nav-link" to="/golfers">
+        Golfers
+      </Link>
+      <Link className="nav-link" to="/pledge">
+        Pledge
+      </Link>
+      <Link className="nav-link" to="/partners">
+        Partners
+      </Link>
+      <Link className="nav-link" to="/contact">
+        Contact
       </Link>
     </div>
   </div>
