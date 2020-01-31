@@ -21,6 +21,15 @@ import PledgePage from '../PledgePage/PledgePage';
 import PartnersPage from '../PartnersPage/ParntersPage';
 import ContactPage from '../ContactPage/ContactPage';
 
+import AdminHome from '../AdminHomePage/AdminHomePage';
+import AdminAbout from '../AdminAboutPage/AdminAboutPage';
+import AdminPhotos from '../AdminPhotosPage/AdminPhotosPage';
+import AdminGolfers from '../AdminGolfersPage/AdminGolfersPage';
+import AdminPledges from '../AdminPledgesPage/AdminPledgesPage';
+import AdminPartners from '../AdminPartnersPage/AdminPartnersPage';
+import AdminContact from '../AdminContactPage/AdminContactPage';
+
+
 import './App.css';
 
 class App extends Component {
@@ -32,7 +41,6 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Nav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -71,6 +79,42 @@ class App extends Component {
               path="/contact"
               component={ContactPage}
             />
+            <ProtectedRoute
+              exact
+              path="/admin"
+              component={AdminHome}
+            />
+            <ProtectedRoute
+              exact
+              path="/admin/about"
+              component={AdminAbout}
+            />
+            <ProtectedRoute
+              exact
+              path="/admin/photos"
+              component={AdminPhotos}
+            />
+            <ProtectedRoute
+              exact
+              path="/admin/golfers"
+              component={AdminGolfers}
+            />
+            <ProtectedRoute
+              exact
+              path="/admin/pledges"
+              component={AdminPledges}
+            />
+            <ProtectedRoute
+              exact
+              path="/admin/partners"
+              component={AdminPartners}
+            />
+            <ProtectedRoute
+              exact
+              path="/admin/contact"
+              component={AdminContact}
+            />
+           
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
