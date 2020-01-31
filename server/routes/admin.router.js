@@ -14,6 +14,16 @@ router.get('/event-info', rejectUnauthenticated, (req, res) => {
     });
 });
 
+//PUT route edit event location
+router.put('/location/:id', rejectUnauthenticated, (req, res) => {
+    const location = req.body.location;
+    const id = req.body.id;
+    const queryString = `UPDATE "event" SET "location" = $1 where id = $2;`;
+    pool.query(queryString, [location, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
 
 
 

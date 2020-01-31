@@ -22,7 +22,7 @@ class AdminHomePage extends Component {
                 editLocation: true
             })
         } else {
-            // this.props.dispatch({type: 'EDIT_LOCATION', payload: this.state})
+            this.props.dispatch({type: 'EDIT_LOCATION', payload: {location: this.state.location, id: this.props.eventInfoReducer.id}})
             this.setState({
                 editLocation: false
             })
