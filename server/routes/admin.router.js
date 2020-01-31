@@ -1,8 +1,6 @@
 const express = require('express');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
-const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
-const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
 
@@ -11,7 +9,7 @@ router.get('/event-info', rejectUnauthenticated, (req, res) => {
     pool.query(`SELECT * FROM "event";`)
         .then(results => res.send(results.rows[0]))
         .catch(error => {
-            console.log('Error GETTING comments:', error);
+            console.log('Error GETTING event info:', error);
             res.sendStatus(500);
     });
 });
