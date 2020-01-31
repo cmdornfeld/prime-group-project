@@ -12,8 +12,20 @@ function* getPublicVideos() {
     }
 }
 
+function* getPublicEvents() {
+    try{
+        const getResponse = yield axios.get(`/api/public/event-info`);
+        console.log(getResponse.data)
+        yield put({type: 'SET_EVENT', payload: getResponse.data})
+    }
+    catch (error){
+        console.log(error); 
+    }
+}
+
 function* getPublicVideoSaga() {
     yield takeLatest('GET_VIDEOS', getPublicVideos);
+    yield takeLatest('GET_EVENTS', getPublicEvents);
 }
 
 export default getPublicVideoSaga;
