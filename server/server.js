@@ -25,6 +25,10 @@ app.use(passport.session());
 /* Routes */
 app.use('/api/user', userRouter);
 
+/* Route for get */
+const videoRouter = require('./routes/video.router');
+app.use('videos', videoRouter)
+
 // Serve static files
 app.use(express.static('build'));
 
