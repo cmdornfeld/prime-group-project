@@ -12,7 +12,8 @@ class AdminHomePage extends Component {
         addVideo: false,
         location: '',
         date: '',
-        videoUrl: ''
+        videoUrl: '',
+        videoTitle: ''
     }
 
     componentDidMount(){
@@ -52,7 +53,7 @@ class AdminHomePage extends Component {
                 addVideo: true
             })
         } else {
-            this.props.dispatch({type: 'ADD_VIDEO', payload: this.state.videoUrl})
+            this.props.dispatch({type: 'ADD_VIDEO', payload: {url: this.state.videoUrl, title: this.state.videoTitle}})
             this.setState({
                 addVideo: false
             })
@@ -157,6 +158,14 @@ class AdminHomePage extends Component {
             </Fragment>
         ) : (
             <Fragment>
+                <label>Video Title:</label>
+                <input
+                type="text" 
+                value={this.state.videoTitle}
+                onChange={this.handleInputChangeFor('videoTitle')}
+                />
+                <br />
+                <label>Video URL:</label>
                 <input
                 type="text" 
                 value={this.state.videoUrl}
@@ -191,6 +200,7 @@ class AdminHomePage extends Component {
                 {this.props.videoReducer.map( (item) => {
                 return(
                     <div key={item.id}>
+                        <h2>{item.title}</h2>
                         <iframe src={item.url} width='auto' height='auto' />
                         <br />
                         <button

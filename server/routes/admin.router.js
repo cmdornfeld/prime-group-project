@@ -16,7 +16,7 @@ router.get('/event-info', rejectUnauthenticated, (req, res) => {
 
 //Get all Videos
 router.get('/videos', (req, res)=>{
-    const queryVideos = 'SELECT "id", "url" FROM "videos"';
+    const queryVideos = 'SELECT "id", "url", "title" FROM "videos"';
     pool.query(queryVideos).then(( results ) =>{
         res.send(results.rows);
     }).catch( (error) =>{
@@ -28,8 +28,9 @@ router.get('/videos', (req, res)=>{
 //POST new video
 router.post('/videos', rejectUnauthenticated, (req, res) => {
     const videoUrl = req.body.videoUrl
-    const queryString = `INSERT INTO "videos" ("url") VALUES ($1);`;
-    pool.query(queryString, [videoUrl])
+    const title = req.body.title
+    const queryString = `INSERT INTO "videos" ("url", "title") VALUES ($1, $2);`;
+    pool.query(queryString, [videoUrl, title])
     .then(() => res.sendStatus(201))
     .catch(() => res.sendStatus(500))
 });
