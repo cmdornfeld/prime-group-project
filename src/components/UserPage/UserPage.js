@@ -1,24 +1,50 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Nav from '../Nav/Nav'
 
-// this could also be written with destructuring parameters as:
-// const UserPage = ({ user }) => (
-// and then instead of `props.user.username` you could use `user.username`
-const UserPage = (props) => (
-  <div>
-    <Nav />
-    <p>home</p>
-  </div>
-);
+class UserPage extends Component {
 
-// Instead of taking everything from state, we just want the user info.
-// if you wanted you could write this code like this:
-// const mapStateToProps = ({user}) => ({ user });
-const mapStateToProps = state => ({
-  user: state.user,
+  componentDidMount() {
+    this.getVideo();
+    this.getEvent();
+}
+
+getVideo = ()=> {
+  this.props.dispatch({ type: "GET_VIDEOS"});
+}
+
+getEvent = ()=> {
+  this.props.dispatch({ type: "GET_EVENTS"});
+}
+
+  render() {
+    return (
+      // <div>
+      //   {this.props.eventInfoReducer.map( (item) => {
+      //     return(
+      //   <p>{item.date}</p>
+      //     )
+      //   })}
+      // </div>
+      <div>
+        <Nav />
+        <p>home</p>
+        {JSON.stringify(this.props.eventInfoReducer)}
+        <h3>{this.props.eventInfoReducer.date}</h3>
+        {JSON.stringify(this.props.videoReducer)}
+        {this.props.videoReducer.map( (item) => {
+          return(
+              <iframe src={item.url} width='auto' height='auto' />
+          )
+        })}
+      </div>
+    );
+  }
+}
+const putReduxStateOnProps = (reduxStore) => ({
+  videoReducer: reduxStore.videoReducer,
+  eventInfoReducer: reduxStore.eventInfoReducer
 });
 
-// this allows us to use <App /> in index.js
-export default connect(mapStateToProps)(UserPage);
+export default connect(putReduxStateOnProps)(UserPage);

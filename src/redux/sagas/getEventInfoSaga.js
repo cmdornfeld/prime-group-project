@@ -12,7 +12,7 @@ function* getEventInfo() {
 }
 
 function* getEventInfoSaga() {
-    yield takeLatest('GET_EVENT_INFO', getEventInfo)
+    yield takeLatest('GET_EVENT_INFO', getEventInfo);
 }
 
 export default getEventInfoSaga;

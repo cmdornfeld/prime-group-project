@@ -3,6 +3,7 @@ import loginSaga from './loginSaga';
 import registrationSaga from './registrationSaga';
 import userSaga from './userSaga';
 import getEventInfoSaga from './getEventInfoSaga';
+import getPublicVideoSaga from './getVideoSaga';
 import editLocationSaga from './editLocationSaga';
 import getContactInfoSaga from './getContactInfoSaga';
 import getAddressInfoSaga from './getAddressSaga';
@@ -20,6 +21,7 @@ export default function* rootSaga() {
     registrationSaga(),
     userSaga(),
     getEventInfoSaga(),
+    getPublicVideoSaga(),
     editLocationSaga(),
     getContactInfoSaga(),
     getAddressInfoSaga(),
