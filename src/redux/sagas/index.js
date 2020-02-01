@@ -8,6 +8,7 @@ import editLocationSaga from './editLocationSaga';
 import contactInfoSaga from './contactInfoSaga';
 import addressSaga from './addressSaga';
 import editDateSaga from './editDateSaga';
+import getMissionSaga from './getPublicAboutSaga';
 import getAdminVideosSaga from './getAdminVideosSaga';
 import postVideoSaga from './postVideoSaga';
 import deleteVideoSaga from './deleteVideoSaga';
@@ -30,6 +31,7 @@ export default function* rootSaga() {
     contactInfoSaga(),
     addressSaga(),
     editDateSaga(),
+    getMissionSaga(),
     getAdminVideosSaga(),
     postVideoSaga(),
     deleteVideoSaga(),

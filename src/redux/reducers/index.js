@@ -5,6 +5,8 @@ import user from './userReducer';
 import eventInfoReducer from './eventInfoReducer';
 import videoReducer from './publicVideos';
 import contactInfoReducer from './contactInfoReducer';
+import missionReducer from './getMissionReducer';
+import foundationReducer from './getFoundation';
 import addressReducer from './addressReducer';
 
 // rootReducer is the primary reducer for our entire project
@@ -20,6 +22,8 @@ const rootReducer = combineReducers({
   eventInfoReducer,
   videoReducer,
   contactInfoReducer,
+  missionReducer,
+  foundationReducer,
   addressReducer,
 });
 
