@@ -4,7 +4,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* getEventInfo() {
     try{
         const getResponse = yield axios.get(`/api/admin/event-info`);
-        console.log(getResponse.data)
         yield put({type: 'SET_EVENT', payload: getResponse.data})
     }
     catch (error){

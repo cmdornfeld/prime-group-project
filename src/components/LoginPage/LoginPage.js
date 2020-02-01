@@ -20,7 +20,6 @@ class LoginPage extends Component {
       });
     } else {
       this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
-      // this.getReducers()
     }
   } // end login
 
@@ -29,10 +28,6 @@ class LoginPage extends Component {
       [propertyName]: event.target.value,
     });
   }
-
-  // getReducers = () => {
-  //   this.props.dispatch({type: 'GET_EVENT_INFO'})
-  // }
 
   render() {
     return (
