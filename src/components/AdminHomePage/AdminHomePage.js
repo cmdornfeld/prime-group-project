@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import dayjs from 'dayjs';
 
 import AdminNav from '../AdminNav/AdminNav';
 
@@ -35,7 +36,7 @@ class AdminHomePage extends Component {
                 editDate: true
             })
         } else {
-            // this.props.dispatch({type: 'EDIT_LOCATION', payload: this.state})
+            this.props.dispatch({type: 'EDIT_DATE', payload: {date: this.state.date, id: this.props.eventInfoReducer.id}})
             this.setState({
                 editDate: false
             })
@@ -47,6 +48,18 @@ class AdminHomePage extends Component {
           [propertyName]: event.target.value,
         });
     };
+
+    cancelLocationSave = () => {
+        this.setState({
+            editLocation: false
+        })
+    }
+
+    cancelDateSave = () => {
+        this.setState({
+            editDate: false
+        })
+    }
     
     render() {
 
@@ -61,10 +74,16 @@ class AdminHomePage extends Component {
             </Fragment>
         ) : (
             <Fragment>
-                <input 
+                <input
+                type="text" 
                 value={this.state.location}
                 onChange={this.handleInputChangeFor('location')}
                 />
+                <button
+                onClick={this.cancelLocationSave}
+                >
+                    Cancel
+                </button>
                 <button
                 onClick={this.editLocation}
                 >
@@ -75,7 +94,7 @@ class AdminHomePage extends Component {
 
         const editDate = this.state.editDate === false ? (
             <Fragment>
-                {this.props.eventInfoReducer.date}
+                {dayjs(this.props.eventInfoReducer.date).format('MMMM DD YYYY')}
                     <button
                     onClick={this.editDate}
                     >
@@ -85,9 +104,15 @@ class AdminHomePage extends Component {
         ) : (
             <Fragment>
                 <input 
+                type="date"
                 value={this.state.date}
                 onChange={this.handleInputChangeFor('date')}
                 />
+                <button
+                onClick={this.cancelDateSave}
+                >
+                    Cancel
+                </button>
                 <button
                 onClick={this.editDate}
                 >

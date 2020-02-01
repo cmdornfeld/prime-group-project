@@ -3,6 +3,7 @@ import errors from './errorsReducer';
 import loginMode from './loginModeReducer';
 import user from './userReducer';
 import eventInfoReducer from './eventInfoReducer';
+import videoReducer from './publicVideos';
 import contactInfoReducer from './contactInfoReducer';
 import addressInfoReducer from './addressInfoReducer';
 
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   loginMode, // will have a value of 'login' or 'registration' to control which screen is shown
   user, // will have an id and username if someone is logged in
   eventInfoReducer,
+  videoReducer,
   contactInfoReducer,
   addressInfoReducer,
 });

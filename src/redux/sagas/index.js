@@ -3,9 +3,11 @@ import loginSaga from './loginSaga';
 import registrationSaga from './registrationSaga';
 import userSaga from './userSaga';
 import getEventInfoSaga from './getEventInfoSaga';
+import getPublicVideoSaga from './getVideoSaga';
 import editLocationSaga from './editLocationSaga';
 import getContactInfoSaga from './getContactInfoSaga';
 import getAddressInfoSaga from './getAddressSaga';
+import editDateSaga from './editDateSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -20,8 +22,10 @@ export default function* rootSaga() {
     registrationSaga(),
     userSaga(),
     getEventInfoSaga(),
+    getPublicVideoSaga(),
     editLocationSaga(),
     getContactInfoSaga(),
     getAddressInfoSaga(),
+    editDateSaga(),
   ]);
 }
