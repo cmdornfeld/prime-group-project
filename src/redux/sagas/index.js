@@ -10,6 +10,7 @@ import getAddressInfoSaga from './getAddressSaga';
 import editDateSaga from './editDateSaga';
 import getAdminVideosSaga from './getAdminVideosSaga';
 import postVideoSaga from './postVideoSaga';
+import deleteVideoSaga from './deleteVideoSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -31,5 +32,6 @@ export default function* rootSaga() {
     editDateSaga(),
     getAdminVideosSaga(),
     postVideoSaga(),
+    deleteVideoSaga(),
   ]);
 }

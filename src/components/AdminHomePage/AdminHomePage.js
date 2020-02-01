@@ -59,6 +59,10 @@ class AdminHomePage extends Component {
         }
     }
 
+    deleteVideo = (id) => {
+        this.props.dispatch({type: 'DELETE_VIDEO', payload: id})
+    }
+
     handleInputChangeFor = propertyName => (event) => {
         this.setState({
           [propertyName]: event.target.value,
@@ -189,7 +193,11 @@ class AdminHomePage extends Component {
                     <div key={item.id}>
                         <iframe src={item.url} width='auto' height='auto' />
                         <br />
-                        <button>Delete</button>
+                        <button
+                        onClick={() => this.deleteVideo(item.id)}
+                        >
+                            Delete
+                        </button>
                     </div>
                 )
                 })}

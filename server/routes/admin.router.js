@@ -34,6 +34,13 @@ router.post('/videos', rejectUnauthenticated, (req, res) => {
     .catch(() => res.sendStatus(500))
 });
 
+//DELETE route for deleting a video
+router.delete('/videos/:id', rejectUnauthenticated, (req, res) => {
+    pool.query(`DELETE FROM "videos" WHERE "id" = $1;`, [req.params.id])
+    .then(()=> res.sendStatus(200))
+    .catch(() => res.sendStatus(500))
+});
+
 //PUT route edit event location
 router.put('/location/:id', rejectUnauthenticated, (req, res) => {
     const location = req.body.location;
