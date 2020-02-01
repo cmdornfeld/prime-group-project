@@ -48,6 +48,18 @@ class AdminHomePage extends Component {
           [propertyName]: event.target.value,
         });
     };
+
+    cancelLocationSave = () => {
+        this.setState({
+            editLocation: false
+        })
+    }
+
+    cancelDateSave = () => {
+        this.setState({
+            editDate: false
+        })
+    }
     
     render() {
 
@@ -67,6 +79,11 @@ class AdminHomePage extends Component {
                 value={this.state.location}
                 onChange={this.handleInputChangeFor('location')}
                 />
+                <button
+                onClick={this.cancelLocationSave}
+                >
+                    Cancel
+                </button>
                 <button
                 onClick={this.editLocation}
                 >
@@ -91,6 +108,11 @@ class AdminHomePage extends Component {
                 value={this.state.date}
                 onChange={this.handleInputChangeFor('date')}
                 />
+                <button
+                onClick={this.cancelDateSave}
+                >
+                    Cancel
+                </button>
                 <button
                 onClick={this.editDate}
                 >
