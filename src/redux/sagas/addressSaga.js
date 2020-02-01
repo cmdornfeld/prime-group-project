@@ -12,8 +12,19 @@ function* getAddressInfo() {
     }
 }
 
-function* getAddressInfoSaga() {
-    yield takeLatest('GET_ADDRESS_INFO', getAddressInfo)
+function* editAddressInfo(action) {
+    try{
+        yield axios.put(`/api/admin/address-info/${action.payload.id}`, action.payload);
+        yield put({type: 'GET_ADDRESS_INFO'});
+    }
+    catch (error){
+        console.log('failed editing address info', error); 
+    }
 }
 
-export default getAddressInfoSaga;
+function* addressSaga() {
+    yield takeLatest('GET_ADDRESS_INFO', getAddressInfo)
+    yield takeLatest('EDIT_ADDRESS', editAddressInfo)
+}
+
+export default addressSaga;

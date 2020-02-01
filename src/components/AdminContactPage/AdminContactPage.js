@@ -75,6 +75,8 @@ class AdminContactPage extends Component {
     }
 
     handleInputChangeFor = propertyName => (event) => {
+        console.log('handling change for:', propertyName, 'value:', event.target.value);
+        
         this.setState({
           [propertyName]: event.target.value,
         });
@@ -85,11 +87,11 @@ class AdminContactPage extends Component {
         const editAddress = this.state.editAddress === false ? (
             <div className="address-info-box">
                 <h4>Address</h4>
-                {JSON.stringify(this.props.addressInfoReducer)}
-                <p>{this.props.addressInfoReducer.street}  <button onClick={this.editAddress}>Edit</button><br/>
-                    {this.props.addressInfoReducer.city}, {this.props.addressInfoReducer.state}  {this.props.addressInfoReducer.zip}<br/>
-                    Phone: {this.props.addressInfoReducer.phone}<br/>
-                    Fax: {this.props.addressInfoReducer.fax}
+                {JSON.stringify(this.props.addressReducer)}
+                <p>{this.props.addressReducer.street}  <button onClick={this.editAddress}>Edit</button><br/>
+                    {this.props.addressReducer.city}, {this.props.addressReducer.state}  {this.props.addressReducer.zip}<br/>
+                    Phone: {this.props.addressReducer.phone}<br/>
+                    Fax: {this.props.addressReducer.fax}
                 </p>
             </div>
 
@@ -97,27 +99,27 @@ class AdminContactPage extends Component {
             <div className="address-info-box">
                 <h4>Address</h4>
                 <input 
-                    value={this.props.addressInfoReducer.street}
+                    value={this.state.street}
                     onChange={this.handleInputChangeFor('street')}
                 />
                 <input 
-                    value={this.props.addressInfoReducer.city}
+                    value={this.state.city}
                     onChange={this.handleInputChangeFor('city')}
                 />
                 <input 
-                    value={this.props.addressInfoReducer.state}
+                    value={this.state.state}
                     onChange={this.handleInputChangeFor('state')}
                 />
                 <input 
-                    value={this.props.addressInfoReducer.zip}
+                    value={this.state.zip}
                     onChange={this.handleInputChangeFor('zip')}
                 />
                 <input 
-                    value={this.props.addressInfoReducer.phone}
+                    value={this.state.phone}
                     onChange={this.handleInputChangeFor('phone')}
                 />
                 <input 
-                    value={this.props.addressInfoReducer.fax}
+                    value={this.state.fax}
                     onChange={this.handleInputChangeFor('fax')}
                 />
                 <button onClick={this.cancelEditAddress}>
@@ -143,11 +145,11 @@ class AdminContactPage extends Component {
             <div className="contact-info-box">
                 <h4>Contact</h4>
                 <input 
-                    value={this.props.contactInfoReducer.name}
+                    value={this.state.name}
                     onChange={this.handleInputChangeFor('contactName')}
                 />
                 <input 
-                    value={this.props.contactInfoReducer.email}
+                    value={this.state.email}
                     onChange={this.handleInputChangeFor('contactEmail')}
                 />
                 <button onClick={this.cancelEditContact}>
@@ -170,7 +172,7 @@ class AdminContactPage extends Component {
 }
 
 const putReduxStateOnProps = (reduxStore) => ({
-    addressInfoReducer: reduxStore.addressInfoReducer,
+    addressReducer: reduxStore.addressReducer,
     contactInfoReducer: reduxStore.contactInfoReducer
 });
 
