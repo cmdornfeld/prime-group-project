@@ -14,6 +14,34 @@ router.get('/event-info', rejectUnauthenticated, (req, res) => {
     });
 });
 
+//Get all Videos
+router.get('/videos', (req, res)=>{
+    const queryVideos = 'SELECT "id", "url", "title" FROM "videos"';
+    pool.query(queryVideos).then(( results ) =>{
+        res.send(results.rows);
+    }).catch( (error) =>{
+        console.log('Error from SELECT videos quert ', error);
+        res.sendStatus(500);
+    })
+});
+
+//POST new video
+router.post('/videos', rejectUnauthenticated, (req, res) => {
+    const videoUrl = req.body.videoUrl
+    const title = req.body.title
+    const queryString = `INSERT INTO "videos" ("url", "title") VALUES ($1, $2);`;
+    pool.query(queryString, [videoUrl, title])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
+//DELETE route for deleting a video
+router.delete('/videos/:id', rejectUnauthenticated, (req, res) => {
+    pool.query(`DELETE FROM "videos" WHERE "id" = $1;`, [req.params.id])
+    .then(()=> res.sendStatus(200))
+    .catch(() => res.sendStatus(500))
+});
+
 //PUT route edit event location
 router.put('/location/:id', rejectUnauthenticated, (req, res) => {
     const location = req.body.location;
@@ -53,6 +81,46 @@ router.get('/address-info', rejectUnauthenticated, (req, res) => {
             console.log('Error GETTING contact:', error);
             res.sendStatus(500);
     });
+});
+
+//PUT route edit address
+router.put('/address-info/:id', rejectUnauthenticated, (req, res) => {
+    console.log(req.body)
+    const street = req.body.street;
+    const city = req.body.city;
+    const state = req.body.state;
+    const zip = req.body.zip;
+    const phone = req.body.phone;
+    const fax = req.body.fax;
+    const id = req.body.id;
+    const queryString = `UPDATE "address" 
+                        SET "street" = $1,
+                            "city" = $2, 
+                            "state" = $3, 
+                            "zip" = $4, 
+                            "phone" = $5, 
+                            "fax" = $6 
+                        WHERE id = $7;`;
+    pool.query(queryString, [street, city, state, zip, phone, fax, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
+//PUT route edit contact
+router.put('/contact-info/:id', rejectUnauthenticated, (req, res) => {
+    console.log(req.body)
+    const name = req.body.contactName;
+    const email = req.body.contactEmail;
+    const id = req.body.id;
+    console.log(name, email, id);
+    
+    const queryString = `UPDATE "contact" 
+                        SET "name" = $1,
+                            "email" = $2
+                        WHERE id = $3;`;
+    pool.query(queryString, [name, email, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
 });
 
 
