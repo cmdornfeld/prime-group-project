@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import dayjs from 'dayjs'
 
+import './Userpage.css';
 import Nav from '../Nav/Nav'
 
 class UserPage extends Component {
@@ -20,18 +22,11 @@ getEvent = ()=> {
 
   render() {
     return (
-      // <div>
-      //   {this.props.eventInfoReducer.map( (item) => {
-      //     return(
-      //   <p>{item.date}</p>
-      //     )
-      //   })}
-      // </div>
       <div>
         <Nav />
-        <p>home</p>
-        {JSON.stringify(this.props.eventInfoReducer)}
-        <h3>{this.props.eventInfoReducer.date}</h3>
+        <h1>home</h1>
+          <h3>{dayjs(this.props.eventInfoReducer.date).format('MMMM DD YYYY')} {this.props.eventInfoReducer.location}</h3>
+        
         {JSON.stringify(this.props.videoReducer)}
         {this.props.videoReducer.map( (item) => {
           return(
