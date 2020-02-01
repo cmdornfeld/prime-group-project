@@ -3,7 +3,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 function* editLocation(action) {
     try {
-        console.log(action.payload.id)
         yield axios.put(`/api/admin/location/${action.payload.id}`, action.payload);
         yield put({type: 'GET_EVENT_INFO'})
     } catch (error) {

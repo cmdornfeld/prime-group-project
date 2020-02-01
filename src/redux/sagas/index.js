@@ -7,6 +7,7 @@ import getPublicVideoSaga from './getVideoSaga';
 import editLocationSaga from './editLocationSaga';
 import getContactInfoSaga from './getContactInfoSaga';
 import getAddressInfoSaga from './getAddressSaga';
+import editDateSaga from './editDateSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -25,5 +26,6 @@ export default function* rootSaga() {
     editLocationSaga(),
     getContactInfoSaga(),
     getAddressInfoSaga(),
+    editDateSaga(),
   ]);
 }
