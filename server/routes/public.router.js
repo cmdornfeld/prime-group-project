@@ -37,4 +37,14 @@ router.get('/mission', (req, res) => {
     });
 });
 
+//get route for foundation
+router.get('/foundation', (req, res) => {
+    pool.query(`SELECT "id", "name", "bio", "url" FROM "foundation";`)
+        .then(results => res.send(results.rows))
+        .catch(error => {
+            console.log('Error GETTING Mission:', error);
+            res.sendStatus(500);
+    });
+});
+
 module.exports = router;
