@@ -12,8 +12,19 @@ function* getContactInfo() {
     }
 }
 
-function* getContactInfoSaga() {
-    yield takeLatest('GET_CONTACT_INFO', getContactInfo)
+function* editContactInfo(action) {
+    try{
+        yield axios.put(`/api/admin/contact-info/${action.payload.id}`, action.payload);
+        yield put({type: 'GET_CONTACT_INFO'});
+    }
+    catch (error){
+        console.log('failed editing contact info', error);
+    }
 }
 
-export default getContactInfoSaga;
+function* contactInfoSaga() {
+    yield takeLatest('GET_CONTACT_INFO', getContactInfo)
+    yield takeLatest('EDIT_CONTACT', editContactInfo)
+}
+
+export default contactInfoSaga;

@@ -5,8 +5,8 @@ import userSaga from './userSaga';
 import getEventInfoSaga from './getEventInfoSaga';
 import getPublicVideoSaga from './getVideoSaga';
 import editLocationSaga from './editLocationSaga';
-import getContactInfoSaga from './getContactInfoSaga';
-import getAddressInfoSaga from './getAddressSaga';
+import contactInfoSaga from './contactInfoSaga';
+import addressSaga from './addressSaga';
 import editDateSaga from './editDateSaga';
 import getAdminVideosSaga from './getAdminVideosSaga';
 import postVideoSaga from './postVideoSaga';
@@ -27,8 +27,8 @@ export default function* rootSaga() {
     getEventInfoSaga(),
     getPublicVideoSaga(),
     editLocationSaga(),
-    getContactInfoSaga(),
-    getAddressInfoSaga(),
+    contactInfoSaga(),
+    addressSaga(),
     editDateSaga(),
     getAdminVideosSaga(),
     postVideoSaga(),
