@@ -54,6 +54,7 @@ CREATE TABLE "address" (
 
 CREATE TABLE "videos" (
   "id" SERIAL PRIMARY KEY,
+  "title" VARCHAR(50),
   "url" VARCHAR (400)
 );
 
@@ -95,7 +96,7 @@ INSERT INTO "address" ("street", "city", "state", "zip", "phone", "fax") VALUES 
 INSERT INTO "contact" ("name", "email") VALUES ('Maggie Sutton', 'msutton@pgahq.com');
 
 -- populating "event" table with information from Wix site
-INSERT INTO "event" ("date", "location") VALUES ('06/18/2020', 'Mount Frontenac Golf Course');
+INSERT INTO "event" ("date", "location") VALUES ('2020-02-12', 'Mount Frontenac Golf Course');
 
 -- populating "foundation" table with information from Wix site
 INSERT INTO "foundation" ("name", "bio", "url") VALUES ('PGA REACH Minnesota', 'PGA REACH Minnesota is the 501(c)(3) charitable foundation
@@ -123,8 +124,8 @@ INSERT INTO "sponsor" ("img_url", "level") VALUES ('https://www.minnesotapga.com
 ('https://upload.wikimedia.org/wikipedia/en/thumb/7/75/Minnesota_Lynx_logo.svg/300px-Minnesota_Lynx_logo.svg.png', 5);
 
 -- populating "videos" table with information from Wix site
-INSERT INTO "videos" ("url") VALUES ('https://player.vimeo.com/video/230451690?title=0&byline=0'), 
-('https://www.youtube.com/embed/wgofXd5hZaM');
+INSERT INTO "videos" ("url", "title") VALUES ('https://player.vimeo.com/video/230451690?title=0&byline=0', 'What Is Hope?'), 
+('https://www.youtube.com/embed/wgofXd5hZaM', '2018 100 Holes for Hope');
 
 -- populating "golfer" table with information from Wix site
 INSERT INTO "golfer" ("first_name", "last_name", "bio", "purpose", "goal", "img_url") VALUES ('IAN', 'CAREY', 'I was active Army for 4 

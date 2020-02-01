@@ -14,6 +14,34 @@ router.get('/event-info', rejectUnauthenticated, (req, res) => {
     });
 });
 
+//Get all Videos
+router.get('/videos', (req, res)=>{
+    const queryVideos = 'SELECT "id", "url", "title" FROM "videos"';
+    pool.query(queryVideos).then(( results ) =>{
+        res.send(results.rows);
+    }).catch( (error) =>{
+        console.log('Error from SELECT videos quert ', error);
+        res.sendStatus(500);
+    })
+});
+
+//POST new video
+router.post('/videos', rejectUnauthenticated, (req, res) => {
+    const videoUrl = req.body.videoUrl
+    const title = req.body.title
+    const queryString = `INSERT INTO "videos" ("url", "title") VALUES ($1, $2);`;
+    pool.query(queryString, [videoUrl, title])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
+//DELETE route for deleting a video
+router.delete('/videos/:id', rejectUnauthenticated, (req, res) => {
+    pool.query(`DELETE FROM "videos" WHERE "id" = $1;`, [req.params.id])
+    .then(()=> res.sendStatus(200))
+    .catch(() => res.sendStatus(500))
+});
+
 //PUT route edit event location
 router.put('/location/:id', rejectUnauthenticated, (req, res) => {
     const location = req.body.location;

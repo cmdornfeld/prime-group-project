@@ -9,12 +9,16 @@ class AdminHomePage extends Component {
     state = {
         editLocation: false,
         editDate: false,
+        addVideo: false,
         location: '',
-        date: ''
+        date: '',
+        videoUrl: '',
+        videoTitle: ''
     }
 
     componentDidMount(){
         this.props.dispatch({ type: 'GET_EVENT_INFO'})
+        this.props.dispatch({ type: 'GET_VIDEOS_ADMIN'})
     }
 
     editLocation = () => {
@@ -43,6 +47,23 @@ class AdminHomePage extends Component {
         }
     }
 
+    addVideo = () => {
+        if(this.state.addVideo === false){
+            this.setState({
+                addVideo: true
+            })
+        } else {
+            this.props.dispatch({type: 'ADD_VIDEO', payload: {url: this.state.videoUrl, title: this.state.videoTitle}})
+            this.setState({
+                addVideo: false
+            })
+        }
+    }
+
+    deleteVideo = (id) => {
+        this.props.dispatch({type: 'DELETE_VIDEO', payload: id})
+    }
+
     handleInputChangeFor = propertyName => (event) => {
         this.setState({
           [propertyName]: event.target.value,
@@ -58,6 +79,12 @@ class AdminHomePage extends Component {
     cancelDateSave = () => {
         this.setState({
             editDate: false
+        })
+    }
+
+    cancelVideoAdd = () => {
+        this.setState({
+            addVideo: false
         })
     }
     
@@ -121,6 +148,42 @@ class AdminHomePage extends Component {
             </Fragment>
         )
 
+        const addVideo = this.state.addVideo === false ? (
+            <Fragment>
+                    <button
+                    onClick={this.addVideo}
+                    >
+                        Add Video
+                    </button>
+            </Fragment>
+        ) : (
+            <Fragment>
+                <label>Video Title:</label>
+                <input
+                type="text" 
+                value={this.state.videoTitle}
+                onChange={this.handleInputChangeFor('videoTitle')}
+                />
+                <br />
+                <label>Video URL:</label>
+                <input
+                type="text" 
+                value={this.state.videoUrl}
+                onChange={this.handleInputChangeFor('videoUrl')}
+                />
+                <button
+                onClick={this.cancelVideoAdd}
+                >
+                    Cancel
+                </button>
+                <button
+                onClick={this.addVideo}
+                >
+                    Save
+                </button>
+            </Fragment>
+        )
+
         return (
             <div>
                 <AdminNav />
@@ -131,14 +194,31 @@ class AdminHomePage extends Component {
                 <div>
                     {editDate}
                 </div>
-                
+                <div>
+                    {addVideo}
+                </div>
+                {this.props.videoReducer.map( (item) => {
+                return(
+                    <div key={item.id}>
+                        <h2>{item.title}</h2>
+                        <iframe src={item.url} width='auto' height='auto' />
+                        <br />
+                        <button
+                        onClick={() => this.deleteVideo(item.id)}
+                        >
+                            Delete
+                        </button>
+                    </div>
+                )
+                })}
             </div>
         )
     }
 }
 
 const putReduxStateOnProps = (reduxStore) => ({
-    eventInfoReducer: reduxStore.eventInfoReducer
+    eventInfoReducer: reduxStore.eventInfoReducer,
+    videoReducer: reduxStore.videoReducer
 });
 
 export default connect(putReduxStateOnProps)(AdminHomePage);
