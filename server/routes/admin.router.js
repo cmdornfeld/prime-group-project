@@ -24,6 +24,17 @@ router.put('/location/:id', rejectUnauthenticated, (req, res) => {
     .catch(() => res.sendStatus(500))
 });
 
+//PUT route edit event location
+router.put('/date/:id', rejectUnauthenticated, (req, res) => {
+    console.log(req.body)
+    const date = req.body.date;
+    const id = req.body.id;
+    const queryString = `UPDATE "event" SET "date" = $1 where id = $2;`;
+    pool.query(queryString, [date, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
 //GET route for contact info
 router.get('/contact-info', rejectUnauthenticated, (req, res) => {
     pool.query(`SELECT * FROM "contact";`)
