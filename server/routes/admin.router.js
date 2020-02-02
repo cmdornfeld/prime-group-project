@@ -55,6 +55,17 @@ router.post('/videos', rejectUnauthenticated, (req, res) => {
     .catch(() => res.sendStatus(500))
 });
 
+//POST new foundation
+router.post('/foundation', rejectUnauthenticated, (req, res) => {
+    const name = req.body.title;
+    const bio = req.body.bio;
+    const image = req.body.image;
+    const queryString = `INSERT INTO "foundation" ("name", "bio", "url") VALUES ($1, $2, $3);`;
+    pool.query(queryString, [name, bio, image])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
 //DELETE route for deleting a video
 router.delete('/videos/:id', rejectUnauthenticated, (req, res) => {
     pool.query(`DELETE FROM "videos" WHERE "id" = $1;`, [req.params.id])

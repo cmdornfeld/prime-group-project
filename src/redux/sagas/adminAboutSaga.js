@@ -22,6 +22,16 @@ function* editMission(action) {
     }
 }
 
+// post new foundation
+function* postNewFoundation(action){
+    try{
+        yield axios.post(`/api/admin/foundation`, action.payload);
+        // yield put({type: 'GET_BREWERY_IMAGE'})
+    } catch (error){
+        console.log(error)
+    }
+}
+
 // //get foundation
 // function* getFoundation() {
 //     try{
@@ -35,8 +45,10 @@ function* editMission(action) {
 // }
 
 function* adminAboutSaga() {
-    yield takeLatest('GET_ADMIN_MISSION', getMission)
+    yield takeLatest('GET_ADMIN_MISSION', getMission);
     yield takeLatest('EDIT_ADMIN_MISSION', editMission);
+    yield takeLatest('ADD_FOUNDATION', postNewFoundation);
+
 
     // yield takeLatest('GET_FOUNDATION', getFoundation)
 }

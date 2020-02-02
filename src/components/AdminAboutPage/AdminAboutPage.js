@@ -1,12 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import AdminNav from '../AdminNav/AdminNav';
 import { connect } from 'react-redux';
+import DropzoneS3Uploader from 'react-dropzone-s3-uploader';
 
 class AdminAboutPage extends Component {
 
     state ={ 
         mission: '',
+        title: '',
         editMission: false,
+        addFoundation: false,
     }
 
     componentDidMount(){
@@ -17,6 +20,14 @@ class AdminAboutPage extends Component {
         this.setState({
             editMission: false,
             mission: ''
+        })
+    }
+
+    cancelAddFoundation = () => {
+        this.setState({
+            addFoundation: false,
+            title: '',
+            bio: ''
         })
     }
 
@@ -32,6 +43,26 @@ class AdminAboutPage extends Component {
                 editMission: false
             })
         }
+    }
+
+    addFoundation = () => {
+        this.setState({
+            addFoundation: true
+        })
+    }
+
+    saveAddFoundation = () => {
+        this.setState({
+            addFoundation: false
+        })
+    }
+
+    handleFinishedUpload = info => {
+        this.props.dispatch({ type: 'ADD_FOUNDATION', payload: {
+            title: this.state.title,
+            bio: this.state.bio,
+            image: info.fileUrl
+        }})
     }
 
     handleInputChangeFor = propertyName => (event) => {
@@ -74,11 +105,82 @@ class AdminAboutPage extends Component {
             </Fragment>
         )
 
+        const uploadOptions = {
+            server: 'http://localhost:5000',
+            // signingUrlQueryParams: {uploadType: 'avatar'},
+        }
+
+        const s3Url = 'https://hundred-holes-bucket.s3.amazonaws.com'
+
+        const innderDropElement = (
+            <div class="inner-drop">
+                <p>Click or Drop File Here!</p>
+            </div>
+        )
+
+        const addFoundation = this.state.addFoundation === false ? (
+            <Fragment>
+                    <button
+                    onClick={this.addFoundation}
+                    >
+                        Add Foundation
+                    </button>
+            </Fragment>
+        ) : (
+            <Fragment>
+                <div>
+                    <input
+                    type="text"
+                    value={this.state.title}
+                    onChange={this.handleInputChangeFor('title')}
+                    />
+                </div>
+                <div>
+                    <textarea
+                    type="text"
+                    rows="6"
+                    cols="100"
+                    value={this.state.bio}
+                    onChange={this.handleInputChangeFor('bio')}
+                    >
+                    </textarea>
+                </div>
+                <div>
+                <DropzoneS3Uploader
+                children={innderDropElement}
+                onFinish={this.handleFinishedUpload}
+                s3Url={s3Url}
+                // style={dropStyles}
+                maxSize={1024 * 1024 * 5}
+                upload={uploadOptions}
+            />
+                </div>
+
+                <button
+                onClick={this.cancelAddFoundation}
+                >
+                    Cancel
+                </button>
+                <button
+                onClick={this.saveAddFoundation}
+                >
+                    Save
+                </button>
+            </Fragment>
+        )
+
+
         return (
             <div>
                 <AdminNav />
                 <p>Admin About</p>
-                {editMission}
+                <div>
+                    {editMission}
+                </div>
+                <br />
+                <div>
+                    {addFoundation}
+                </div>
             </div>
         )
     }
