@@ -14,6 +14,16 @@ router.get('/event-info', rejectUnauthenticated, (req, res) => {
     });
 });
 
+//get route admin for mission
+router.get('/mission', (req, res) => {
+    pool.query(`SELECT "id", "about" FROM "mission";`)
+        .then(results => res.send(results.rows[0]))
+        .catch(error => {
+            console.log('Error GETTING Mission:', error);
+            res.sendStatus(500);
+    });
+});
+
 //Get all Videos
 router.get('/videos', (req, res)=>{
     const queryVideos = 'SELECT "id", "url", "title" FROM "videos"';
