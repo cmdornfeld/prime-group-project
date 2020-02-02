@@ -5,11 +5,20 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* getMission() {
     try{
         const getResponse = yield axios.get(`/api/admin/mission`);
-        console.log(getResponse.data)
         yield put({type: 'SET_MISSION', payload: getResponse.data})
     }
     catch (error){
         console.log(error); 
+    }
+}
+
+// edit mission
+function* editMission(action) {
+    try {
+        yield axios.put(`/api/admin/mission/${action.payload.id}`, action.payload);
+        yield put({type: 'GET_ADMIN_MISSION'})
+    } catch (error) {
+        console.log('Failed updating event location', error);
     }
 }
 
@@ -27,6 +36,8 @@ function* getMission() {
 
 function* adminAboutSaga() {
     yield takeLatest('GET_ADMIN_MISSION', getMission)
+    yield takeLatest('EDIT_ADMIN_MISSION', editMission);
+
     // yield takeLatest('GET_FOUNDATION', getFoundation)
 }
 

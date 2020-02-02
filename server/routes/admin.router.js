@@ -24,6 +24,16 @@ router.get('/mission', (req, res) => {
     });
 });
 
+//PUT route edit mission
+router.put('/mission/:id', rejectUnauthenticated, (req, res) => {
+    const mission = req.body.mission;
+    const id = req.body.id;
+    const queryString = `UPDATE "mission" SET "about" = $1 where id = $2;`;
+    pool.query(queryString, [mission, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
 //Get all Videos
 router.get('/videos', (req, res)=>{
     const queryVideos = 'SELECT "id", "url", "title" FROM "videos"';
