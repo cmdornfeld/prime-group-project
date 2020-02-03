@@ -9,8 +9,11 @@ class AdminAboutPage extends Component {
         mission: '',
         title: '',
         url: '',
+        bio:'',
+        id: '',
         editMission: false,
         addFoundation: false,
+        editFoundation: false
     }
 
     componentDidMount(){
@@ -22,6 +25,12 @@ class AdminAboutPage extends Component {
         this.setState({
             editMission: false,
             mission: ''
+        })
+    }
+
+    cancelEditFoundation = () => {
+        this.setState({
+            editFoundation: false,
         })
     }
 
@@ -55,6 +64,31 @@ class AdminAboutPage extends Component {
 
     deleteFoundation = (id) => {
         this.props.dispatch({type: 'DELETE_FOUNDATION', payload: id})
+    }
+
+    editFoundationState = (id) => {
+        if(this.state.editFoundation === false){
+            this.setState({
+                editFoundation: true,
+                id: id
+            })
+        } else {
+            this.setState({
+                editFoundation: false
+            })
+        }
+    }
+
+    saveEditFoundation = () => {
+        this.props.dispatch({type: 'EDIT_ADMIN_FOUNDATION', payload: {
+            title: this.state.title, 
+            bio: this.state.bio,
+            url: this.state.url,
+            id: this.state.id
+        }})
+        this.setState({
+            editFoundation: false
+        })
     }
 
     saveAddFoundation = () => {
@@ -127,6 +161,56 @@ class AdminAboutPage extends Component {
             </div>
         )
 
+        const editFoundation = this.state.editFoundation === false ? (
+            <Fragment>
+                {this.props.foundationReducer.map( (item) => {
+                return(
+                    <div key={item.id}>
+                    <h3>{item.name}</h3>,
+                    <img src={item.url} alt={item.name} width='220px' height='200px' />,
+                    <p>{item.bio}</p>
+                    <button
+                        onClick={() => this.editFoundationState(item.id)}
+                    >
+                        Edit
+                    </button>
+                    <button
+                    onClick={() => this.deleteFoundation(item.id)}
+                    >
+                        Delete
+                    </button>
+                    </div>
+                )
+                })}
+            </Fragment>
+        ) : (
+            <Fragment>
+                <input
+                    type="text"
+                    value={this.state.title}
+                    onChange={this.handleInputChangeFor('title')}
+                />
+                <br />
+                <textarea
+                    type="text"
+                    rows="6"
+                    cols="100"
+                    value={this.state.bio}
+                    onChange={this.handleInputChangeFor('bio')}
+                />
+                <DropzoneS3Uploader
+                    children={innderDropElement}
+                    onFinish={this.handleFinishedUpload}
+                    s3Url={s3Url}
+                    // style={dropStyles}
+                    maxSize={1024 * 1024 * 5}
+                    upload={uploadOptions}
+                />
+                <button onClick={this.cancelEditFoundation}>Cancel</button>
+                <button onClick={this.saveEditFoundation}>Save</button>
+            </Fragment>
+        )
+
         const addFoundation = this.state.addFoundation === false ? (
             <Fragment>
                     <button
@@ -191,21 +275,7 @@ class AdminAboutPage extends Component {
                     {addFoundation}
                 </div>
                 <div>
-                {this.props.foundationReducer.map( (item) => {
-                return(
-                    <div key={item.id}>
-                    <h3>{item.name}</h3>,
-                    <img src={item.url} alt={item.name} width='220px' height='200px' />,
-                    <p>{item.bio}</p>
-                    <button>Edit</button>
-                    <button
-                    onClick={() => this.deleteFoundation(item.id)}
-                    >
-                        Delete
-                    </button>
-                    </div>
-                )
-                })}
+                    {editFoundation}
                 </div>
             </div>
         )

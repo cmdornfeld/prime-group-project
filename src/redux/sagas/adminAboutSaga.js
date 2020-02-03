@@ -52,12 +52,23 @@ function* deleteFoundation(action){
     }
 }
 
+function* editFoundation(action) {
+    try {
+        yield axios.put(`/api/admin/foundation/${action.payload.id}`, action.payload);
+        yield put({type: 'GET_ADMIN_FOUNDATION'})
+    } catch (error) {
+        console.log('Failed updating event location', error);
+    }
+}
+
 function* adminAboutSaga() {
     yield takeLatest('GET_ADMIN_MISSION', getMission);
     yield takeLatest('EDIT_ADMIN_MISSION', editMission);
     yield takeLatest('ADD_FOUNDATION', postNewFoundation);
     yield takeLatest('GET_ADMIN_FOUNDATION', getAdminFoundation);
     yield takeLatest('DELETE_FOUNDATION', deleteFoundation);
+    yield takeLatest('EDIT_ADMIN_FOUNDATION', editFoundation);
+
 }
 
 export default adminAboutSaga;

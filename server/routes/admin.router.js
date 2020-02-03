@@ -83,6 +83,19 @@ router.delete('/foundation/:id', rejectUnauthenticated, (req, res) => {
     .catch(() => res.sendStatus(500))
 });
 
+//PUT route edit mission
+router.put('/foundation/:id', rejectUnauthenticated, (req, res) => {
+    console.log(req.body)
+    const id = req.body.id;
+    const title = req.body.title;
+    const bio = req.body.bio;
+    const url = req.body.url;
+    const queryString = `UPDATE "foundation" SET "name" = $1, "bio" = $2, url = $3 where id = $4;`;
+    pool.query(queryString, [title, bio, url, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
 //DELETE route for deleting a video
 router.delete('/videos/:id', rejectUnauthenticated, (req, res) => {
     pool.query(`DELETE FROM "videos" WHERE "id" = $1;`, [req.params.id])
