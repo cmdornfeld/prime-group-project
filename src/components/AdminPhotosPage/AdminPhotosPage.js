@@ -54,6 +54,10 @@ class AdminPhotosPage extends Component {
         })
     }
 
+    deletePhoto = (id) =>{
+        this.props.dispatch({ type: 'ADMIN_DELETE_PHOTO', payload: id})
+    } 
+
     render() {
 
         const uploadOptions = {
@@ -114,7 +118,24 @@ class AdminPhotosPage extends Component {
             <div>
                 <AdminNav />
                 <p>Admin Photos</p>
-                {addPhoto}
+                <div>
+                    {addPhoto}
+                </div>
+                <div>
+                {this.props.photosReducer.map( (item) => {
+                return(
+                    <div key={item.id}>
+                        <img src={item.url} alt={item.description} width='220px' height='200px' />
+                        <br />
+                        <button
+                        onClick={() => this.deletePhoto(item.id)}
+                        >
+                            Delete
+                        </button>
+                    </div>
+                    )
+                })}
+                </div>
             </div>
         )
     }

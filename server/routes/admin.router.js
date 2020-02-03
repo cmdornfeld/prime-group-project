@@ -205,7 +205,12 @@ router.post('/photos', rejectUnauthenticated, (req, res) => {
     .catch(() => res.sendStatus(500))
 });
 
-
+//DELETE route for deleting a video
+router.delete('/photos/:id', rejectUnauthenticated, (req, res) => {
+    pool.query(`DELETE FROM "photos" WHERE "id" = $1;`, [req.params.id])
+    .then(()=> res.sendStatus(200))
+    .catch(() => res.sendStatus(500))
+});
 
 
 module.exports = router;

@@ -23,9 +23,20 @@ function* postAdminPhotos(action){
     }
 }
 
+// delete a photo
+function* deleteAdminPhotos(action){
+    try{
+        yield axios.delete(`api/admin/photos/${action.payload}`);
+        yield put({type: 'GET_ADMIN_PHOTOS'})
+    } catch (error){
+        console.log(error)
+    }
+}
+
 function* adminPhotosSaga() {
     yield takeLatest('GET_ADMIN_PHOTOS', getAdminPhotos);
-    yield takeLatest('ADMIN_ADD_PHOTO', postAdminPhotos)
+    yield takeLatest('ADMIN_ADD_PHOTO', postAdminPhotos);
+    yield takeLatest('ADMIN_DELETE_PHOTO', deleteAdminPhotos);
 }
 
 export default adminPhotosSaga;
