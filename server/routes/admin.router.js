@@ -15,7 +15,7 @@ router.get('/event-info', rejectUnauthenticated, (req, res) => {
 });
 
 //get route admin for mission
-router.get('/mission', (req, res) => {
+router.get('/mission', rejectUnauthenticated, (req, res) => {
     pool.query(`SELECT "id", "about" FROM "mission";`)
         .then(results => res.send(results.rows[0]))
         .catch(error => {
@@ -35,7 +35,7 @@ router.put('/mission/:id', rejectUnauthenticated, (req, res) => {
 });
 
 //Get all Videos
-router.get('/videos', (req, res)=>{
+router.get('/videos', rejectUnauthenticated, (req, res)=>{
     const queryVideos = 'SELECT "id", "url", "title" FROM "videos"';
     pool.query(queryVideos).then(( results ) =>{
         res.send(results.rows);
@@ -82,7 +82,7 @@ router.post('/videos', rejectUnauthenticated, (req, res) => {
 });
 
 //get route for foundation
-router.get('/foundation', (req, res) => {
+router.get('/foundation', rejectUnauthenticated, (req, res) => {
     pool.query(`SELECT "id", "name", "bio", "url" FROM "foundation";`)
         .then(results => res.send(results.rows))
         .catch(error => {
@@ -219,6 +219,33 @@ router.put('/donation-info/:id', rejectUnauthenticated, (req, res) => {
     const queryString = `UPDATE "donation" SET "status" = $1 where id = $2;`;
     pool.query(queryString, [status, id])
     .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+// get route for photos
+router.get('/photos', rejectUnauthenticated, (req, res) => {
+    pool.query(`SELECT "id", "url", "description" FROM "photos";`)
+        .then(results => res.send(results.rows))
+        .catch(error => {
+            console.log('Error GETTING Photos:', error);
+            res.sendStatus(500);
+    });
+});
+
+//POST new photo
+router.post('/photos', rejectUnauthenticated, (req, res) => {
+    console.log(req.body)
+    const description = req.body.description;
+    const url = req.body.url;
+    const queryString = `INSERT INTO "photos" ("url", "description") VALUES ($1, $2);`;
+    pool.query(queryString, [url, description])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
+//DELETE route for deleting a video
+router.delete('/photos/:id', rejectUnauthenticated, (req, res) => {
+    pool.query(`DELETE FROM "photos" WHERE "id" = $1;`, [req.params.id])
+    .then(()=> res.sendStatus(200))
     .catch(() => res.sendStatus(500))
 });
 

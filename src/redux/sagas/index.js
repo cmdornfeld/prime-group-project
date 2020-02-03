@@ -16,6 +16,7 @@ import donationSaga from './donationSaga';
 
 import getPublicPhotoSaga from './getPublicPhoto';
 import adminAboutSaga from './adminAboutSaga';
+import adminPhotosSaga from './adminPhotosSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -42,5 +43,6 @@ export default function* rootSaga() {
     donationSaga(),
     getPublicPhotoSaga(),
     adminAboutSaga(),
+    adminPhotosSaga(),
   ]);
 }

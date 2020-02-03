@@ -247,13 +247,13 @@ class AdminAboutPage extends Component {
                 </div>
                 <div>
                 <DropzoneS3Uploader
-                children={innderDropElement}
-                onFinish={this.handleFinishedUpload}
-                s3Url={s3Url}
-                // style={dropStyles}
-                maxSize={1024 * 1024 * 5}
-                upload={uploadOptions}
-            />
+                    children={innderDropElement}
+                    onFinish={this.handleFinishedUpload}
+                    s3Url={s3Url}
+                    // style={dropStyles}
+                    maxSize={1024 * 1024 * 5}
+                    upload={uploadOptions}
+                />
                 </div>
 
                 <button
