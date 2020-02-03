@@ -25,6 +25,32 @@ router.get('/videos', (req, res)=>{
     })
 });
 
+//Get all donations
+router.get('/donation-info', (req, res)=>{
+    const queryString = `SELECT "donation"."id", "donation"."first_name", "donation"."last_name", "phone_number", "email", "type", "amount", "max", "golfer_id",
+                         "golfer"."first_name" firstname, "golfer"."last_name" lastname, "status"
+                        FROM "donation" 
+                        JOIN "golfer" ON "golfer"."id" = "donation"."golfer_id";`;
+    pool.query(queryString).then(( results ) =>{
+        res.send(results.rows);
+    }).catch( (error) =>{
+        console.log('Error GETTING donations. Error:', error);
+        res.sendStatus(500);
+    })
+});
+
+//Export donation table
+router.get('/donation-export', (req, res)=>{
+    const queryString = `COPY (SELECT * FROM "donation") TO '/Users/chaddornfeld/Desktop/query_result.csv'
+                        DELIMITER ',' CSV HEADER;`;
+    pool.query(queryString).then(( results ) =>{
+        res.send(results.rows);
+    }).catch( (error) =>{
+        console.log('Error Exporting donation table. Error:', error);
+        res.sendStatus(500);
+    })
+});
+
 //POST new video
 router.post('/videos', rejectUnauthenticated, (req, res) => {
     const videoUrl = req.body.videoUrl
@@ -123,7 +149,17 @@ router.put('/contact-info/:id', rejectUnauthenticated, (req, res) => {
     .catch(() => res.sendStatus(500))
 });
 
-
+//PUT route edit status of payment
+router.put('/donation-info/:id', rejectUnauthenticated, (req, res) => {
+    console.log('logging req.body', req.body);
+    
+    const status = req.body.status;
+    const id = req.body.id;
+    const queryString = `UPDATE "donation" SET "status" = $1 where id = $2;`;
+    pool.query(queryString, [status, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
 
 
 module.exports = router;
