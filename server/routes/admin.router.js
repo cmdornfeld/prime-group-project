@@ -55,6 +55,16 @@ router.post('/videos', rejectUnauthenticated, (req, res) => {
     .catch(() => res.sendStatus(500))
 });
 
+//get route for foundation
+router.get('/foundation', (req, res) => {
+    pool.query(`SELECT "id", "name", "bio", "url" FROM "foundation";`)
+        .then(results => res.send(results.rows))
+        .catch(error => {
+            console.log('Error GETTING Mission:', error);
+            res.sendStatus(500);
+    });
+});
+
 //POST new foundation
 router.post('/foundation', rejectUnauthenticated, (req, res) => {
     const name = req.body.title;
@@ -63,6 +73,13 @@ router.post('/foundation', rejectUnauthenticated, (req, res) => {
     const queryString = `INSERT INTO "foundation" ("name", "bio", "url") VALUES ($1, $2, $3);`;
     pool.query(queryString, [name, bio, image])
     .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
+//DELETE route for deleting a video
+router.delete('/foundation/:id', rejectUnauthenticated, (req, res) => {
+    pool.query(`DELETE FROM "foundation" WHERE "id" = $1;`, [req.params.id])
+    .then(()=> res.sendStatus(200))
     .catch(() => res.sendStatus(500))
 });
 

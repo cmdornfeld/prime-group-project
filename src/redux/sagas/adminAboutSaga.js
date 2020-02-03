@@ -26,31 +26,38 @@ function* editMission(action) {
 function* postNewFoundation(action){
     try{
         yield axios.post(`/api/admin/foundation`, action.payload);
-        // yield put({type: 'GET_BREWERY_IMAGE'})
+        yield put({type: 'GET_ADMIN_FOUNDATION'})
     } catch (error){
         console.log(error)
     }
 }
 
-// //get foundation
-// function* getFoundation() {
-//     try{
-//         const getResponse = yield axios.get(`/api/public/foundation`);
-//         console.log(getResponse.data)
-//         yield put({type: 'SET_FOUNDATION', payload: getResponse.data})
-//     }
-//     catch (error){
-//         console.log(error); 
-//     }
-// }
+//get foundation
+function* getAdminFoundation() {
+    try{
+        const getResponse = yield axios.get(`/api/admin/foundation`);
+        yield put({type: 'SET_FOUNDATION', payload: getResponse.data})
+    }
+    catch (error){
+        console.log(error); 
+    }
+}
+
+function* deleteFoundation(action){
+    try{
+        yield axios.delete(`api/admin/foundation/${action.payload}`);
+        yield put({type: 'GET_ADMIN_FOUNDATION'})
+    } catch (error){
+        console.log(error)
+    }
+}
 
 function* adminAboutSaga() {
     yield takeLatest('GET_ADMIN_MISSION', getMission);
     yield takeLatest('EDIT_ADMIN_MISSION', editMission);
     yield takeLatest('ADD_FOUNDATION', postNewFoundation);
-
-
-    // yield takeLatest('GET_FOUNDATION', getFoundation)
+    yield takeLatest('GET_ADMIN_FOUNDATION', getAdminFoundation);
+    yield takeLatest('DELETE_FOUNDATION', deleteFoundation);
 }
 
 export default adminAboutSaga;

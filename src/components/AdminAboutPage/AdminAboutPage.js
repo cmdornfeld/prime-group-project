@@ -14,7 +14,8 @@ class AdminAboutPage extends Component {
     }
 
     componentDidMount(){
-        this.props.dispatch({type: 'GET_ADMIN_MISSION'})
+        this.props.dispatch({type: 'GET_ADMIN_MISSION'});
+        this.props.dispatch({ type: 'GET_ADMIN_FOUNDATION'});
     }
 
     cancelMissionSave = () => {
@@ -50,6 +51,10 @@ class AdminAboutPage extends Component {
         this.setState({
             addFoundation: true
         })
+    }
+
+    deleteFoundation = (id) => {
+        this.props.dispatch({type: 'DELETE_FOUNDATION', payload: id})
     }
 
     saveAddFoundation = () => {
@@ -184,6 +189,23 @@ class AdminAboutPage extends Component {
                 <br />
                 <div>
                     {addFoundation}
+                </div>
+                <div>
+                {this.props.foundationReducer.map( (item) => {
+                return(
+                    <div key={item.id}>
+                    <h3>{item.name}</h3>,
+                    <img src={item.url} alt={item.name} width='220px' height='200px' />,
+                    <p>{item.bio}</p>
+                    <button>Edit</button>
+                    <button
+                    onClick={() => this.deleteFoundation(item.id)}
+                    >
+                        Delete
+                    </button>
+                    </div>
+                )
+                })}
                 </div>
             </div>
         )
