@@ -6,7 +6,7 @@ const pool = require('../modules/pool');
 //Get route for videos
 router.get('/videos', (req, res)=>{
     console.log('video route for get');
-    const queryVideos = 'SELECT "id", "url" FROM "videos"';
+    const queryVideos = 'SELECT "id", "title", "url" FROM "videos"';
     
     pool.query(queryVideos).then(( results ) =>{
         res.send(results.rows);
@@ -42,7 +42,18 @@ router.get('/foundation', (req, res) => {
     pool.query(`SELECT "id", "name", "bio", "url" FROM "foundation";`)
         .then(results => res.send(results.rows))
         .catch(error => {
-            console.log('Error GETTING Mission:', error);
+            console.log('Error GETTING foundation:', error);
+            res.sendStatus(500);
+    });
+});
+
+/* Public photo page*/
+// get route for photos
+router.get('/photos', (req, res) => {
+    pool.query(`SELECT "id", "url", "description" FROM "photos";`)
+        .then(results => res.send(results.rows))
+        .catch(error => {
+            console.log('Error GETTING Photos:', error);
             res.sendStatus(500);
     });
 });

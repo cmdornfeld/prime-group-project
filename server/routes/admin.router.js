@@ -14,6 +14,26 @@ router.get('/event-info', rejectUnauthenticated, (req, res) => {
     });
 });
 
+//get route admin for mission
+router.get('/mission', (req, res) => {
+    pool.query(`SELECT "id", "about" FROM "mission";`)
+        .then(results => res.send(results.rows[0]))
+        .catch(error => {
+            console.log('Error GETTING Mission:', error);
+            res.sendStatus(500);
+    });
+});
+
+//PUT route edit mission
+router.put('/mission/:id', rejectUnauthenticated, (req, res) => {
+    const mission = req.body.mission;
+    const id = req.body.id;
+    const queryString = `UPDATE "mission" SET "about" = $1 where id = $2;`;
+    pool.query(queryString, [mission, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
 //Get all Videos
 router.get('/videos', (req, res)=>{
     const queryVideos = 'SELECT "id", "url", "title" FROM "videos"';
@@ -57,6 +77,47 @@ router.post('/videos', rejectUnauthenticated, (req, res) => {
     const title = req.body.title
     const queryString = `INSERT INTO "videos" ("url", "title") VALUES ($1, $2);`;
     pool.query(queryString, [videoUrl, title])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
+//get route for foundation
+router.get('/foundation', (req, res) => {
+    pool.query(`SELECT "id", "name", "bio", "url" FROM "foundation";`)
+        .then(results => res.send(results.rows))
+        .catch(error => {
+            console.log('Error GETTING Mission:', error);
+            res.sendStatus(500);
+    });
+});
+
+//POST new foundation
+router.post('/foundation', rejectUnauthenticated, (req, res) => {
+    const name = req.body.title;
+    const bio = req.body.bio;
+    const image = req.body.image;
+    const queryString = `INSERT INTO "foundation" ("name", "bio", "url") VALUES ($1, $2, $3);`;
+    pool.query(queryString, [name, bio, image])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
+//DELETE route for deleting a video
+router.delete('/foundation/:id', rejectUnauthenticated, (req, res) => {
+    pool.query(`DELETE FROM "foundation" WHERE "id" = $1;`, [req.params.id])
+    .then(()=> res.sendStatus(200))
+    .catch(() => res.sendStatus(500))
+});
+
+//PUT route edit mission
+router.put('/foundation/:id', rejectUnauthenticated, (req, res) => {
+    console.log(req.body)
+    const id = req.body.id;
+    const title = req.body.title;
+    const bio = req.body.bio;
+    const url = req.body.url;
+    const queryString = `UPDATE "foundation" SET "name" = $1, "bio" = $2, url = $3 where id = $4;`;
+    pool.query(queryString, [title, bio, url, id])
     .then(() => res.sendStatus(201))
     .catch(() => res.sendStatus(500))
 });

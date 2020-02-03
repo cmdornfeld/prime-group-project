@@ -9,6 +9,7 @@ import missionReducer from './getMissionReducer';
 import foundationReducer from './getFoundation';
 import addressReducer from './addressReducer';
 import donationReducer from './donationReducer';
+import photosReducer from './publicPhotos';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   foundationReducer,
   addressReducer,
   donationReducer,
+  photosReducer,
 });
 
 export default rootReducer;
