@@ -87,7 +87,11 @@ class AdminAboutPage extends Component {
             id: this.state.id
         }})
         this.setState({
-            editFoundation: false
+            editFoundation: false,
+            title: '', 
+            bio: '',
+            url: '',
+            id: ''
         })
     }
 
@@ -98,7 +102,10 @@ class AdminAboutPage extends Component {
             image: this.state.url
         }})
         this.setState({
-            addFoundation: false
+            addFoundation: false,
+            title: '',
+            bio: '',
+            image: ''
         })
     }
 
@@ -166,8 +173,8 @@ class AdminAboutPage extends Component {
                 {this.props.foundationReducer.map( (item) => {
                 return(
                     <div key={item.id}>
-                    <h3>{item.name}</h3>,
-                    <img src={item.url} alt={item.name} width='220px' height='200px' />,
+                    <h3>{item.name}</h3>
+                    <img src={item.url} alt={item.name} width='220px' height='200px' />
                     <p>{item.bio}</p>
                     <button
                         onClick={() => this.editFoundationState(item.id)}
