@@ -34,6 +34,6 @@ class PhotosPage extends Component {
 }
 const putReduxStateOnProps = (reduxStore) => ({
     photosReducer: reduxStore.photosReducer
-  });
+});
 
-export default connect(putReduxStateOnProps) (PhotosPage);
+export default connect(putReduxStateOnProps)(PhotosPage);
