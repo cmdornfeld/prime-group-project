@@ -12,6 +12,7 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router');
 const adminRouter = require('./routes/admin.router');
 const publicRouter = require('./routes/public.router');
+const UploaderS3Router = require('react-dropzone-s3-uploader/s3router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -27,7 +28,14 @@ app.use(passport.session());
 /* Routes */
 app.use('/api/user', userRouter);
 app.use('/api/admin', adminRouter);
-app.use('/api/public', publicRouter)
+app.use('/api/public', publicRouter);
+
+app.use('/s3', UploaderS3Router({
+  bucket: 'hundred-holes-bucket',                           // required
+  region: 'us-east-1',                            // optional
+  headers: {'Access-Control-Allow-Origin': '*'},  // optional
+  ACL: 'public-read',                                 // this is the default - set to `public-read` to let anyone view uploads
+}));
 
 // Serve static files
 app.use(express.static('build'));
