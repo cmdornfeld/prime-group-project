@@ -24,7 +24,8 @@ class AdminHomePage extends Component {
     editLocation = () => {
         if(this.state.editLocation === false){
             this.setState({
-                editLocation: true
+                editLocation: true,
+                location: this.props.eventInfoReducer.location
             })
         } else {
             this.props.dispatch({type: 'EDIT_LOCATION', payload: {location: this.state.location, id: this.props.eventInfoReducer.id}})
