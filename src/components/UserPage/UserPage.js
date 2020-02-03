@@ -30,7 +30,10 @@ getEvent = ()=> {
         {JSON.stringify(this.props.videoReducer)}
         {this.props.videoReducer.map( (item) => {
           return(
+            <div>
+          <h3>{item.title}</h3>
               <iframe src={item.url} width='auto' height='auto' />
+              </div>
           )
         })}
       </div>
