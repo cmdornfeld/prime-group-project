@@ -8,6 +8,7 @@ class AdminAboutPage extends Component {
     state ={ 
         mission: '',
         title: '',
+        url: '',
         editMission: false,
         addFoundation: false,
     }
@@ -52,17 +53,20 @@ class AdminAboutPage extends Component {
     }
 
     saveAddFoundation = () => {
+        this.props.dispatch({ type: 'ADD_FOUNDATION', payload: {
+            title: this.state.title,
+            bio: this.state.bio,
+            image: this.state.url
+        }})
         this.setState({
             addFoundation: false
         })
     }
 
     handleFinishedUpload = info => {
-        this.props.dispatch({ type: 'ADD_FOUNDATION', payload: {
-            title: this.state.title,
-            bio: this.state.bio,
-            image: info.fileUrl
-        }})
+        this.setState({
+            url: info.fileUrl
+        })
     }
 
     handleInputChangeFor = propertyName => (event) => {
