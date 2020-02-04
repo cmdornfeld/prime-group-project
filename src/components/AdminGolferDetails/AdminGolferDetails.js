@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-class golferDetails extends Component {
 
+class AdminGolferDetails extends Component {
     render() {
         return (
             <div>
@@ -14,11 +14,12 @@ class golferDetails extends Component {
                 <h3>Why am I doing this?</h3>
                 <p>{this.props.golferIdReducer.purpose}</p>
             </div>
-        );
+        )
     }
 }
+
 const putReduxStateOnProps = (reduxStore) => ({
     golferIdReducer: reduxStore.golferIdReducer
-  });
+});
 
-export default connect(putReduxStateOnProps) (golferDetails);
+export default connect(putReduxStateOnProps)(AdminGolferDetails)

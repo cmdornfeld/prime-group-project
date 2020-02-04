@@ -73,6 +73,12 @@ export class AdminGolfersPage extends Component {
     componentDidMount(){
         this.props.dispatch({type: 'GET_ADMIN_GOLFERS'})
     }
+
+    viewGolfer = (id) => {
+        this.props.dispatch({ type: 'ADMIN_GET_GOLFER_DETAILS', payload: id })
+        this.props.history.push(`/admin/golfers/${id}`);
+    }
+
     render() {
 
         const uploadOptions = {
@@ -173,7 +179,7 @@ export class AdminGolfersPage extends Component {
                 <div>
                     {this.props.golferReducer.map( (item) => {
                     return(
-                        <div>
+                        <div key={item.id}>
                             <h3>{item.first_name} {item.last_name}</h3>
                             <img src={item.img_url} alt={item.id} onClick={() => this.viewGolfer(item.id)} width='220px' height='200px' />
                             <div>

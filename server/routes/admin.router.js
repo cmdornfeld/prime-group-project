@@ -285,5 +285,16 @@ router.delete('/golfers/:id', rejectUnauthenticated, (req, res) => {
     .catch(() => res.sendStatus(500))
 });
 
+//GET route for individual golfer
+router.get('/golfers/:id', rejectUnauthenticated, (req, res) => {
+    const id = req.params.id;
+    pool.query(`SELECT * FROM "golfer" WHERE id = $1;`, [id])
+        .then(results => res.send(results.rows[0]))
+        .catch(error => {
+            console.log('Error GETTING event info:', error);
+            res.sendStatus(500);
+    });
+});
+
 
 module.exports = router;

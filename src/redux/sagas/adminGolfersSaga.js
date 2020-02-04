@@ -32,21 +32,21 @@ function* deleteAdminGolfer(action){
     }
 }
 
-// function* getPublicGolferId(action) {
-//     try{
-//         const getResponse = yield axios.get(`/api/public/golfers/${action.payload}`);
-//         yield put({type: 'SET_GOLFER', payload: getResponse.data})
-//     }
-//     catch (error){
-//         console.log(error); 
-//     }
-// }
+function* getIndividualDetails(action) {
+    try{
+        const getResponse = yield axios.get(`/api/admin/golfers/${action.payload}`);
+        yield put({type: 'SET_GOLFER', payload: getResponse.data})
+    }
+    catch (error){
+        console.log(error); 
+    }
+}
 
 function* adminGolfersSaga() {
     yield takeLatest('GET_ADMIN_GOLFERS', getAdminGolfers);
     yield takeLatest('ADMIN_ADD_GOLFER', postAdminGolfer)
     yield takeLatest('ADMIN_DELETE_GOLFER', deleteAdminGolfer)
-    // yield takeLatest('GET_GOLFER_DETAILS', getPublicGolferId);
+    yield takeLatest('ADMIN_GET_GOLFER_DETAILS', getIndividualDetails);
 }
 
 export default adminGolfersSaga;
