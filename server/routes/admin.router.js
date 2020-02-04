@@ -205,11 +205,21 @@ router.post('/photos', rejectUnauthenticated, (req, res) => {
     .catch(() => res.sendStatus(500))
 });
 
-//DELETE route for deleting a video
+//DELETE route for deleting a photo
 router.delete('/photos/:id', rejectUnauthenticated, (req, res) => {
     pool.query(`DELETE FROM "photos" WHERE "id" = $1;`, [req.params.id])
     .then(()=> res.sendStatus(200))
     .catch(() => res.sendStatus(500))
+});
+
+// GET route for golfers
+router.get('/golfers', rejectUnauthenticated, (req, res) => {
+    pool.query(`SELECT "id", "first_name", "last_name", "bio", "purpose", "goal", "img_url" FROM "golfer";`)
+        .then(results => res.send(results.rows))
+        .catch(error => {
+            console.log('Error GETTING Golfers:', error);
+            res.sendStatus(500);
+    });
 });
 
 
