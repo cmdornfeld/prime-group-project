@@ -39,7 +39,6 @@ class AdminPhotosPage extends Component {
         this.setState({
           [propertyName]: event.target.value,
         });
-        console.log(event.target.value)
     };
 
     saveAddPhoto = () => {

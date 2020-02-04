@@ -205,9 +205,40 @@ router.post('/photos', rejectUnauthenticated, (req, res) => {
     .catch(() => res.sendStatus(500))
 });
 
-//DELETE route for deleting a video
+//DELETE route for deleting a photo
 router.delete('/photos/:id', rejectUnauthenticated, (req, res) => {
     pool.query(`DELETE FROM "photos" WHERE "id" = $1;`, [req.params.id])
+    .then(()=> res.sendStatus(200))
+    .catch(() => res.sendStatus(500))
+});
+
+// GET route for golfers
+router.get('/golfers', rejectUnauthenticated, (req, res) => {
+    pool.query(`SELECT "id", "first_name", "last_name", "bio", "purpose", "goal", "img_url" FROM "golfer";`)
+        .then(results => res.send(results.rows))
+        .catch(error => {
+            console.log('Error GETTING Golfers:', error);
+            res.sendStatus(500);
+    });
+});
+
+//POST new golfer
+router.post('/golfers', rejectUnauthenticated, (req, res) => {
+    const first = req.body.first;
+    const last = req.body.last;
+    const bio = req.body.bio;
+    const purpose = req.body.purpose;
+    const goal = req.body.goal;
+    const url = req.body.url;
+    const queryString = `INSERT INTO "golfer" ("first_name", "last_name", "bio", "purpose", "goal", "img_url") VALUES ($1, $2, $3, $4, $5, $6);`;
+    pool.query(queryString, [first, last, bio, purpose, goal, url])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
+//DELETE route for deleting a golfer
+router.delete('/golfers/:id', rejectUnauthenticated, (req, res) => {
+    pool.query(`DELETE FROM "golfer" WHERE "id" = $1;`, [req.params.id])
     .then(()=> res.sendStatus(200))
     .catch(() => res.sendStatus(500))
 });

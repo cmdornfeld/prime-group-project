@@ -16,7 +16,7 @@ import getPublicPhotoSaga from './getPublicPhoto';
 import adminAboutSaga from './adminAboutSaga';
 import getPublicGolferSaga from './getPublicGolfer';
 import adminPhotosSaga from './adminPhotosSaga';
-
+import adminGolfersSaga from './adminGolfersSaga';
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
 // This is imported in index.js as rootSaga
@@ -43,5 +43,6 @@ export default function* rootSaga() {
     adminAboutSaga(),
     getPublicGolferSaga(),
     adminPhotosSaga(),
+    adminGolfersSaga(),
   ]);
 }
