@@ -28,6 +28,7 @@ import AdminGolfers from '../AdminGolfersPage/AdminGolfersPage';
 import AdminPledges from '../AdminPledgesPage/AdminPledgesPage';
 import AdminPartners from '../AdminPartnersPage/AdminPartnersPage';
 import AdminContact from '../AdminContactPage/AdminContactPage';
+import golferDetails from '../golferDetails/golferDetails';
 
 
 import './App.css';
@@ -63,6 +64,10 @@ class App extends Component {
               exact
               path="/golfers"
               component={GolfersPage}
+            />
+            <Route 
+              path='/view/:id' 
+              component={golferDetails}
             />
             <Route
               exact
