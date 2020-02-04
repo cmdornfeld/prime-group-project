@@ -21,11 +21,9 @@ class PhotosPage extends Component {
                 {this.props.photosReducer.map( (item) => {
                 return(
                     <div>
-                        <h3>{item.name}</h3>,
-                        <img src={item.url} alt={item.description} width='220px' height='200px' />,
-                        <p>{item.bio}</p>
-                        </div>
-                        )
+                        <img src={item.url} alt={item.description} width='220px' height='200px' />
+                    </div>
+                    )
                     })}
             </div>
         )
@@ -33,6 +31,6 @@ class PhotosPage extends Component {
 }
 const putReduxStateOnProps = (reduxStore) => ({
     photosReducer: reduxStore.photosReducer
-  });
+});
 
-export default connect(putReduxStateOnProps) (PhotosPage);
+export default connect(putReduxStateOnProps)(PhotosPage);
