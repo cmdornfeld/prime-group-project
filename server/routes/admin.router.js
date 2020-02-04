@@ -50,7 +50,8 @@ router.get('/donation-info', (req, res)=>{
     const queryString = `SELECT "donation"."id", "donation"."first_name", "donation"."last_name", "phone_number", "email", "type", "amount", "max", "golfer_id",
                          "golfer"."first_name" firstname, "golfer"."last_name" lastname, "status"
                         FROM "donation" 
-                        JOIN "golfer" ON "golfer"."id" = "donation"."golfer_id";`;
+                        JOIN "golfer" ON "golfer"."id" = "donation"."golfer_id"
+                        ORDER BY "donation"."id";`;
     pool.query(queryString).then(( results ) =>{
         res.send(results.rows);
     }).catch( (error) =>{
@@ -213,11 +214,15 @@ router.put('/contact-info/:id', rejectUnauthenticated, (req, res) => {
 //PUT route edit status of payment
 router.put('/donation-info/:id', rejectUnauthenticated, (req, res) => {
     console.log('logging req.body', req.body);
-    
-    const status = req.body.status;
-    const id = req.body.id;
-    const queryString = `UPDATE "donation" SET "status" = $1 where id = $2;`;
-    pool.query(queryString, [status, id])
+    let id = req.body.id;
+    let status = req.body.status;
+    let queryString = ``;
+    if(status === 'unpaid'){
+        queryString = `UPDATE "donation" SET "status" = 'paid' WHERE id = $1;`;
+    } else if (status === 'paid'){
+        queryString = `UPDATE "donation" SET "status" = 'unpaid' WHERE id = $1`;
+    }
+    pool.query(queryString, [id])
     .then(() => res.sendStatus(201))
     .catch(() => res.sendStatus(500))
 });
