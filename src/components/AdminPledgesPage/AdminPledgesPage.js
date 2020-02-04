@@ -4,20 +4,13 @@ import AdminNav from '../AdminNav/AdminNav';
 
 export class AdminPledgesPage extends Component {
 
-    state = {
-        status: ''
-    }
-
     componentDidMount(){
         this.props.dispatch({ type: 'GET_DONATION_INFO' });
     }
 
-    markAsPaid = (id)  => {
-        console.log('in markAsPaid');
-        this.setState({
-            status: 'paid'
-        });
-        // this.props.dispatch({ type: 'MARK_AS_PAID', payload: {status: this.state.status, id: id} })
+    updatePaymentStatus = (id, status)  => {
+        console.log('in markAsPaid', id);
+        this.props.dispatch({ type: 'UPDATE_PAYMENT_STATUS', payload: {id: id, status: status} })
     }
 
     exportToExcel = () => {
@@ -59,7 +52,9 @@ export class AdminPledgesPage extends Component {
                                     <td>{donation.max}</td>
                                     <td>{donation.firstname} {donation.lastname}</td>
                                     <td>{donation.status}</td>
-                                    <td><button type="checkbox" name="status" onClick={() => this.markAsPaid(donation.id)}>Paid</button></td>
+                                    <td><input type="checkbox" name="status"
+                                        checked={donation.status === 'paid'} onChange={() => this.updatePaymentStatus(donation.id, donation.status)}/>
+                                    </td>
                                 </tr>
                             )
                         })}
