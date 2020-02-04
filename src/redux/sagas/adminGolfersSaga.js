@@ -12,6 +12,17 @@ function* getAdminGolfers() {
     }
 }
 
+// post a new photo
+function* postAdminGolfer(action){
+    try{
+        console.log(action.payload)
+        // yield axios.post(`/api/admin/photos`, action.payload);
+        // yield put({type: 'GET_ADMIN_PHOTOS'})
+    } catch (error){
+        console.log(error)
+    }
+}
+
 // function* getPublicGolferId(action) {
 //     try{
 //         const getResponse = yield axios.get(`/api/public/golfers/${action.payload}`);
@@ -24,6 +35,7 @@ function* getAdminGolfers() {
 
 function* adminGolfersSaga() {
     yield takeLatest('GET_ADMIN_GOLFERS', getAdminGolfers);
+    yield takeLatest('ADMIN_ADD_GOLFER', postAdminGolfer)
     // yield takeLatest('GET_GOLFER_DETAILS', getPublicGolferId);
 }
 

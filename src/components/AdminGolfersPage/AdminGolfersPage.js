@@ -30,7 +30,27 @@ export class AdminGolfersPage extends Component {
             bio: '',
             purpose: '',
             goal: '',
+            url: ''
+        })
+    }
+
+    saveAddGolfer = () => {
+        this.props.dispatch({ type: 'ADMIN_ADD_GOLFER', payload: {
+            first: this.state.first,
+            last: this.state.last,
+            bio: this.state.bio,
+            purpose: this.state.purpose,
+            goal: this.state.goal,
+            url: this.state.url
+        }})
+        this.setState({
+            first: '',
+            last: '',
+            bio: '',
+            purpose: '',
+            goal: '',
             url: '',
+            addGolfer: false
         })
     }
 
@@ -44,7 +64,6 @@ export class AdminGolfersPage extends Component {
         this.setState({
           [propertyName]: event.target.value,
         });
-        console.log(event.target.value)
     };
 
     componentDidMount(){
