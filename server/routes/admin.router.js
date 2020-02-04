@@ -61,7 +61,7 @@ router.get('/donation-info', (req, res)=>{
 });
 
 //Export donation table
-router.get('/donation-export', (req, res)=>{
+router.get('/donation-export', rejectUnauthenticated, (req, res)=>{
     const queryString = `COPY (SELECT * FROM "donation") TO '/Users/chaddornfeld/Desktop/query_result.csv'
                         DELIMITER ',' CSV HEADER;`;
     pool.query(queryString).then(( results ) =>{
@@ -70,6 +70,26 @@ router.get('/donation-export', (req, res)=>{
         console.log('Error Exporting donation table. Error:', error);
         res.sendStatus(500);
     })
+});
+
+//GET route for partners/sponsors
+router.get('/partners', rejectUnauthenticated, (req, res) => {
+    pool.query(`SELECT * FROM "sponsor";`)
+        .then(results => res.send(results.rows))
+        .catch(error => {
+            console.log('Error GETTING partner info:', error);
+            res.sendStatus(500);
+    });
+});
+
+//GET route for sponsor levels
+router.get('/partner-levels', rejectUnauthenticated, (req, res) => {
+    pool.query(`SELECT * FROM "sponsor_level";`)
+        .then(results => res.send(results.rows))
+        .catch(error => {
+            console.log('Error GETTING partner info:', error);
+            res.sendStatus(500);
+    });
 });
 
 //POST new video
@@ -282,6 +302,19 @@ router.post('/golfers', rejectUnauthenticated, (req, res) => {
 router.delete('/golfers/:id', rejectUnauthenticated, (req, res) => {
     pool.query(`DELETE FROM "golfer" WHERE "id" = $1;`, [req.params.id])
     .then(()=> res.sendStatus(200))
+    .catch(() => res.sendStatus(500))
+});
+
+//POST new partner
+router.post('/partners', rejectUnauthenticated, (req, res) => {
+    console.log('in partners POST: logging req.body', req.body);
+    
+    const name = req.body.companyName;
+    const url = req.body.url;
+    const level = req.body.partnerLevel
+    const queryString = `INSERT INTO "sponsor" ("company", "img_url", "level") VALUES ($1, $2, $3);`;
+    pool.query(queryString, [name, url, level])
+    .then(() => res.sendStatus(201))
     .catch(() => res.sendStatus(500))
 });
 
