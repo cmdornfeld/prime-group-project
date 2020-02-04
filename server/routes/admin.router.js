@@ -236,5 +236,12 @@ router.post('/golfers', rejectUnauthenticated, (req, res) => {
     .catch(() => res.sendStatus(500))
 });
 
+//DELETE route for deleting a golfer
+router.delete('/golfers/:id', rejectUnauthenticated, (req, res) => {
+    pool.query(`DELETE FROM "golfer" WHERE "id" = $1;`, [req.params.id])
+    .then(()=> res.sendStatus(200))
+    .catch(() => res.sendStatus(500))
+});
+
 
 module.exports = router;

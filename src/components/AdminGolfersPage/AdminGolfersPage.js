@@ -54,6 +54,10 @@ export class AdminGolfersPage extends Component {
         })
     }
 
+    removeGolfer = (id) =>{
+        this.props.dispatch({ type: 'ADMIN_DELETE_GOLFER', payload: id})
+    } 
+
     handleFinishedUpload = info => {
         this.setState({
             url: info.fileUrl
@@ -163,7 +167,26 @@ export class AdminGolfersPage extends Component {
             <div>
                 <AdminNav />
                 <p>Admin Golfers</p>
-                {addGolfer}
+                <div>
+                    {addGolfer}
+                </div>
+                <div>
+                    {this.props.golferReducer.map( (item) => {
+                    return(
+                        <div>
+                            <h3>{item.first_name} {item.last_name}</h3>
+                            <img src={item.img_url} alt={item.id} onClick={() => this.viewGolfer(item.id)} width='220px' height='200px' />
+                            <div>
+                                <button
+                                onClick={() => this.removeGolfer(item.id)}
+                                >
+                                    Remove
+                                </button>
+                            </div>
+                            </div>
+                            )
+                        })}
+                </div>
             </div>
         )
     }

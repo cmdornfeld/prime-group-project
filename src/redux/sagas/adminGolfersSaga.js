@@ -12,11 +12,20 @@ function* getAdminGolfers() {
     }
 }
 
-// post a new photo
+// post a new golfer
 function* postAdminGolfer(action){
     try{
-        console.log(action.payload)
         yield axios.post(`/api/admin/golfers`, action.payload);
+        yield put({type: 'GET_ADMIN_GOLFERS'})
+    } catch (error){
+        console.log(error)
+    }
+}
+
+// delete a golfer
+function* deleteAdminGolfer(action){
+    try{
+        yield axios.delete(`api/admin/golfers/${action.payload}`);
         yield put({type: 'GET_ADMIN_GOLFERS'})
     } catch (error){
         console.log(error)
@@ -36,6 +45,7 @@ function* postAdminGolfer(action){
 function* adminGolfersSaga() {
     yield takeLatest('GET_ADMIN_GOLFERS', getAdminGolfers);
     yield takeLatest('ADMIN_ADD_GOLFER', postAdminGolfer)
+    yield takeLatest('ADMIN_DELETE_GOLFER', deleteAdminGolfer)
     // yield takeLatest('GET_GOLFER_DETAILS', getPublicGolferId);
 }
 
