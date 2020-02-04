@@ -12,7 +12,7 @@ function* getDonationInfo() {
     }
 }
 
-function* markDonationAsPaid(action) {
+function* updateDonationPaymentStatus(action) {
     try{
         console.log('logging action.payload in saga', action.payload);
         
@@ -35,7 +35,7 @@ function* exportDonations() {
 
 function* donationSaga() {
     yield takeLatest('GET_DONATION_INFO', getDonationInfo)
-    yield takeLatest('MARK_AS_PAID', markDonationAsPaid)
+    yield takeLatest('UPDATE_PAYMENT_STATUS', updateDonationPaymentStatus)
     yield takeLatest('EXPORT_DONATIONS', exportDonations)
 }
 
