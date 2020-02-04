@@ -222,5 +222,19 @@ router.get('/golfers', rejectUnauthenticated, (req, res) => {
     });
 });
 
+//POST new golfer
+router.post('/golfers', rejectUnauthenticated, (req, res) => {
+    const first = req.body.first;
+    const last = req.body.last;
+    const bio = req.body.bio;
+    const purpose = req.body.purpose;
+    const goal = req.body.goal;
+    const url = req.body.url;
+    const queryString = `INSERT INTO "golfer" ("first_name", "last_name", "bio", "purpose", "goal", "img_url") VALUES ($1, $2, $3, $4, $5, $6);`;
+    pool.query(queryString, [first, last, bio, purpose, goal, url])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
 
 module.exports = router;

@@ -16,8 +16,8 @@ function* getAdminGolfers() {
 function* postAdminGolfer(action){
     try{
         console.log(action.payload)
-        // yield axios.post(`/api/admin/photos`, action.payload);
-        // yield put({type: 'GET_ADMIN_PHOTOS'})
+        yield axios.post(`/api/admin/golfers`, action.payload);
+        yield put({type: 'GET_ADMIN_GOLFERS'})
     } catch (error){
         console.log(error)
     }
