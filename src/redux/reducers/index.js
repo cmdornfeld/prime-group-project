@@ -12,6 +12,7 @@ import donationReducer from './donationReducer';
 import photosReducer from './publicPhotos';
 import golferReducer from './getPublicGolfer';
 import golferIdReducer from './getPublicGolferId';
+import partnerReducer from './partnerReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
   photosReducer,
   golferReducer,
   golferIdReducer,
+  partnerReducer,
 });
 
 export default rootReducer;
