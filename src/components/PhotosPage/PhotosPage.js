@@ -17,7 +17,6 @@ class PhotosPage extends Component {
         return (
             <div>
                 <Nav />
-                {JSON.stringify(this.props.photosReducer)}
                 <p>photos</p>
                 {this.props.photosReducer.map( (item) => {
                 return(
