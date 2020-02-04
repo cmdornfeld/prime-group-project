@@ -58,4 +58,28 @@ router.get('/photos', (req, res) => {
     });
 });
 
+/* get route for glofer */
+router.get('/golfers', (req, res) => {
+    pool.query(`SELECT "id", "first_name", "last_name", "bio", "purpose", "goal", "img_url" FROM "golfer";`)
+        .then(results => res.send(results.rows))
+        .catch(error => {
+            console.log('Error GETTING Golfers:', error);
+            res.sendStatus(500);
+    });
+});
+
+//get golfers id
+router.get('/golfers/:id', (req, res)=>{
+    let id = [req.params.id]
+   console.log('from customer id route', id);
+   const queryGolfer = `SELECT "id", "first_name", "last_name", "bio", "purpose", "goal", "img_url" FROM "golfer" where id = $1;`
+   
+   pool.query(queryGolfer, id).then(( results ) =>{
+       res.send(results.rows);
+   }).catch( (error) =>{
+        console.log('Error GETTING Golfers:', error);
+    res.sendStatus(500);
+   })
+});
+
 module.exports = router;
