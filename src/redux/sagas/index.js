@@ -14,6 +14,7 @@ import postVideoSaga from './postVideoSaga';
 import deleteVideoSaga from './deleteVideoSaga';
 import getPublicPhotoSaga from './getPublicPhoto';
 import adminAboutSaga from './adminAboutSaga';
+import getPublicGolferSaga from './getPublicGolfer';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -39,5 +40,6 @@ export default function* rootSaga() {
     deleteVideoSaga(),
     getPublicPhotoSaga(),
     adminAboutSaga(),
+    getPublicGolferSaga(),
   ]);
 }
