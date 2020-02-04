@@ -8,6 +8,7 @@ import contactInfoReducer from './contactInfoReducer';
 import missionReducer from './getMissionReducer';
 import foundationReducer from './getFoundation';
 import addressReducer from './addressReducer';
+import donationReducer from './donationReducer';
 import photosReducer from './publicPhotos';
 import golferReducer from './getPublicGolfer';
 import golferIdReducer from './getPublicGolferId';
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   missionReducer,
   foundationReducer,
   addressReducer,
+  donationReducer,
   photosReducer,
   golferReducer,
   golferIdReducer,
