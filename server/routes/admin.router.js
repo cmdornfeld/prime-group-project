@@ -226,6 +226,7 @@ router.put('/donation-info/:id', rejectUnauthenticated, (req, res) => {
     .then(() => res.sendStatus(201))
     .catch(() => res.sendStatus(500))
 });
+
 // get route for photos
 router.get('/photos', rejectUnauthenticated, (req, res) => {
     pool.query(`SELECT "id", "url", "description" FROM "photos";`)
@@ -294,6 +295,18 @@ router.get('/golfers/:id', rejectUnauthenticated, (req, res) => {
             console.log('Error GETTING event info:', error);
             res.sendStatus(500);
     });
+});
+
+//PUT route edit name of golfer
+router.put('/golfers/name/:id', rejectUnauthenticated, (req, res) => {
+    console.log(req.body);
+    let id = req.body.id;
+    let first = req.body.first;
+    let last = req.body.last;
+    let queryString = `UPDATE "golfer" SET "first_name" = $1, "last_name" = $2 where id = $3;`;
+    pool.query(queryString, [first, last, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
 });
 
 
