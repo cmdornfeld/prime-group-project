@@ -32,6 +32,7 @@ function* deleteAdminGolfer(action){
     }
 }
 
+// get individual golfer details
 function* getIndividualDetails(action) {
     try{
         const getResponse = yield axios.get(`/api/admin/golfers/${action.payload}`);
@@ -42,11 +43,23 @@ function* getIndividualDetails(action) {
     }
 }
 
+// edit golfers first and last names
 function* editGolferName(action) {
     try {
-        console.log(action.payload.id)
         yield axios.put(`/api/admin/golfers/name/${action.payload.id}`, action.payload);
-        // yield put({type: 'SET_GOLFER'})
+        const getResponse = yield axios.get(`/api/admin/golfers/${action.payload.id}`);
+        yield put({type: 'SET_GOLFER', payload: getResponse.data})
+    } catch (error) {
+        console.log('Failed updating event location', error);
+    }
+}
+
+// edit golfers first and last names
+function* editGolferGoal(action) {
+    try {
+        yield axios.put(`/api/admin/golfers/goal/${action.payload.id}`, action.payload);
+        const getResponse = yield axios.get(`/api/admin/golfers/${action.payload.id}`);
+        yield put({type: 'SET_GOLFER', payload: getResponse.data})
     } catch (error) {
         console.log('Failed updating event location', error);
     }
@@ -57,7 +70,8 @@ function* adminGolfersSaga() {
     yield takeLatest('ADMIN_ADD_GOLFER', postAdminGolfer)
     yield takeLatest('ADMIN_DELETE_GOLFER', deleteAdminGolfer)
     yield takeLatest('ADMIN_GET_GOLFER_DETAILS', getIndividualDetails);
-    yield takeLatest('EDIT_GOLFER_NAME', editGolferName)
+    yield takeLatest('EDIT_GOLFER_NAME', editGolferName);
+    yield takeLatest('EDIT_GOLFER_GOAL', editGolferGoal);
 }
 
 export default adminGolfersSaga;
