@@ -17,6 +17,7 @@ import getPublicPhotoSaga from './getPublicPhoto';
 import adminAboutSaga from './adminAboutSaga';
 import getPublicGolferSaga from './getPublicGolfer';
 import adminPhotosSaga from './adminPhotosSaga';
+import postPublicSaga from './postPublicPledge';
 import adminGolfersSaga from './adminGolfersSaga';
 import partnerSaga from './partnerSaga';
 
@@ -47,6 +48,7 @@ export default function* rootSaga() {
     adminAboutSaga(),
     getPublicGolferSaga(),
     adminPhotosSaga(),
+    postPublicSaga(),
     adminGolfersSaga(),
     partnerSaga(),
   ]);
