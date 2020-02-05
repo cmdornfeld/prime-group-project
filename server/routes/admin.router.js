@@ -299,7 +299,6 @@ router.get('/golfers/:id', rejectUnauthenticated, (req, res) => {
 
 //PUT route edit name of golfer
 router.put('/golfers/name/:id', rejectUnauthenticated, (req, res) => {
-    console.log(req.body);
     let id = req.body.id;
     let first = req.body.first;
     let last = req.body.last;
@@ -311,7 +310,6 @@ router.put('/golfers/name/:id', rejectUnauthenticated, (req, res) => {
 
 //PUT route edit goal of golfer
 router.put('/golfers/goal/:id', rejectUnauthenticated, (req, res) => {
-    console.log(req.body);
     let id = req.body.id;
     let goal = req.body.goal;
     let queryString = `UPDATE "golfer" SET "goal" = $1 where id = $2;`;
@@ -320,13 +318,22 @@ router.put('/golfers/goal/:id', rejectUnauthenticated, (req, res) => {
     .catch(() => res.sendStatus(500))
 });
 
-//PUT route edit goal of golfer
+//PUT route edit golfer bio
 router.put('/golfers/bio/:id', rejectUnauthenticated, (req, res) => {
-    console.log(req.body);
     let id = req.body.id;
     let bio = req.body.bio;
     let queryString = `UPDATE "golfer" SET "bio" = $1 where id = $2;`;
     pool.query(queryString, [bio, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
+//PUT route edit golfer purpose
+router.put('/golfers/purpose/:id', rejectUnauthenticated, (req, res) => {
+    let id = req.body.id;
+    let purpose = req.body.purpose;
+    let queryString = `UPDATE "golfer" SET "purpose" = $1 where id = $2;`;
+    pool.query(queryString, [purpose, id])
     .then(() => res.sendStatus(201))
     .catch(() => res.sendStatus(500))
 });

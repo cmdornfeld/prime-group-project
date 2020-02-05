@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import AdminNav from '../AdminNav/AdminNav';
 
 
 class AdminGolferDetails extends Component {
@@ -95,11 +96,35 @@ class AdminGolferDetails extends Component {
         })
     }
 
+    editPurpose = () => {
+        this.setState({
+            editPurpose: true,
+            purpose: this.props.golferIdReducer.purpose
+        })
+    }
+
+    cancelEditPurpose = () => {
+        this.setState({
+            editPurpose: false,
+            purpose: ''
+        })
+    }
+
+    saveEditPurpose = () => {
+        this.props.dispatch({ type: 'EDIT_GOLFER_PURPOSE', payload: {
+            purpose: this.state.purpose,
+            id: this.props.golferIdReducer.id
+        }})
+        this.setState({
+            purpose: '',
+            editPurpose: false
+        })
+    }
+
     handleInputChangeFor = propertyName => (event) => {
         this.setState({
           [propertyName]: event.target.value,
         });
-        console.log(event.target.value)
     };
 
     render() {
@@ -175,7 +200,7 @@ class AdminGolferDetails extends Component {
 
         const editBio = this.state.editBio === false ? (
             <Fragment>
-                <h3>${this.props.golferIdReducer.bio}</h3>
+                <p>{this.props.golferIdReducer.bio}</p>
                 <button
                 onClick={this.editBio}
                 >
@@ -206,10 +231,44 @@ class AdminGolferDetails extends Component {
             </Fragment>
         )
 
+        const editPurpose = this.state.editPurpose === false ? (
+            <Fragment>
+                <p>{this.props.golferIdReducer.purpose}</p>
+                <button
+                onClick={this.editPurpose}
+                >
+                    Edit Goal
+                </button>
+            </Fragment>
+        ) : (
+            <Fragment>
+                <div>
+                    <textarea
+                    rows='10'
+                    cols="100"
+                    type="number"
+                    value={this.state.purpose}
+                    onChange={this.handleInputChangeFor('purpose')}
+                    />
+                </div>
+                <button
+                onClick={this.cancelEditPurpose}
+                >
+                    Cancel
+                </button>
+                <button
+                onClick={this.saveEditPurpose}
+                >
+                    Save
+                </button>
+            </Fragment>
+        )
+
+
 
         return (
             <div>
-                {/* <h3>{this.props.golferIdReducer.first_name} {this.props.golferIdReducer.last_name}</h3> */}
+                <AdminNav />
                 <div>
                     {editName}
                 </div>
@@ -218,7 +277,7 @@ class AdminGolferDetails extends Component {
                 <h3>Bio</h3>
                 <p>{editBio}</p>
                 <h3>Why am I doing this?</h3>
-                <p>{this.props.golferIdReducer.purpose}</p>
+                <p>{editPurpose}</p>
             </div>
         )
     }
