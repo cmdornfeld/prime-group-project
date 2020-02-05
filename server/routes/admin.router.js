@@ -338,5 +338,15 @@ router.put('/golfers/purpose/:id', rejectUnauthenticated, (req, res) => {
     .catch(() => res.sendStatus(500))
 });
 
+//PUT route edit golfer photo
+router.put('/golfers/image/:id', rejectUnauthenticated, (req, res) => {
+    let id = req.body.id;
+    let url = req.body.url;
+    let queryString = `UPDATE "golfer" SET "img_url" = $1 where id = $2;`;
+    pool.query(queryString, [url, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
 
 module.exports = router;

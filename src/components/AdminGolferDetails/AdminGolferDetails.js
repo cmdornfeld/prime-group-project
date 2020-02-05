@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import AdminNav from '../AdminNav/AdminNav';
+import DropzoneS3Uploader from 'react-dropzone-s3-uploader';
 
 
 class AdminGolferDetails extends Component {
@@ -10,6 +11,8 @@ class AdminGolferDetails extends Component {
         last: '',
         goal: '',
         bio: '',
+        purpose: '',
+        url: '',
         editName: false,
         editImage: false,
         editGoal: false,
@@ -121,6 +124,34 @@ class AdminGolferDetails extends Component {
         })
     }
 
+    editPhoto = () => {
+        this.setState({
+            editImage: true
+        })
+    }
+
+    cancelEditPhoto = () => {
+        this.setState({
+            editImage: false
+        })
+    }
+
+    handleFinishedUpload = info => {
+        this.setState({
+            url: info.fileUrl
+        })
+    }
+
+    saveEditPhoto = () => {
+        this.props.dispatch({ type: 'EDIT_GOLFER_PHOTO', payload: {
+            url: this.state.url,
+            id: this.props.golferIdReducer.id
+        }})
+        this.setState({
+            editImage: false
+        })
+    }
+
     handleInputChangeFor = propertyName => (event) => {
         this.setState({
           [propertyName]: event.target.value,
@@ -128,6 +159,20 @@ class AdminGolferDetails extends Component {
     };
 
     render() {
+
+        const uploadOptions = {
+            server: 'http://localhost:5000',
+            // signingUrlQueryParams: {uploadType: 'avatar'},
+        }
+
+        const s3Url = 'https://hundred-holes-bucket.s3.amazonaws.com'
+
+        const innderDropElement = (
+            <div class="inner-drop">
+                <p>Click or Drop File Here!</p>
+            </div>
+        )
+
 
         const editName = this.state.editName === false ? (
             <Fragment>
@@ -264,6 +309,40 @@ class AdminGolferDetails extends Component {
             </Fragment>
         )
 
+        const editImage = this.state.editImage === false ? (
+            <Fragment>
+                <img src={this.props.golferIdReducer.img_url} alt={this.props.golferIdReducer.id} width='220px' height='200px' />
+                <div>
+                    <button
+                    onClick={this.editPhoto}
+                    >
+                        Edit Photo
+                    </button>
+                </div>
+            </Fragment>
+        ) : (
+            <Fragment>
+                <DropzoneS3Uploader
+                    children={innderDropElement}
+                    onFinish={this.handleFinishedUpload}
+                    s3Url={s3Url}
+                    // style={dropStyles}
+                    maxSize={1024 * 1024 * 5}
+                    upload={uploadOptions}
+                />
+                <button
+                onClick={this.cancelEditPhoto}
+                >
+                    Cancel
+                </button>
+                <button
+                onClick={this.saveEditPhoto}
+                >
+                    Save
+                </button>
+            </Fragment>
+        )
+
 
 
         return (
@@ -272,7 +351,10 @@ class AdminGolferDetails extends Component {
                 <div>
                     {editName}
                 </div>
-                <img src={this.props.golferIdReducer.img_url} alt={this.props.golferIdReducer.id} width='220px' height='200px' />
+                {/* <img src={this.props.golferIdReducer.img_url} alt={this.props.golferIdReducer.id} width='220px' height='200px' /> */}
+                <div>
+                    {editImage}
+                </div>
                 <h3>Goal: {editGoal}</h3>
                 <h3>Bio</h3>
                 <p>{editBio}</p>
