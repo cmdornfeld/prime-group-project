@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import Nav from '../Nav/Nav';
+import './pledgePage.css';
 
 class Pledge extends Component {
     state = {
@@ -67,16 +68,16 @@ class Pledge extends Component {
             amount: this.state.amount,
             max: this.state.max
          }})
-        //  this.setState({
-        //     first_name: '',
-        //     last_name: '',
-        //     phone_number: '',
-        //     email: '',
-        //     golfer_id: '',
-        //     type: '',
-        //     amount: '',
-        //     max: '',
-        // })
+         this.setState({
+            first_name: '',
+            last_name: '',
+            phone_number: '',
+            email: '',
+            golfer_id: '',
+            type: '',
+            amount: '',
+            max: '',
+        })
         
     }
     componentDidMount() {
@@ -101,7 +102,16 @@ class Pledge extends Component {
         return (
             <div>
                 <Nav />
-                <h1>Pledge</h1>
+                <header class='pledge-header'><h1>PLEDGES</h1></header>
+                <div class='pledge'>
+                <h3>By filling out the form below, you are making a commitment to support the golfer of your choice in their 100 Holes for HOPE marathon. 
+                    You will receive an e-mail after the event with a summary of information on your golfer's performance 
+                    and specific instructions on how to honor this pledge directly to his/her pledge total.</h3>
+                <h3>In order to keep the pace of play going and to ensure that the golfers can play a full 100 holes in daylight, 
+                    we have modified some of the traditional rules of golf. If a ball is anywhere within a flag stick from the hole, 
+                    that ball counts as "in the hole". Please be aware of this when pledging per birdie. An eagle will be worth two birdie pledges.</h3>
+                </div>
+                <div class='pledge-form'>
                 <label>Name
                     <input placeholder='First Name' onChange={this.handleChangeFirstName} value={this.state.first_name}></input>
                     <input placeholder='Last Name' onChange={this.handleChangeLastName} value={this.state.last_name}></input>
@@ -122,6 +132,9 @@ class Pledge extends Component {
                         })}
                     </select>
                 </label>
+                <h5>Please indicate your pledge or pledges below. You may pledge to one or multiple categories. 
+                    After the event and once scores have been calculated, you will be contacted with a total amount 
+                    and payment can be made at that time.</h5>
                 <br></br>
                 <label>Pledge Type<br></br>
                     <select onChange={this.handleChangeType} value={this.state.type}>
@@ -137,6 +150,7 @@ class Pledge extends Component {
                 </label>
                 <br></br>
                 <button onClick={this.handleSubmit}>Pledge</button>
+                </div>
             </div>
         )
     }
