@@ -79,4 +79,72 @@ router.get('/golfers/:id', (req, res) => {
     });
 });
 
+/* Post route for Pledges */
+router.post( '/pledges', (req, res) => {
+    const first = req.body.first_name;
+    const last = req.body.last_name;
+    const phone = req.body.phone_number;
+    const email = req.body.email;
+    const type = req.body.type;
+    const amount = req.body.amount;
+    const max = req.body.max;
+    const golfer = req.body.golfer_id;
+
+    console.log('req.body', req.body);
+    //insert data
+    let queryString = ``;
+    if(type === 'Flat'){
+        queryString = `INSERT INTO "donation" ("first_name", "last_name", "phone_number", "email", "type", "amount", "golfer_id") 
+        VALUES  ($1, $2, $3, $4, $5, $6, $7 );`;
+    } else if (type === 'Per Birdie'){
+        queryString = `INSERT INTO "donation" ("first_name", "last_name", "phone_number", "email", "type", "amount", "max", "golfer_id") 
+        VALUES  ($1, $2, $3, $4, $5, $6, $7, $8);`;
+    }
+    // const queryText = `INSERT INTO "donation" ("first_name", "last_name", "phone_number", "email", "type", "amount", "max", "golfer_id") 
+    //                     VALUES  ($1, $2, $3, $4, $5, $6, $7, $8);`;
+
+    if(type === 'Flat'){
+        pool.query(queryString, [first, last, phone, email, type, amount, golfer])
+        .then((result) => {
+            res.sendStatus(200);
+        }).catch((error) => {
+            console.log('Error POST PLEDGES**************', error)
+            res.sendStatus(500);
+        });
+
+    } else {
+        pool.query(queryString, [first, last, phone, email, type, amount, max, golfer])
+        .then((result) => {
+            res.sendStatus(200);
+        }).catch((error) => {
+            console.log('Error POST PLEDGES**************', error)
+            res.sendStatus(500);
+        });
+    }
+ })
+
+ /* get route for public address */
+ router.get('/address', (req, res)=>{
+   const queryAddress = `SELECT "id", "street", "city", "state", "zip", "phone", "fax" FROM "address";`
+   
+   pool.query(queryAddress).then(( results ) =>{
+       res.send(results.rows);
+   }).catch( (error) =>{
+        console.log('Error GETTING Golfers:', error);
+    res.sendStatus(500);
+   })
+});
+
+// get route for contact public
+router.get('/contact', (req, res)=>{
+    const queryAddress = `SELECT "id", "name", "email" FROM "contact";`;
+    
+    pool.query(queryAddress).then(( results ) =>{
+        res.send(results.rows);
+    }).catch( (error) =>{
+         console.log('Error GETTING Golfers:', error);
+     res.sendStatus(500);
+    })
+ });
+
 module.exports = router;
