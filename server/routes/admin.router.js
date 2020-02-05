@@ -74,7 +74,11 @@ router.get('/donation-export', rejectUnauthenticated, (req, res)=>{
 
 //GET route for partners/sponsors
 router.get('/partners', rejectUnauthenticated, (req, res) => {
-    pool.query(`SELECT * FROM "sponsor";`)
+    let queryString = `SELECT "sponsor"."id", "img_url", "company" AS "name", "sponsor_level"."title", "sponsor_level"."amount", "sponsor_level"."id" "sponsor_level"
+                        FROM "sponsor"
+                        JOIN "sponsor_level" ON "sponsor_level"."id" = "sponsor"."level"
+                        ORDER BY "sponsor_level" ASC;`;
+    pool.query(queryString)
         .then(results => res.send(results.rows))
         .catch(error => {
             console.log('Error GETTING partner info:', error);
@@ -315,6 +319,13 @@ router.post('/partners', rejectUnauthenticated, (req, res) => {
     const queryString = `INSERT INTO "sponsor" ("company", "img_url", "level") VALUES ($1, $2, $3);`;
     pool.query(queryString, [name, url, level])
     .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
+//DELETE route for deleting a partner
+router.delete('/partners/delete/:id', rejectUnauthenticated, (req, res) => {
+    pool.query(`DELETE FROM "sponsor" WHERE "id" = $1;`, [req.params.id])
+    .then(()=> res.sendStatus(200))
     .catch(() => res.sendStatus(500))
 });
 
