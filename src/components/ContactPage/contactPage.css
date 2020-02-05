@@ -1,0 +1,15 @@
+.address{
+    padding: 60px;
+    text-align: center;
+    color: white;
+    font-size: 15px;
+}
+
+.contact{
+    padding: 60px;
+    text-align: center;
+    color: white;
+    font-size: 15px;
+    bottom: 400px;
+    right: 70px;
+}
