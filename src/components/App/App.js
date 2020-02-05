@@ -29,6 +29,7 @@ import AdminPledges from '../AdminPledgesPage/AdminPledgesPage';
 import AdminPartners from '../AdminPartnersPage/AdminPartnersPage';
 import AdminContact from '../AdminContactPage/AdminContactPage';
 import golferDetails from '../golferDetails/golferDetails';
+import AdminGolferDetails from '../AdminGolferDetails/AdminGolferDetails';
 
 
 import './App.css';
@@ -103,6 +104,10 @@ class App extends Component {
               exact
               path="/admin/golfers"
               component={AdminGolfers}
+            />
+            <ProtectedRoute 
+              path='/admin/golfers/:id' 
+              component={AdminGolferDetails}
             />
             <ProtectedRoute
               exact

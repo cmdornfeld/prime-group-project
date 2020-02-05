@@ -25,7 +25,7 @@ class GolfersPage extends Component {
                 <p>Golfers Page</p>
                 {this.props.golferReducer.map( (item) => {
                 return(
-                    <div>
+                    <div key={item.id}>
                         <h3>{item.first_name} {item.last_name}</h3>
                         <img src={item.img_url} alt={item.id} onClick={() => this.viewGolfer(item.id)} width='220px' height='200px' />
                         </div>
@@ -37,6 +37,6 @@ class GolfersPage extends Component {
 }
 const putReduxStateOnProps = (reduxStore) => ({
     golferReducer: reduxStore.golferReducer
-  });
+});
 
 export default connect(putReduxStateOnProps) (GolfersPage);

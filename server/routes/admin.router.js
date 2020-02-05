@@ -246,6 +246,7 @@ router.put('/donation-info/:id', rejectUnauthenticated, (req, res) => {
     .then(() => res.sendStatus(201))
     .catch(() => res.sendStatus(500))
 });
+
 // get route for photos
 router.get('/photos', rejectUnauthenticated, (req, res) => {
     pool.query(`SELECT "id", "url", "description" FROM "photos";`)
@@ -305,6 +306,67 @@ router.delete('/golfers/:id', rejectUnauthenticated, (req, res) => {
     .catch(() => res.sendStatus(500))
 });
 
+//GET route for individual golfer
+router.get('/golfers/:id', rejectUnauthenticated, (req, res) => {
+    const id = req.params.id;
+    pool.query(`SELECT * FROM "golfer" WHERE id = $1;`, [id])
+        .then(results => res.send(results.rows[0]))
+        .catch(error => {
+            console.log('Error GETTING event info:', error);
+            res.sendStatus(500);
+    });
+});
+
+//PUT route edit name of golfer
+router.put('/golfers/name/:id', rejectUnauthenticated, (req, res) => {
+    let id = req.body.id;
+    let first = req.body.first;
+    let last = req.body.last;
+    let queryString = `UPDATE "golfer" SET "first_name" = $1, "last_name" = $2 where id = $3;`;
+    pool.query(queryString, [first, last, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
+//PUT route edit goal of golfer
+router.put('/golfers/goal/:id', rejectUnauthenticated, (req, res) => {
+    let id = req.body.id;
+    let goal = req.body.goal;
+    let queryString = `UPDATE "golfer" SET "goal" = $1 where id = $2;`;
+    pool.query(queryString, [goal, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
+//PUT route edit golfer bio
+router.put('/golfers/bio/:id', rejectUnauthenticated, (req, res) => {
+    let id = req.body.id;
+    let bio = req.body.bio;
+    let queryString = `UPDATE "golfer" SET "bio" = $1 where id = $2;`;
+    pool.query(queryString, [bio, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
+//PUT route edit golfer purpose
+router.put('/golfers/purpose/:id', rejectUnauthenticated, (req, res) => {
+    let id = req.body.id;
+    let purpose = req.body.purpose;
+    let queryString = `UPDATE "golfer" SET "purpose" = $1 where id = $2;`;
+    pool.query(queryString, [purpose, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
+//PUT route edit golfer photo
+router.put('/golfers/image/:id', rejectUnauthenticated, (req, res) => {
+    let id = req.body.id;
+    let url = req.body.url;
+    let queryString = `UPDATE "golfer" SET "img_url" = $1 where id = $2;`;
+    pool.query(queryString, [url, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
 //POST new partner
 router.post('/partners', rejectUnauthenticated, (req, res) => {
     console.log('in partners POST: logging req.body', req.body);
