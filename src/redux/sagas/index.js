@@ -12,11 +12,14 @@ import getMissionSaga from './getPublicAboutSaga';
 import getAdminVideosSaga from './getAdminVideosSaga';
 import postVideoSaga from './postVideoSaga';
 import deleteVideoSaga from './deleteVideoSaga';
+import donationSaga from './donationSaga';
 import getPublicPhotoSaga from './getPublicPhoto';
 import adminAboutSaga from './adminAboutSaga';
 import getPublicGolferSaga from './getPublicGolfer';
 import adminPhotosSaga from './adminPhotosSaga';
 import postPublicSaga from './postPublicPledge';
+import adminGolfersSaga from './adminGolfersSaga';
+import partnerSaga from './partnerSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -40,10 +43,13 @@ export default function* rootSaga() {
     getAdminVideosSaga(),
     postVideoSaga(),
     deleteVideoSaga(),
+    donationSaga(),
     getPublicPhotoSaga(),
     adminAboutSaga(),
     getPublicGolferSaga(),
     adminPhotosSaga(),
     postPublicSaga(),
+    adminGolfersSaga(),
+    partnerSaga(),
   ]);
 }

@@ -45,6 +45,53 @@ router.get('/videos', rejectUnauthenticated, (req, res)=>{
     })
 });
 
+//Get all donations
+router.get('/donation-info', (req, res)=>{
+    const queryString = `SELECT "donation"."id", "donation"."first_name", "donation"."last_name", "phone_number", "email", "type", "amount", "max", "golfer_id",
+                         "golfer"."first_name" firstname, "golfer"."last_name" lastname, "status"
+                        FROM "donation" 
+                        JOIN "golfer" ON "golfer"."id" = "donation"."golfer_id"
+                        ORDER BY "donation"."id";`;
+    pool.query(queryString).then(( results ) =>{
+        res.send(results.rows);
+    }).catch( (error) =>{
+        console.log('Error GETTING donations. Error:', error);
+        res.sendStatus(500);
+    })
+});
+
+//Export donation table
+router.get('/donation-export', rejectUnauthenticated, (req, res)=>{
+    const queryString = `COPY (SELECT * FROM "donation") TO '/Users/chaddornfeld/Desktop/query_result.csv'
+                        DELIMITER ',' CSV HEADER;`;
+    pool.query(queryString).then(( results ) =>{
+        res.send(results.rows);
+    }).catch( (error) =>{
+        console.log('Error Exporting donation table. Error:', error);
+        res.sendStatus(500);
+    })
+});
+
+//GET route for partners/sponsors
+router.get('/partners', rejectUnauthenticated, (req, res) => {
+    pool.query(`SELECT * FROM "sponsor";`)
+        .then(results => res.send(results.rows))
+        .catch(error => {
+            console.log('Error GETTING partner info:', error);
+            res.sendStatus(500);
+    });
+});
+
+//GET route for sponsor levels
+router.get('/partner-levels', rejectUnauthenticated, (req, res) => {
+    pool.query(`SELECT * FROM "sponsor_level";`)
+        .then(results => res.send(results.rows))
+        .catch(error => {
+            console.log('Error GETTING partner info:', error);
+            res.sendStatus(500);
+    });
+});
+
 //POST new video
 router.post('/videos', rejectUnauthenticated, (req, res) => {
     const videoUrl = req.body.videoUrl
@@ -184,6 +231,21 @@ router.put('/contact-info/:id', rejectUnauthenticated, (req, res) => {
     .catch(() => res.sendStatus(500))
 });
 
+//PUT route edit status of payment
+router.put('/donation-info/:id', rejectUnauthenticated, (req, res) => {
+    console.log('logging req.body', req.body);
+    let id = req.body.id;
+    let status = req.body.status;
+    let queryString = ``;
+    if(status === 'unpaid'){
+        queryString = `UPDATE "donation" SET "status" = 'paid' WHERE id = $1;`;
+    } else if (status === 'paid'){
+        queryString = `UPDATE "donation" SET "status" = 'unpaid' WHERE id = $1`;
+    }
+    pool.query(queryString, [id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
 // get route for photos
 router.get('/photos', rejectUnauthenticated, (req, res) => {
     pool.query(`SELECT "id", "url", "description" FROM "photos";`)
@@ -205,10 +267,54 @@ router.post('/photos', rejectUnauthenticated, (req, res) => {
     .catch(() => res.sendStatus(500))
 });
 
-//DELETE route for deleting a video
+//DELETE route for deleting a photo
 router.delete('/photos/:id', rejectUnauthenticated, (req, res) => {
     pool.query(`DELETE FROM "photos" WHERE "id" = $1;`, [req.params.id])
     .then(()=> res.sendStatus(200))
+    .catch(() => res.sendStatus(500))
+});
+
+// GET route for golfers
+router.get('/golfers', rejectUnauthenticated, (req, res) => {
+    pool.query(`SELECT "id", "first_name", "last_name", "bio", "purpose", "goal", "img_url" FROM "golfer";`)
+        .then(results => res.send(results.rows))
+        .catch(error => {
+            console.log('Error GETTING Golfers:', error);
+            res.sendStatus(500);
+    });
+});
+
+//POST new golfer
+router.post('/golfers', rejectUnauthenticated, (req, res) => {
+    const first = req.body.first;
+    const last = req.body.last;
+    const bio = req.body.bio;
+    const purpose = req.body.purpose;
+    const goal = req.body.goal;
+    const url = req.body.url;
+    const queryString = `INSERT INTO "golfer" ("first_name", "last_name", "bio", "purpose", "goal", "img_url") VALUES ($1, $2, $3, $4, $5, $6);`;
+    pool.query(queryString, [first, last, bio, purpose, goal, url])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
+//DELETE route for deleting a golfer
+router.delete('/golfers/:id', rejectUnauthenticated, (req, res) => {
+    pool.query(`DELETE FROM "golfer" WHERE "id" = $1;`, [req.params.id])
+    .then(()=> res.sendStatus(200))
+    .catch(() => res.sendStatus(500))
+});
+
+//POST new partner
+router.post('/partners', rejectUnauthenticated, (req, res) => {
+    console.log('in partners POST: logging req.body', req.body);
+    
+    const name = req.body.companyName;
+    const url = req.body.url;
+    const level = req.body.partnerLevel
+    const queryString = `INSERT INTO "sponsor" ("company", "img_url", "level") VALUES ($1, $2, $3);`;
+    pool.query(queryString, [name, url, level])
+    .then(() => res.sendStatus(201))
     .catch(() => res.sendStatus(500))
 });
 
