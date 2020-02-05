@@ -320,5 +320,16 @@ router.put('/golfers/goal/:id', rejectUnauthenticated, (req, res) => {
     .catch(() => res.sendStatus(500))
 });
 
+//PUT route edit goal of golfer
+router.put('/golfers/bio/:id', rejectUnauthenticated, (req, res) => {
+    console.log(req.body);
+    let id = req.body.id;
+    let bio = req.body.bio;
+    let queryString = `UPDATE "golfer" SET "bio" = $1 where id = $2;`;
+    pool.query(queryString, [bio, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
 
 module.exports = router;

@@ -8,6 +8,7 @@ class AdminGolferDetails extends Component {
         first: '',
         last: '',
         goal: '',
+        bio: '',
         editName: false,
         editImage: false,
         editGoal: false,
@@ -66,6 +67,31 @@ class AdminGolferDetails extends Component {
         this.setState({
             goal: '',
             editGoal: false
+        })
+    }
+
+    editBio = () => {
+        this.setState({
+            editBio: true,
+            bio: this.props.golferIdReducer.bio
+        })
+    }
+
+    cancelEditBio = () => {
+        this.setState({
+            editBio: false,
+            bio: ''
+        })
+    }
+
+    saveEditBio = () => {
+        this.props.dispatch({ type: 'EDIT_GOLFER_BIO', payload: {
+            bio: this.state.bio,
+            id: this.props.golferIdReducer.id
+        }})
+        this.setState({
+            bio: '',
+            editBio: false
         })
     }
 
@@ -147,6 +173,40 @@ class AdminGolferDetails extends Component {
             </Fragment>
         )
 
+        const editBio = this.state.editBio === false ? (
+            <Fragment>
+                <h3>${this.props.golferIdReducer.bio}</h3>
+                <button
+                onClick={this.editBio}
+                >
+                    Edit Goal
+                </button>
+            </Fragment>
+        ) : (
+            <Fragment>
+                <div>
+                    <textarea
+                    rows='10'
+                    cols="100"
+                    type="number"
+                    value={this.state.bio}
+                    onChange={this.handleInputChangeFor('bio')}
+                    />
+                </div>
+                <button
+                onClick={this.cancelEditBio}
+                >
+                    Cancel
+                </button>
+                <button
+                onClick={this.saveEditBio}
+                >
+                    Save
+                </button>
+            </Fragment>
+        )
+
+
         return (
             <div>
                 {/* <h3>{this.props.golferIdReducer.first_name} {this.props.golferIdReducer.last_name}</h3> */}
@@ -156,7 +216,7 @@ class AdminGolferDetails extends Component {
                 <img src={this.props.golferIdReducer.img_url} alt={this.props.golferIdReducer.id} width='220px' height='200px' />
                 <h3>Goal: {editGoal}</h3>
                 <h3>Bio</h3>
-                <p>{this.props.golferIdReducer.bio}</p>
+                <p>{editBio}</p>
                 <h3>Why am I doing this?</h3>
                 <p>{this.props.golferIdReducer.purpose}</p>
             </div>
