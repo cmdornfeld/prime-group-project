@@ -126,4 +126,28 @@ router.post( '/pledges', (req, res) => {
     }
  })
 
+ /* get route for public address */
+ router.get('/address', (req, res)=>{
+   const queryAddress = `SELECT "id", "street", "city", "state", "zip", "phone", "fax" FROM "address";`
+   
+   pool.query(queryAddress).then(( results ) =>{
+       res.send(results.rows);
+   }).catch( (error) =>{
+        console.log('Error GETTING Golfers:', error);
+    res.sendStatus(500);
+   })
+});
+
+// get route for contact public
+router.get('/contact', (req, res)=>{
+    const queryAddress = `SELECT "id", "name", "email" FROM "contact";`;
+    
+    pool.query(queryAddress).then(( results ) =>{
+        res.send(results.rows);
+    }).catch( (error) =>{
+         console.log('Error GETTING Golfers:', error);
+     res.sendStatus(500);
+    })
+ });
+
 module.exports = router;
