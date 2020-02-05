@@ -72,7 +72,7 @@ router.get('/golfers', (req, res) => {
 router.get('/golfers/:id', (req, res)=>{
     let id = [req.params.id]
    console.log('from customer id route', id);
-   const queryGolfer = `SELECT "id", "first_name", "last_name", "bio", "purpose", "goal", "img_url" FROM "golfer" where id = $1;`
+   const queryGolfer = `SELECT "id", "first_name" firstname, "last_name" lastname, "bio", "purpose", "goal", "img_url" FROM "golfer" where id = $1;`
    
    pool.query(queryGolfer, id).then(( results ) =>{
        res.send(results.rows);
@@ -81,5 +81,49 @@ router.get('/golfers/:id', (req, res)=>{
     res.sendStatus(500);
    })
 });
+
+/* Post route for Pledges */
+router.post( '/pledges', (req, res) => {
+    const first = req.body.first_name;
+    const last = req.body.last_name;
+    const phone = req.body.phone_number;
+    const email = req.body.email;
+    const type = req.body.type;
+    const amount = req.body.amount;
+    const max = req.body.max;
+    const golfer = req.body.golfer_id;
+
+    console.log('req.body', req.body);
+    //insert data
+    let queryString = ``;
+    if(type === 'Flat'){
+        queryString = `INSERT INTO "donation" ("first_name", "last_name", "phone_number", "email", "type", "amount", "golfer_id") 
+        VALUES  ($1, $2, $3, $4, $5, $6, $7 );`;
+    } else if (type === 'Per Birdie'){
+        queryString = `INSERT INTO "donation" ("first_name", "last_name", "phone_number", "email", "type", "amount", "max", "golfer_id") 
+        VALUES  ($1, $2, $3, $4, $5, $6, $7, $8);`;
+    }
+    // const queryText = `INSERT INTO "donation" ("first_name", "last_name", "phone_number", "email", "type", "amount", "max", "golfer_id") 
+    //                     VALUES  ($1, $2, $3, $4, $5, $6, $7, $8);`;
+
+    if(type === 'Flat'){
+        pool.query(queryString, [first, last, phone, email, type, amount, golfer])
+        .then((result) => {
+            res.sendStatus(200);
+        }).catch((error) => {
+            console.log('Error POST PLEDGES**************', error)
+            res.sendStatus(500);
+        });
+
+    } else {
+        pool.query(queryString, [first, last, phone, email, type, amount, max, golfer])
+        .then((result) => {
+            res.sendStatus(200);
+        }).catch((error) => {
+            console.log('Error POST PLEDGES**************', error)
+            res.sendStatus(500);
+        });
+    }
+ })
 
 module.exports = router;
