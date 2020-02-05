@@ -40,12 +40,27 @@ export class AdminPartnersPage extends Component {
             url: this.state.url,
             partnerLevel: this.state.partnerLevel
         }
-        this.props.dispatch({ type: 'ADD_PARTNER', payload: objectToSend});
+        this.props.dispatch({ type: 'ADD_PARTNER', payload: objectToSend });
         this.setState({
             companyName: '',
             url: '',
             partnerLevel: ''
         })
+    }
+
+    addPartnerLevel = () => {
+        console.log('in addPartnerLevel');
+        
+    }
+
+    editPartner = (id) => {
+        console.log('in editPartner with ID:', id);
+        
+    }
+
+    removePartner = (id)  => {
+        console.log('in removePartner with ID:', id);
+        this.props.dispatch({ type: 'REMOVE_PARTNER', payload: id });
     }
 
     render() {
@@ -58,10 +73,12 @@ export class AdminPartnersPage extends Component {
         const s3Url = 'https://hundred-holes-bucket.s3.amazonaws.com'
 
         const innderDropElement = (
-            <div class="inner-drop">
+            <div className="inner-drop">
                 <p>Click or Drop File Here!</p>
             </div>
         )
+
+        let currentLevel = null;
 
         return (
             <Fragment>
@@ -82,13 +99,38 @@ export class AdminPartnersPage extends Component {
                 <select onChange={(event) => {this.assignPartnerLevel(event)}}>
                     {this.props.level.map(level => (
                         <option key={level.id} value={level.id}>
-                            {level.title} (${level.amount})
+                            {level.title} ({level.amount})
                         </option>
                     )
                     )}
                 </select>
+                <button onClick={this.addPartnerLevel}>+</button>
             </div>
-            <button onClick={this.addPartner}>Add Partner</button>
+            <button onClick={this.addPartner}>Add Partner</button><br/>
+            <div className="partner-box">
+                {this.props.companies.map(partner => {
+                    if(partner.sponsor_level === currentLevel){
+                        return (
+                            <div key={partner.id}>
+                                <img src={partner.img_url} alt={partner.name} />
+                                <button onClick={()=> this.removePartner(partner.id)}>Remove</button>
+                                <button onClick={()=> this.editPartner(partner.id)}>Edit</button>
+                            </div>
+                        )
+                    } 
+                    else {
+                        currentLevel = partner.sponsor_level;
+                        return (
+                            <div key={partner.id}>
+                                <h3>{partner.title} {partner.amount}</h3>
+                                <img src={partner.img_url} alt={partner.name} />
+                                <button onClick={()=> this.removePartner(partner.id)}>Remove</button>
+                                <button onClick={()=> this.editPartner(partner.id)}>Edit</button>
+                            </div>
+                        )
+                    }
+                })}
+            </div>
             </Fragment>
         )
     }
