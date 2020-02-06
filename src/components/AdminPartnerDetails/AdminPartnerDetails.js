@@ -4,137 +4,75 @@ import AdminNav from '../AdminNav/AdminNav';
 import DropzoneS3Uploader from 'react-dropzone-s3-uploader';
 
 
-class AdminGolferDetails extends Component {
+class AdminPartnerDetails extends Component {
 
     state = {
-        first: '',
-        last: '',
-        goal: '',
-        bio: '',
-        purpose: '',
+        name: '',
+        level: '',
         url: '',
         editName: false,
         editImage: false,
-        editGoal: false,
-        editBio: false,
-        editPurpose: false,
-    }
-
-    componentDidMount() {
-        this.props.dispatch({ type: 'ADMIN_GET_GOLFER_DETAILS', payload: this.props.match.params.id })
+        editLevel: false,
     }
 
     editName = () => {
         this.setState({
             editName: true,
-            first: this.props.golferIdReducer.first_name,
-            last: this.props.golferIdReducer.last_name
+            name: this.props.partnerIdReducer.company,
         })
     }
 
     cancelEditName = () => {
         this.setState({
             editName: false,
-            first: '',
-            last: '',
+            name: '',
         })
     }
 
     saveEditName = () => {
-        this.props.dispatch({ type: 'EDIT_GOLFER_NAME', payload: {
-            first: this.state.first,
-            last: this.state.last,
-            id: this.props.golferIdReducer.id
+        this.props.dispatch({ type: 'EDIT_PARTNER_NAME', payload: {
+            name: this.state.name,
+            id: this.props.partnerIdReducer.id
         }})
         this.setState({
-            first: '',
-            last: '',
+            name: '',
             editName: false
         })
     }
 
-    editGoal = () => {
+    editLevel = () => {
         this.setState({
-            editGoal: true,
-            goal: this.props.golferIdReducer.goal
+            editLevel: true,
+            level: this.props.partnerIdReducer.level
         })
     }
 
-    cancelEditGoal = () => {
+    cancelEditLevel = () => {
         this.setState({
-            editGoal: false,
-            goal: ''
+            editLevel: false,
+            level: ''
         })
     }
 
-    saveEditGoal = () => {
-        this.props.dispatch({ type: 'EDIT_GOLFER_GOAL', payload: {
-            goal: this.state.goal,
-            id: this.props.golferIdReducer.id
+    saveEditLevel = () => {
+        this.props.dispatch({ type: 'EDIT_PARTNER_LEVEL', payload: {
+            level: this.state.level,
+            id: this.props.partnerIdReducer.id
         }})
         this.setState({
-            goal: '',
-            editGoal: false
+            level: '',
+            editLevel: false
         })
     }
 
-    editBio = () => {
-        this.setState({
-            editBio: true,
-            bio: this.props.golferIdReducer.bio
-        })
-    }
 
-    cancelEditBio = () => {
-        this.setState({
-            editBio: false,
-            bio: ''
-        })
-    }
-
-    saveEditBio = () => {
-        this.props.dispatch({ type: 'EDIT_GOLFER_BIO', payload: {
-            bio: this.state.bio,
-            id: this.props.golferIdReducer.id
-        }})
-        this.setState({
-            bio: '',
-            editBio: false
-        })
-    }
-
-    editPurpose = () => {
-        this.setState({
-            editPurpose: true,
-            purpose: this.props.golferIdReducer.purpose
-        })
-    }
-
-    cancelEditPurpose = () => {
-        this.setState({
-            editPurpose: false,
-            purpose: ''
-        })
-    }
-
-    saveEditPurpose = () => {
-        this.props.dispatch({ type: 'EDIT_GOLFER_PURPOSE', payload: {
-            purpose: this.state.purpose,
-            id: this.props.golferIdReducer.id
-        }})
-        this.setState({
-            purpose: '',
-            editPurpose: false
-        })
-    }
-
-    editPhoto = () => {
+    editImage = () => {
         this.setState({
             editImage: true
         })
     }
 
-    cancelEditPhoto = () => {
+    cancelEditImage = () => {
         this.setState({
             editImage: false
         })
@@ -146,10 +84,10 @@ class AdminGolferDetails extends Component {
         })
     }
 
-    saveEditPhoto = () => {
-        this.props.dispatch({ type: 'EDIT_GOLFER_PHOTO', payload: {
+    saveEditImage = () => {
+        this.props.dispatch({ type: 'EDIT_PARTNER_PHOTO', payload: {
             url: this.state.url,
-            id: this.props.golferIdReducer.id
+            id: this.props.partnerIdReducer.id
         }})
         this.setState({
             editImage: false
@@ -172,7 +110,7 @@ class AdminGolferDetails extends Component {
         const s3Url = 'https://hundred-holes-bucket.s3.amazonaws.com'
 
         const innderDropElement = (
-            <div class="inner-drop">
+            <div className="inner-drop">
                 <p>Click or Drop File Here!</p>
             </div>
         )
@@ -370,4 +308,4 @@ const putReduxStateOnProps = (reduxStore) => ({
     golferIdReducer: reduxStore.golferIdReducer
 });
 
-export default connect(putReduxStateOnProps)(AdminGolferDetails)
+export default connect(putReduxStateOnProps)(AdminPartnerDetails)
