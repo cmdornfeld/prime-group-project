@@ -1,8 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import AdminNav from '../AdminNav/AdminNav';
 
 export class AdminPledgesPage extends Component {
+
+    state = {
+        startingDate: '',
+        endingDate: '',
+        filterDates: false
+    }
 
     componentDidMount(){
         this.props.dispatch({ type: 'GET_DONATION_INFO' });
@@ -18,13 +24,78 @@ export class AdminPledgesPage extends Component {
         this.props.dispatch({ type: 'EXPORT_DONATIONS' })
     }
 
+    filterDates = () => {
+        this.setState({
+            filterDates: true
+        })
+    }
+
+    sendFilter = () => {
+        console.log(this.state)
+        this.setState({
+            filterDates: false
+        })
+    }
+
+    cancelFilter = () => {
+        this.setState({
+            filterDates: false
+        })
+    }
+
+    handleInputChangeFor = propertyName => (event) => {
+        this.setState({
+          [propertyName]: event.target.value,
+        });
+    };
+
     render() {
+
+        const filterDates = this.state.filterDates === false ? (
+            <Fragment>
+                    <button
+                    onClick={this.filterDates}
+                    >
+                        Filter
+                    </button>
+            </Fragment>
+        ) : (
+            <Fragment>
+                <label>Starting Date:
+                    <input 
+                    type="date"
+                    value={this.state.startingDate}
+                    onChange={this.handleInputChangeFor('startingDate')}
+                    />
+                </label>
+
+                <label>Ending Date:
+                    <input 
+                    type="date"
+                    value={this.state.endingDate}
+                    onChange={this.handleInputChangeFor('endingDate')}
+                    />
+                </label>
+                <button
+                onClick={this.cancelFilter}
+                >
+                    Cancel
+                </button>
+                <button
+                onClick={this.sendFilter}
+                >
+                    Filter
+                </button>
+            </Fragment>
+        )
+
         return (
             <>
             <div>
                 <AdminNav />
                 <h2>Donations</h2>
             </div>
+            <div>{filterDates}</div>
             <div>
                 <table>
                     <thead>
