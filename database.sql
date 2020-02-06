@@ -120,10 +120,11 @@ INSERT INTO "sponsor_level" ("title", "amount") VALUES ('PRESENTING', '50000'), 
 INSERT INTO "sponsor_level" ("title") VALUES ('IN-KIND');
 
 -- populating "sponsor" table with information from Wix site
-INSERT INTO "sponsor" ("img_url", "level") VALUES ('https://www.minnesotapga.com/wp-content/uploads/2019/04/1.-klick-300x300.jpg', 2), 
-('https://www.slot-source.com/wp-content/uploads/2015/11/aristocrat-logo.png', 4), 
-('https://upload.wikimedia.org/wikipedia/en/thumb/c/c2/Minnesota_Timberwolves_logo.svg/300px-Minnesota_Timberwolves_logo.svg.png', 5), 
-('https://upload.wikimedia.org/wikipedia/en/thumb/7/75/Minnesota_Lynx_logo.svg/300px-Minnesota_Lynx_logo.svg.png', 5);
+INSERT INTO "sponsor" ("company", "img_url", "level") VALUES ('Klick Foundation', 
+'https://www.minnesotapga.com/wp-content/uploads/2019/04/1.-klick-300x300.jpg', 2), ('Aristocrat', 
+'https://www.slot-source.com/wp-content/uploads/2015/11/aristocrat-logo.png', 4), ('Minnesota Timberwolves', 
+'https://upload.wikimedia.org/wikipedia/en/thumb/c/c2/Minnesota_Timberwolves_logo.svg/300px-Minnesota_Timberwolves_logo.svg.png', 5), 
+('Minnesota Lynx', 'https://upload.wikimedia.org/wikipedia/en/thumb/7/75/Minnesota_Lynx_logo.svg/300px-Minnesota_Lynx_logo.svg.png', 5);
 
 -- populating "videos" table with information from Wix site
 INSERT INTO "videos" ("url", "title") VALUES ('https://player.vimeo.com/video/230451690?title=0&byline=0', 'What Is Hope?'), 
