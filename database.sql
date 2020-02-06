@@ -67,6 +67,7 @@ CREATE TABLE "sponsor_level" (
 
 CREATE TABLE "sponsor" (
   "id" SERIAL PRIMARY KEY,
+  "company" VARCHAR (80),
   "img_url" VARCHAR (400),
   "level" INT REFERENCES "sponsor_level"
 );
