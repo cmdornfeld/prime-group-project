@@ -1,10 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import './contactPage.css'
 
 class ContactPage extends Component {
+
+    state = {
+        email: '',
+        name: '',
+        subject: '',
+        body: ''
+    }
 
     componentDidMount() {
         this.getAddress();
@@ -18,8 +25,26 @@ class ContactPage extends Component {
         this.props.dispatch({ type: 'GET_CONTACT' })
     }
 
+    handleInputChangeFor = propertyName => (event) => {
+        this.setState({
+          [propertyName]: event.target.value,
+        });
+    };
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.props.dispatch({ type: 'SEND_EMAIL', payload: this.state });
+        this.setState({
+            email: '',
+            name: '',
+            subject: '',
+            body: ''
+        })
+    }
+
     render() {
         return (
+            <Fragment>
             <div>
                 <Nav />
                 <h1>Contact</h1>
@@ -50,6 +75,52 @@ class ContactPage extends Component {
                     })}
                 </div>
             </div>
+            <form onSubmit={(event) => this.handleSubmit(event)}>
+                <div>
+                    <label>
+                        Your Email:
+                        <input
+                        value={this.state.email}
+                        onChange={this.handleInputChangeFor('email')}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Your Name:
+                        <input
+                        value={this.state.name}
+                        onChange={this.handleInputChangeFor('name')}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Subject:
+                        <input
+                        value={this.state.subject}
+                        onChange={this.handleInputChangeFor('subject')}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <div>
+                        <label>Body:</label>
+                    </div>
+                    <div>
+                        <textarea
+                        rows="10"
+                        cols="50"
+                        value={this.state.body}
+                        onChange={this.handleInputChangeFor('body')}
+                        />
+                    </div>
+                </div>
+                <div>
+                    <button>Send Email</button>
+                </div>
+            </form>
+            </Fragment>
         )
     }
 }
