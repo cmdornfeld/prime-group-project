@@ -214,7 +214,7 @@ class AdminGolferDetails extends Component {
 
         const editGoal = this.state.editGoal === false ? (
             <Fragment>
-                <h3>${this.props.golferIdReducer.goal}</h3>
+                ${this.props.golferIdReducer.goal}
                 <button
                 onClick={this.editGoal}
                 >
@@ -343,23 +343,20 @@ class AdminGolferDetails extends Component {
             </Fragment>
         )
 
-
-
         return (
             <div>
                 <AdminNav />
                 <div>
                     {editName}
                 </div>
-                {/* <img src={this.props.golferIdReducer.img_url} alt={this.props.golferIdReducer.id} width='220px' height='200px' /> */}
                 <div>
                     {editImage}
                 </div>
                 <h3>Goal: {editGoal}</h3>
                 <h3>Bio</h3>
-                <p>{editBio}</p>
+                {editBio}
                 <h3>Why am I doing this?</h3>
-                <p>{editPurpose}</p>
+                {editPurpose}
             </div>
         )
     }
