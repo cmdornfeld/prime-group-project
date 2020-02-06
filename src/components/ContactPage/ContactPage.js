@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import Nav from '../Nav/Nav';
@@ -20,6 +20,7 @@ class ContactPage extends Component {
 
     render() {
         return (
+            <Fragment>
             <div>
                 <Nav />
                 <h1>Contact</h1>
@@ -50,6 +51,35 @@ class ContactPage extends Component {
                     })}
                 </div>
             </div>
+            <form>
+                <div>
+                    <label>
+                        Your Email:
+                        <input></input>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Your Name:
+                        <input></input>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Subject:
+                        <input></input>
+                    </label>
+                </div>
+                <div>
+                    <div>
+                        <label>Body:</label>
+                    </div>
+                    <div>
+                        <textarea rows="10" cols="50"></textarea>
+                    </div>
+                </div>
+            </form>
+            </Fragment>
         )
     }
 }
