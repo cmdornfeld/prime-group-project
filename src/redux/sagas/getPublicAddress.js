@@ -23,9 +23,20 @@ function* getPublicContact() {
     }
 }
 
+//post to send email
+function* sendEmail(action){
+    try{
+        yield axios.post(`/api/public/email`,  action.payload);
+    }
+      catch(error){
+          console.log('error in POST item', error);
+      }
+    }
+
 function* getPublicAddressSaga() {
     yield takeLatest('GET_ADDRESS', getPublicAddress);
     yield takeLatest('GET_CONTACT', getPublicContact);
+    yield takeLatest('SEND_EMAIL', sendEmail)
 }
 
 export default getPublicAddressSaga;
