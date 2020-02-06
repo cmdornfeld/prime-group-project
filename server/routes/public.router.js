@@ -130,7 +130,7 @@ router.post( '/pledges', (req, res) => {
    pool.query(queryAddress).then(( results ) =>{
        res.send(results.rows);
    }).catch( (error) =>{
-        console.log('Error GETTING Golfers:', error);
+        console.log('Error GETTING address:', error);
     res.sendStatus(500);
    })
 });
@@ -142,9 +142,23 @@ router.get('/contact', (req, res)=>{
     pool.query(queryAddress).then(( results ) =>{
         res.send(results.rows);
     }).catch( (error) =>{
-         console.log('Error GETTING Golfers:', error);
+         console.log('Error GETTING contact:', error);
      res.sendStatus(500);
     })
  });
+
+  /* Get route for Partner */
+  router.get('/sponsor', (req, res) => {
+    let queryString = `SELECT "sponsor"."id", "img_url", "company" AS "name", "sponsor_level"."title", "sponsor_level"."amount", "sponsor_level"."id" "sponsor_level"
+                        FROM "sponsor"
+                        JOIN "sponsor_level" ON "sponsor_level"."id" = "sponsor"."level"
+                        ORDER BY "sponsor_level" ASC;`;
+    pool.query(queryString)
+        .then(results => res.send(results.rows))
+        .catch(error => {
+            console.log('Error GETTING partner info:', error);
+            res.sendStatus(500);
+    });
+});
 
 module.exports = router;
