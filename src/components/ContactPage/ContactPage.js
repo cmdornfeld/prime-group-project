@@ -6,6 +6,13 @@ import './contactPage.css'
 
 class ContactPage extends Component {
 
+    state = {
+        email: '',
+        name: '',
+        subject: '',
+        body: ''
+    }
+
     componentDidMount() {
         this.getAddress();
         this.getContact();
@@ -16,6 +23,23 @@ class ContactPage extends Component {
     }
     getContact = () => {
         this.props.dispatch({ type: 'GET_CONTACT' })
+    }
+
+    handleInputChangeFor = propertyName => (event) => {
+        this.setState({
+          [propertyName]: event.target.value,
+        });
+    };
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.props.dispatch({ type: 'SEND_EMAIL', payload: this.state });
+        this.setState({
+            email: '',
+            name: '',
+            subject: '',
+            body: ''
+        })
     }
 
     render() {
@@ -51,23 +75,32 @@ class ContactPage extends Component {
                     })}
                 </div>
             </div>
-            <form>
+            <form onSubmit={(event) => this.handleSubmit(event)}>
                 <div>
                     <label>
                         Your Email:
-                        <input></input>
+                        <input
+                        value={this.state.email}
+                        onChange={this.handleInputChangeFor('email')}
+                        />
                     </label>
                 </div>
                 <div>
                     <label>
                         Your Name:
-                        <input></input>
+                        <input
+                        value={this.state.name}
+                        onChange={this.handleInputChangeFor('name')}
+                        />
                     </label>
                 </div>
                 <div>
                     <label>
                         Subject:
-                        <input></input>
+                        <input
+                        value={this.state.subject}
+                        onChange={this.handleInputChangeFor('subject')}
+                        />
                     </label>
                 </div>
                 <div>
@@ -75,8 +108,16 @@ class ContactPage extends Component {
                         <label>Body:</label>
                     </div>
                     <div>
-                        <textarea rows="10" cols="50"></textarea>
+                        <textarea
+                        rows="10"
+                        cols="50"
+                        value={this.state.body}
+                        onChange={this.handleInputChangeFor('body')}
+                        />
                     </div>
+                </div>
+                <div>
+                    <button>Send Email</button>
                 </div>
             </form>
             </Fragment>

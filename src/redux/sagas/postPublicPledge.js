@@ -3,9 +3,7 @@ import { takeEvery, put } from 'redux-saga/effects';
 
 //post item for order
 function* postPledgeSaga(action){
-try{
-    console.log('pledges##############', action.payload);
-    
+try{    
     yield axios.post(`/api/public/pledges`,  action.payload);
 }
   catch(error){
