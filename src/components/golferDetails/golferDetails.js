@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 
 class golferDetails extends Component {
 
+    componentDidMount() {
+        this.props.dispatch({ type: 'GET_GOLFER_DETAILS', payload: this.props.match.params.id })
+    }
+
     render() {
         return (
             <div>

@@ -53,9 +53,8 @@ export class AdminPartnersPage extends Component {
         
     }
 
-    editPartner = (id) => {
-        console.log('in editPartner with ID:', id);
-        
+    viewPartner = (id) => {
+        this.props.history.push(`/admin/partners/${id}`);
     }
 
     removePartner = (id)  => {
@@ -114,7 +113,7 @@ export class AdminPartnersPage extends Component {
                             <div key={partner.id}>
                                 <img src={partner.img_url} alt={partner.name} />
                                 <button onClick={()=> this.removePartner(partner.id)}>Remove</button>
-                                <button onClick={()=> this.editPartner(partner.id)}>Edit</button>
+                                <button onClick={() => this.viewPartner(partner.id)}>Edit</button>
                             </div>
                         )
                     } 
@@ -125,7 +124,7 @@ export class AdminPartnersPage extends Component {
                                 <h3>{partner.title} {partner.amount}</h3>
                                 <img src={partner.img_url} alt={partner.name} />
                                 <button onClick={()=> this.removePartner(partner.id)}>Remove</button>
-                                <button onClick={()=> this.editPartner(partner.id)}>Edit</button>
+                                <button onClick={() => this.viewPartner(partner.id)}>Edit</button>
                             </div>
                         )
                     }

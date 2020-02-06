@@ -14,7 +14,6 @@ class GolfersPage extends Component {
     }
     
     viewGolfer = (id) => {
-        this.props.dispatch({ type: 'GET_GOLFER_DETAILS', payload: id })
         this.props.history.push(`/view/${id}`);
     }
     

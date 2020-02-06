@@ -75,7 +75,6 @@ export class AdminGolfersPage extends Component {
     }
 
     viewGolfer = (id) => {
-        this.props.dispatch({ type: 'ADMIN_GET_GOLFER_DETAILS', payload: id })
         this.props.history.push(`/admin/golfers/${id}`);
     }
 

@@ -20,6 +20,10 @@ class AdminGolferDetails extends Component {
         editPurpose: false,
     }
 
+    componentDidMount() {
+        this.props.dispatch({ type: 'ADMIN_GET_GOLFER_DETAILS', payload: this.props.match.params.id })
+    }
+
     editName = () => {
         this.setState({
             editName: true,

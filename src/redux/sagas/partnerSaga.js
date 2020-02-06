@@ -41,11 +41,55 @@ function* removePartner(action) {
     }
 }
 
+function* getPartnerDetails(action) {
+    try{
+        const getResponse = yield axios.get(`/api/admin/partners/${action.payload}`);
+        yield put({type: 'SET_PARTNER', payload: getResponse.data})
+    }
+    catch (error){
+        console.log('failed GETTING requested partner', error); 
+    }
+}
+
+function* editPartnerName(action) {
+    try {
+        yield axios.put(`/api/admin/partners/name/${action.payload.id}`, action.payload);
+        const getResponse = yield axios.get(`/api/admin/partners/${action.payload.id}`);
+        yield put({type: 'SET_PARTNER', payload: getResponse.data});
+    } catch (error) {
+        console.log('Failed updating event location', error);
+    }
+}
+
+function* editPartnerImage(action) {
+    try {
+        yield axios.put(`/api/admin/partners/image/${action.payload.id}`, action.payload);
+        const getResponse = yield axios.get(`/api/admin/partners/${action.payload.id}`);
+        yield put({type: 'SET_PARTNER', payload: getResponse.data});
+    } catch (error) {
+        console.log('Failed updating event location', error);
+    }
+}
+
+function* editPartnerLevel(action) {
+    try {
+        yield axios.put(`/api/admin/partners/level/${action.payload.id}`, action.payload);
+        const getResponse = yield axios.get(`/api/admin/partners/${action.payload.id}`);
+        yield put({type: 'SET_PARTNER', payload: getResponse.data});
+    } catch (error) {
+        console.log('Failed updating event location', error);
+    }
+}
+
 function* partnerSaga() {
     yield takeLatest('GET_PARTNERS', getPartnerInfo)
     yield takeLatest('GET_PARTNER_LEVELS', getPartnerLevels)
     yield takeLatest('ADD_PARTNER', addNewPartner)
     yield takeLatest('REMOVE_PARTNER', removePartner)
+    yield takeLatest('GET_PARTNER_DETAILS', getPartnerDetails)
+    yield takeLatest('EDIT_PARTNER_NAME', editPartnerName)
+    yield takeLatest('EDIT_PARTNER_IMAGE', editPartnerImage)
+    yield takeLatest('EDIT_PARTNER_LEVEL', editPartnerLevel)
 }
 
 export default partnerSaga;
