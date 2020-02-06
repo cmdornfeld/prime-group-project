@@ -1,6 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool');
+const nodemailer = require('nodemailer');
 
 /* Public Home page */
 //Get route for videos
@@ -146,5 +148,42 @@ router.get('/contact', (req, res)=>{
      res.sendStatus(500);
     })
  });
+
+ router.post('/email', function(req, res, next) {
+    console.log(req.body)
+    const email = req.body.email;
+    const name = req.body.name;
+    const subject = req.body.subject;
+    const body = req.body.body;
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD
+      }
+    })
+    const mailOptions = {
+      from: `jamie.richison19@gmail.com`,
+      to: `jamie.richison19@gmail.com`,
+      subject: `${subject}`,
+      text: `Hello, 
+
+        You have recieved an inquiry. To contact them back please email: ${name} at ${email}
+
+        Here is their email:
+
+        ${body}`,
+    replyTo: `${email}`
+    }
+    transporter.sendMail(mailOptions, function(err, res) {
+      if (err) {
+        console.error('there was an error: ', err);
+        res.sendStatus(500);
+      } else {
+        console.log('here is the res: ', res);
+        res.sendStatus(200);
+      }
+    })
+  })
 
 module.exports = router;
