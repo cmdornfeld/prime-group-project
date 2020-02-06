@@ -46,7 +46,7 @@ router.get('/videos', rejectUnauthenticated, (req, res)=>{
 });
 
 //Get all donations
-router.get('/donation-info', (req, res)=>{
+router.get('/donation-info', rejectUnauthenticated, (req, res)=>{
     const queryString = `SELECT "donation"."id", "donation"."first_name", "donation"."last_name", "phone_number", "email", "type", "amount", "max", "golfer_id",
                          "golfer"."first_name" firstname, "golfer"."last_name" lastname, "status"
                         FROM "donation" 
@@ -92,6 +92,20 @@ router.get('/partner-levels', rejectUnauthenticated, (req, res) => {
         .then(results => res.send(results.rows))
         .catch(error => {
             console.log('Error GETTING partner info:', error);
+            res.sendStatus(500);
+    });
+});
+
+//GET route for specific partner
+router.get('/partners/:id', rejectUnauthenticated, (req, res) => {
+    const id = req.params.id;
+    pool.query(`SELECT "sponsor"."id", "company", "img_url", "title"
+                FROM "sponsor"
+                JOIN "sponsor_level" ON "sponsor_level"."id" = "sponsor"."level"
+                WHERE "sponsor"."id" = $1;`, [id])
+        .then(results => res.send(results.rows[0]))
+        .catch(error => {
+            console.log('Error GETTING event info:', error);
             res.sendStatus(500);
     });
 });
@@ -388,6 +402,33 @@ router.post('/partners', rejectUnauthenticated, (req, res) => {
 router.delete('/partners/delete/:id', rejectUnauthenticated, (req, res) => {
     pool.query(`DELETE FROM "sponsor" WHERE "id" = $1;`, [req.params.id])
     .then(()=> res.sendStatus(200))
+    .catch(() => res.sendStatus(500))
+});
+
+router.put('/partners/name/:id', rejectUnauthenticated, (req, res) => {
+    let id = req.body.id;
+    let name = req.body.name;
+    let queryString = `UPDATE "sponsor" SET "company" = $1 WHERE "sponsor"."id" = $2;`;
+    pool.query(queryString, [name, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
+router.put('/partners/image/:id', rejectUnauthenticated, (req, res) => {
+    let id = req.body.id;
+    let url = req.body.url;
+    let queryString = `UPDATE "sponsor" SET "img_url" = $1 WHERE "sponsor"."id" = $2;`;
+    pool.query(queryString, [url, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
+router.put('/partners/level/:id', rejectUnauthenticated, (req, res) => {
+    let id = req.body.id;
+    let level = req.body.level;
+    let queryString = `UPDATE "sponsor" SET "level" = $1 WHERE "sponsor"."id" = $2;`;
+    pool.query(queryString, [level, id])
+    .then(() => res.sendStatus(201))
     .catch(() => res.sendStatus(500))
 });
 
