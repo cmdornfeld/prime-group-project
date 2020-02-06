@@ -15,10 +15,14 @@ class AdminPartnerDetails extends Component {
         editLevel: false,
     }
 
+    componentDidMount() {
+        this.props.dispatch({ type: 'GET_PARTNER_DETAILS', payload: this.props.match.params.id });
+    }
+
     editName = () => {
         this.setState({
             editName: true,
-            name: this.props.partnerIdReducer.company,
+            name: this.props.partner.company,
         })
     }
 
@@ -32,7 +36,7 @@ class AdminPartnerDetails extends Component {
     saveEditName = () => {
         this.props.dispatch({ type: 'EDIT_PARTNER_NAME', payload: {
             name: this.state.name,
-            id: this.props.partnerIdReducer.id
+            id: this.props.partner.id
         }})
         this.setState({
             name: '',
@@ -43,7 +47,12 @@ class AdminPartnerDetails extends Component {
     editLevel = () => {
         this.setState({
             editLevel: true,
-            level: this.props.partnerIdReducer.level
+        })
+    }
+
+    assignPartnerLevel = (event) => {
+        this.setState({
+            level: event.target.value
         })
     }
 
@@ -57,7 +66,7 @@ class AdminPartnerDetails extends Component {
     saveEditLevel = () => {
         this.props.dispatch({ type: 'EDIT_PARTNER_LEVEL', payload: {
             level: this.state.level,
-            id: this.props.partnerIdReducer.id
+            id: this.props.partner.id
         }})
         this.setState({
             level: '',
@@ -85,9 +94,9 @@ class AdminPartnerDetails extends Component {
     }
 
     saveEditImage = () => {
-        this.props.dispatch({ type: 'EDIT_PARTNER_PHOTO', payload: {
+        this.props.dispatch({ type: 'EDIT_PARTNER_IMAGE', payload: {
             url: this.state.url,
-            id: this.props.partnerIdReducer.id
+            id: this.props.partner.id
         }})
         this.setState({
             editImage: false
@@ -118,7 +127,7 @@ class AdminPartnerDetails extends Component {
 
         const editName = this.state.editName === false ? (
             <Fragment>
-                <h3>{this.props.golferIdReducer.first_name} {this.props.golferIdReducer.last_name}</h3>
+                <h3>{this.props.partner.company}</h3>
                 <button
                 onClick={this.editName}
                 >
@@ -130,15 +139,8 @@ class AdminPartnerDetails extends Component {
                 <div>
                     <input
                     type="text"
-                    value={this.state.first}
-                    onChange={this.handleInputChangeFor('first')}
-                    />
-                </div>
-                <div>
-                    <input
-                    type="text"
-                    value={this.state.last}
-                    onChange={this.handleInputChangeFor('last')}
+                    value={this.state.name}
+                    onChange={this.handleInputChangeFor('name')}
                     />
                 </div>
                 <button
@@ -154,97 +156,34 @@ class AdminPartnerDetails extends Component {
             </Fragment>
         )
 
-        const editGoal = this.state.editGoal === false ? (
+        const editLevel = this.state.editLevel === false ? (
             <Fragment>
-                ${this.props.golferIdReducer.goal}
+                <p>{this.props.partner.title}</p>
                 <button
-                onClick={this.editGoal}
+                onClick={this.editLevel}
                 >
-                    Edit Goal
+                    Edit Level
                 </button>
             </Fragment>
         ) : (
             <Fragment>
                 <div>
-                    <input
-                    type="number"
-                    value={this.state.goal}
-                    onChange={this.handleInputChangeFor('goal')}
-                    />
+                <select onChange={(event) => {this.assignPartnerLevel(event)}}>
+                    {this.props.level.map(level => (
+                        <option key={level.id} value={level.id}>
+                            {level.title} ({level.amount})
+                        </option>
+                    )
+                    )}
+                </select>
                 </div>
                 <button
-                onClick={this.cancelEditGoal}
+                onClick={this.cancelEditLevel}
                 >
                     Cancel
                 </button>
                 <button
-                onClick={this.saveEditGoal}
-                >
-                    Save
-                </button>
-            </Fragment>
-        )
-
-        const editBio = this.state.editBio === false ? (
-            <Fragment>
-                <p>{this.props.golferIdReducer.bio}</p>
-                <button
-                onClick={this.editBio}
-                >
-                    Edit Goal
-                </button>
-            </Fragment>
-        ) : (
-            <Fragment>
-                <div>
-                    <textarea
-                    rows='10'
-                    cols="100"
-                    type="number"
-                    value={this.state.bio}
-                    onChange={this.handleInputChangeFor('bio')}
-                    />
-                </div>
-                <button
-                onClick={this.cancelEditBio}
-                >
-                    Cancel
-                </button>
-                <button
-                onClick={this.saveEditBio}
-                >
-                    Save
-                </button>
-            </Fragment>
-        )
-
-        const editPurpose = this.state.editPurpose === false ? (
-            <Fragment>
-                <p>{this.props.golferIdReducer.purpose}</p>
-                <button
-                onClick={this.editPurpose}
-                >
-                    Edit Goal
-                </button>
-            </Fragment>
-        ) : (
-            <Fragment>
-                <div>
-                    <textarea
-                    rows='10'
-                    cols="100"
-                    type="number"
-                    value={this.state.purpose}
-                    onChange={this.handleInputChangeFor('purpose')}
-                    />
-                </div>
-                <button
-                onClick={this.cancelEditPurpose}
-                >
-                    Cancel
-                </button>
-                <button
-                onClick={this.saveEditPurpose}
+                onClick={this.saveEditLevel}
                 >
                     Save
                 </button>
@@ -253,12 +192,12 @@ class AdminPartnerDetails extends Component {
 
         const editImage = this.state.editImage === false ? (
             <Fragment>
-                <img src={this.props.golferIdReducer.img_url} alt={this.props.golferIdReducer.id} width='220px' height='200px' />
+                <img src={this.props.partner.img_url} alt={this.props.partner.company} width='220px' height='200px' />
                 <div>
                     <button
-                    onClick={this.editPhoto}
+                    onClick={this.editImage}
                     >
-                        Edit Photo
+                        Edit Image
                     </button>
                 </div>
             </Fragment>
@@ -273,12 +212,12 @@ class AdminPartnerDetails extends Component {
                     upload={uploadOptions}
                 />
                 <button
-                onClick={this.cancelEditPhoto}
+                onClick={this.cancelEditImage}
                 >
                     Cancel
                 </button>
                 <button
-                onClick={this.saveEditPhoto}
+                onClick={this.saveEditImage}
                 >
                     Save
                 </button>
@@ -294,18 +233,18 @@ class AdminPartnerDetails extends Component {
                 <div>
                     {editImage}
                 </div>
-                <h3>Goal: {editGoal}</h3>
-                <h3>Bio</h3>
-                {editBio}
-                <h3>Why am I doing this?</h3>
-                {editPurpose}
+                <div>
+                    {JSON.stringify(this.state)}
+                    {editLevel}
+                </div>
             </div>
         )
     }
 }
 
 const putReduxStateOnProps = (reduxStore) => ({
-    golferIdReducer: reduxStore.golferIdReducer
+    partner: reduxStore.partnerReducer.partner,
+    level: reduxStore.partnerReducer.level
 });
 
 export default connect(putReduxStateOnProps)(AdminPartnerDetails)
