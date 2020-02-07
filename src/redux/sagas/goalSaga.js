@@ -23,9 +23,21 @@ function* getGolfersDonationTotal() {
     }
 }
 
+function* getPartnerPledgeTotal() {
+    try{
+        const getResponse = yield axios.get(`/api/public/partner-pledge-total`);
+        console.log(getResponse.data)
+        yield put({type: 'SET_PARTNER_PLEDGE_TOTAL', payload: getResponse.data})
+    }
+    catch (error){
+        console.log(error); 
+    }
+}
+
 function* goalSaga() {
     yield takeLatest('GET_GOLFERS_GOAL_TOTAL', getGolfersGoalTotal)
     yield takeLatest('GET_GOLFERS_DONATION_TOTAL', getGolfersDonationTotal)
+    yield takeLatest('GET_PARTNER_PLEDGE_TOTAL', getPartnerPledgeTotal)
 }
 
 export default goalSaga;

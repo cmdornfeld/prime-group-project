@@ -29,6 +29,7 @@ class UserPage extends Component {
     this.getEvent();
     this.getGolferGoalTotal();
     this.getGolferDonationTotal();
+    this.getPartnerPledgeTotal();
 }
 
 getVideo = ()=> {
@@ -47,6 +48,10 @@ getGolferDonationTotal = () => {
   this.props.dispatch({ type: "GET_GOLFERS_DONATION_TOTAL" });
 }
 
+getPartnerPledgeTotal = () => {
+  this.props.dispatch({ type: "GET_PARTNER_PLEDGE_TOTAL" });
+}
+
   render(props) {
 
     const { classes } = this.props;
@@ -62,7 +67,7 @@ getGolferDonationTotal = () => {
     }
 
     let entireGoal = 75000;
-    const entireDonationTotal = 30000;
+    const entireDonationTotal = Number(this.props.golferDonationTotal.total_received) + Number(this.props.partnerPledgeTotal.total);
     const normaliseEntireTotals = value => {
         let normalizedNum = (Number(entireDonationTotal)) * 100 / (Number(entireGoal))
         if (normalizedNum > 100){
@@ -105,6 +110,8 @@ const putReduxStateOnProps = (reduxStore) => ({
   eventInfoReducer: reduxStore.eventInfoReducer,
   golferGoalTotal: reduxStore.goalReducer.golferGoalTotal,
   golferDonationTotal: reduxStore.goalReducer.golferDonationTotal,
+  // entireGoal: reduxStore.goalReducer.entireGoal,
+  partnerPledgeTotal: reduxStore.goalReducer.partnerPledgeTotal,
 });
 
 UserPage.propTypes = {
