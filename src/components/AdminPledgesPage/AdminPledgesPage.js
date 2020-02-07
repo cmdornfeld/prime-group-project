@@ -31,7 +31,10 @@ export class AdminPledgesPage extends Component {
     }
 
     sendFilter = () => {
-        console.log(this.state)
+        this.props.dispatch({type: 'SEND_FILTER_DATES', payload: {
+            startingDate: this.state.startingDate,
+            endingDate: this.state.endingDate
+        }})
         this.setState({
             filterDates: false
         })

@@ -72,6 +72,20 @@ router.get('/donation-export', rejectUnauthenticated, (req, res)=>{
     })
 });
 
+//Filter donation table Dates
+router.get('/donation', rejectUnauthenticated, (req, res)=>{
+    console.log(req.query)
+    const startingDate = req.query.startingDate;
+    const endingDate = req.query.endingDate
+    const queryString = `SELECT * FROM "donation"WHERE "date" BETWEEN $1 AND $2;`;
+    pool.query(queryString, [startingDate, endingDate]).then(( results ) =>{
+        res.send(results.rows);
+    }).catch( (error) =>{
+        console.log('Error filtering donation table. Error:', error);
+        res.sendStatus(500);
+    })
+});
+
 //GET route for partners/sponsors
 router.get('/partners', rejectUnauthenticated, (req, res) => {
     let queryString = `SELECT "sponsor"."id", "img_url", "company" AS "name", "sponsor_level"."title", "sponsor_level"."amount", "sponsor_level"."id" "sponsor_level"
