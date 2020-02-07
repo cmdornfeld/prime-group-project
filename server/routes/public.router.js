@@ -50,6 +50,19 @@ router.get('/golfer-donation-total', (req, res) => {
     });
 });
 
+//GET route for partner pledge total
+router.get('/partner-pledge-total', (req, res) => {
+    let queryString  = `SELECT SUM("sponsor_level"."amount") "total"
+                        FROM "sponsor"
+                        JOIN "sponsor_level" ON "sponsor_level"."id" = "sponsor"."level";`;
+    pool.query(queryString)
+        .then(results => res.send(results.rows[0]))
+        .catch(error => {
+            console.log('Error GETTING comments:', error);
+            res.sendStatus(500);
+    });
+});
+
 /* Public About Page */
 //get route public for mission
 router.get('/mission', (req, res) => {
