@@ -149,12 +149,29 @@ router.get('/contact', (req, res)=>{
     })
  });
 
+ // get route for email address
+router.get('/email', (req, res)=>{
+    const queryText = `SELECT "email" FROM "contact";`;
+    pool.query(queryText).then(( results ) =>{
+        res.send(results.rows);
+    }).catch( (error) =>{
+         console.log('Error GETTING contact:', error);
+     res.sendStatus(500);
+    })
+ });
+
  router.post('/email', function(req, res, next) {
-    console.log(req.body)
     const email = req.body.email;
     const name = req.body.name;
     const subject = req.body.subject;
     const body = req.body.body;
+    let toArray = req.body.to;
+    let to = [];
+
+    toArray.forEach((element) => {
+        to.push(element.email)
+    });
+
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -164,7 +181,7 @@ router.get('/contact', (req, res)=>{
     })
     const mailOptions = {
       from: `jamie.richison19@gmail.com`,
-      to: `jamie.richison19@gmail.com`,
+      to: `${to}`,
       subject: `${subject}`,
       text: `Hello, 
 
