@@ -28,7 +28,8 @@ CREATE TABLE "donation" (
   "amount" INT,
   "max" INT,
   "golfer_id" INT REFERENCES "golfer",
-  "status" VARCHAR (6) DEFAULT 'unpaid'
+  "status" VARCHAR (6) DEFAULT 'unpaid',
+  "date" TIMESTAMP DEFAULT NOW()
 );
  
 CREATE TABLE "event" (

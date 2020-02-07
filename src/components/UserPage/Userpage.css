@@ -1,3 +1,16 @@
 body{
     background-color: rgb(37,49,85);
+    color: white;
 }
+
+.card {
+    margin: auto;
+    width: 60%;
+    padding: 10px;
+  }
+  .title {
+    margin: auto;
+    width: 30%;
+    padding: 10px;
+  }
+  

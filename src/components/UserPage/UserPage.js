@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import dayjs from 'dayjs'
+import HolesforHope from './100HolesforHope.png';
 
 import './Userpage.css';
 import Nav from '../Nav/Nav'
@@ -73,7 +74,6 @@ getGolferDonationTotal = () => {
     return (
       <div>
         <Nav />
-        <h1>home</h1>
         <h4>This year's pledges: {this.props.golferDonationTotal.total_received}</h4>
         <LinearProgress value={normaliseGolferTotals(golferDonationTotal)} classes={{colorPrimary: classes.linearColorPrimary, barColorPrimary: classes.linearBarColorPrimary}}
           color="primary" variant="determinate" style={{height:"20px", width:"20%", borderRadius:"10px"}}/>
@@ -82,17 +82,20 @@ getGolferDonationTotal = () => {
         <LinearProgress value={normaliseEntireTotals(entireDonationTotal)} classes={{colorPrimary: classes.linearColorPrimary, barColorPrimary: classes.linearBarColorPrimary}}
           color="primary" variant="determinate" style={{height:"20px", width:"20%", borderRadius:"10px"}}/>
         <h4>Goal ${entireGoal}</h4>
-          <h3>{dayjs(this.props.eventInfoReducer.date).format('MMMM DD YYYY')} {this.props.eventInfoReducer.location}</h3>
-        
-        {/* {JSON.stringify(this.props.videoReducer)} */}
-        {this.props.videoReducer.map( (item) => {
-          return(
-            <div>
-          <h3>{item.title}</h3>
-              <iframe src={item.url} width='auto' height='auto' />
-              </div>
-          )
-        })}
+        <div class='title'>
+          <img src={HolesforHope} alt="100 Holes For Hope" width='420px' height='200px' />
+        </div>
+          <h2 align="center">{dayjs(this.props.eventInfoReducer.date).format('MMMM DD YYYY')} {this.props.eventInfoReducer.location}</h2>
+          <div class='card'>
+            {this.props.videoReducer.map( (item) => {
+              return(
+                <div >
+                  <h1 align="center" color='white'>{item.title}</h1>
+                  <iframe src={item.url} width='880px' height='500px' />
+                  </div>
+              )
+            })}
+          </div>
       </div>
     );
   }
