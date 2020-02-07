@@ -28,6 +28,28 @@ router.get('/event-info', (req, res) => {
     });
 });
 
+//GET route for golfer goal total
+router.get('/golfer-goal-total', (req, res) => {
+    let queryString  = `SELECT SUM("goal") "total" FROM "golfer";`
+    pool.query(queryString)
+        .then(results => res.send(results.rows[0]))
+        .catch(error => {
+            console.log('Error GETTING comments:', error);
+            res.sendStatus(500);
+    });
+});
+
+//GET route for golfer donation total
+router.get('/golfer-donation-total', (req, res) => {
+    let queryString  = `SELECT SUM("amount") "total_received" FROM "donation";`
+    pool.query(queryString)
+        .then(results => res.send(results.rows[0]))
+        .catch(error => {
+            console.log('Error GETTING comments:', error);
+            res.sendStatus(500);
+    });
+});
+
 /* Public About Page */
 //get route public for mission
 router.get('/mission', (req, res) => {
@@ -73,7 +95,13 @@ router.get('/golfers', (req, res) => {
 //GET route for individual golfer
 router.get('/golfers/:id', (req, res) => {
     const id = req.params.id;
-    pool.query(`SELECT * FROM "golfer" WHERE id = $1;`, [id])
+    let queryString = `SELECT "golfer"."id", "golfer"."first_name", "golfer"."last_name", "bio", "purpose", "goal", "img_url", 
+                        SUM("amount") "total"
+                        FROM "golfer"
+                        JOIN "donation" ON "donation"."golfer_id" = "golfer"."id"
+                        WHERE "golfer"."id" = $1
+                        GROUP BY "golfer"."id";`
+    pool.query(queryString, [id])
         .then(results => res.send(results.rows[0]))
         .catch(error => {
             console.log('Error GETTING event info:', error);

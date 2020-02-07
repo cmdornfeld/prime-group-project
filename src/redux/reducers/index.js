@@ -16,6 +16,7 @@ import partnerReducer from './partnerReducer';
 import addressPublicReducer from './getPublicAddress';
 import contactPublicReducer from './getPublicContact';
 import publicSponsorReducer from './getPublicSponsor';
+import goalReducer from './goalReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -41,6 +42,7 @@ const rootReducer = combineReducers({
   addressPublicReducer,
   contactPublicReducer,
   publicSponsorReducer,
+  goalReducer,
 });
 
 export default rootReducer;

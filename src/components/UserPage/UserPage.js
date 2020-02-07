@@ -6,11 +6,29 @@ import HolesforHope from './100HolesforHope.png';
 import './Userpage.css';
 import Nav from '../Nav/Nav'
 
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
+
+const styles = theme => ({
+  progress: {
+    margin: theme.spacing.unit * 2,
+  },
+  linearColorPrimary: {
+      backgroundColor: '#d3dee0',
+  },
+  linearBarColorPrimary: {
+      backgroundColor: '#b49759',
+  },
+});
+
 class UserPage extends Component {
 
   componentDidMount() {
     this.getVideo();
     this.getEvent();
+    this.getGolferGoalTotal();
+    this.getGolferDonationTotal();
 }
 
 getVideo = ()=> {
@@ -21,10 +39,49 @@ getEvent = ()=> {
   this.props.dispatch({ type: "GET_EVENTS"});
 }
 
-  render() {
+getGolferGoalTotal = () => {
+  this.props.dispatch({ type: "GET_GOLFERS_GOAL_TOTAL" });
+}
+
+getGolferDonationTotal = () => {
+  this.props.dispatch({ type: "GET_GOLFERS_DONATION_TOTAL" });
+}
+
+  render(props) {
+
+    const { classes } = this.props;
+        
+    let golferGoalTotal = this.props.golferGoalTotal.total;
+    const golferDonationTotal = this.props.golferDonationTotal.total_received;
+    const normaliseGolferTotals = value => {
+        let normalizedNum = (Number(golferDonationTotal)) * 100 / (Number(golferGoalTotal))
+        if (normalizedNum > 100){
+          normalizedNum = 100;
+        }
+        return normalizedNum;
+    }
+
+    let entireGoal = 75000;
+    const entireDonationTotal = 30000;
+    const normaliseEntireTotals = value => {
+        let normalizedNum = (Number(entireDonationTotal)) * 100 / (Number(entireGoal))
+        if (normalizedNum > 100){
+          normalizedNum = 100;
+        }
+        return normalizedNum;
+    }
+
     return (
       <div>
         <Nav />
+        <h4>This year's pledges: {this.props.golferDonationTotal.total_received}</h4>
+        <LinearProgress value={normaliseGolferTotals(golferDonationTotal)} classes={{colorPrimary: classes.linearColorPrimary, barColorPrimary: classes.linearBarColorPrimary}}
+          color="primary" variant="determinate" style={{height:"20px", width:"20%", borderRadius:"10px"}}/>
+        <h4>Goal ${this.props.golferGoalTotal.total}</h4>
+        <h4>Total Raised ${entireDonationTotal}</h4>
+        <LinearProgress value={normaliseEntireTotals(entireDonationTotal)} classes={{colorPrimary: classes.linearColorPrimary, barColorPrimary: classes.linearBarColorPrimary}}
+          color="primary" variant="determinate" style={{height:"20px", width:"20%", borderRadius:"10px"}}/>
+        <h4>Goal ${entireGoal}</h4>
         <div class='title'>
           <img src={HolesforHope} alt="100 Holes For Hope" width='420px' height='200px' />
         </div>
@@ -45,7 +102,13 @@ getEvent = ()=> {
 }
 const putReduxStateOnProps = (reduxStore) => ({
   videoReducer: reduxStore.videoReducer,
-  eventInfoReducer: reduxStore.eventInfoReducer
+  eventInfoReducer: reduxStore.eventInfoReducer,
+  golferGoalTotal: reduxStore.goalReducer.golferGoalTotal,
+  golferDonationTotal: reduxStore.goalReducer.golferDonationTotal,
 });
 
-export default connect(putReduxStateOnProps)(UserPage);
+UserPage.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default connect(putReduxStateOnProps)(withStyles(styles)(UserPage));
