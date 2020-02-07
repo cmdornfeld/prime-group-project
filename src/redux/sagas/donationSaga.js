@@ -32,9 +32,17 @@ function* exportDonations() {
 
 function* filterDates(action){
     try{
-        console.log(action.payload)
         const getResponse = yield axios.get(`/api/admin/donation?startingDate=${action.payload.startingDate}&endingDate=${action.payload.endingDate}`);
         yield put({type: 'SET_DONATIONS', payload: getResponse.data})
+    } catch (error){
+        console.log(error)
+    }
+}
+
+function* deleteRows(action){
+    try{
+        yield axios.delete(`api/admin/donation?startingDate=${action.payload.startingDate}&endingDate=${action.payload.endingDate}`);
+        yield put({type: 'GET_DONATION_INFO'})
     } catch (error){
         console.log(error)
     }
@@ -45,6 +53,7 @@ function* donationSaga() {
     yield takeLatest('UPDATE_PAYMENT_STATUS', updateDonationPaymentStatus);
     yield takeLatest('EXPORT_DONATIONS', exportDonations);
     yield takeLatest('SEND_FILTER_DATES', filterDates);
+    yield takeLatest('SEND_DELETE_ROWS', deleteRows)
 }
 
 export default donationSaga;

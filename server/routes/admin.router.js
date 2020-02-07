@@ -47,7 +47,7 @@ router.get('/videos', rejectUnauthenticated, (req, res)=>{
 
 //Get all donations
 router.get('/donation-info', rejectUnauthenticated, (req, res)=>{
-    const queryString = `SELECT "donation"."id", "donation"."first_name", "donation"."last_name", "phone_number", "email", "type", "amount", "max", "golfer_id",
+    const queryString = `SELECT "donation"."id","donation"."date", "donation"."first_name", "donation"."last_name", "phone_number", "email", "type", "amount", "max", "golfer_id",
                          "golfer"."first_name" firstname, "golfer"."last_name" lastname, "status"
                         FROM "donation" 
                         JOIN "golfer" ON "golfer"."id" = "donation"."golfer_id"
@@ -77,13 +77,24 @@ router.get('/donation', rejectUnauthenticated, (req, res)=>{
     console.log(req.query)
     const startingDate = req.query.startingDate;
     const endingDate = req.query.endingDate
-    const queryString = `SELECT * FROM "donation"WHERE "date" BETWEEN $1 AND $2;`;
+    const queryString = `SELECT * FROM "donation" WHERE "date" BETWEEN $1 AND $2;`;
     pool.query(queryString, [startingDate, endingDate]).then(( results ) =>{
         res.send(results.rows);
     }).catch( (error) =>{
         console.log('Error filtering donation table. Error:', error);
         res.sendStatus(500);
     })
+});
+
+//DELETE route for deleting rows in donation table
+router.delete('/donation', rejectUnauthenticated, (req, res) => {
+    console.log(req.query)
+    const startingDate = req.query.startingDate;
+    const endingDate = req.query.endingDate;
+    const queryString = `DELETE FROM "donation" WHERE "date" BETWEEN $1 AND $2;`
+    pool.query(queryString, [startingDate, endingDate])
+    .then(()=> res.sendStatus(200))
+    .catch(() => res.sendStatus(500))
 });
 
 //GET route for partners/sponsors
