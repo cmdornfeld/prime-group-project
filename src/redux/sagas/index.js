@@ -22,6 +22,7 @@ import adminGolfersSaga from './adminGolfersSaga';
 import partnerSaga from './partnerSaga';
 import getPublicAddressSaga from './getPublicAddress';
 import getPublicSponsorSaga from './getPublicSponsor';
+import goalSaga from './goalSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -55,5 +56,6 @@ export default function* rootSaga() {
     partnerSaga(),
     getPublicAddressSaga(),
     getPublicSponsorSaga(),
+    goalSaga(),
   ]);
 }

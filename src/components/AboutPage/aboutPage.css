@@ -1,0 +1,10 @@
+.mission{
+    text-align: center;
+}
+.bio{
+    display: inline-block;
+    text-align: center;
+    font-size: 110%;
+    bottom: 400px;
+    right: 100px;
+}
