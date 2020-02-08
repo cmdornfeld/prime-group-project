@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {withStyles} from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
 
+import './aboutPage.css';
 import Nav from '../Nav/Nav'
+
+const styles = {
+
+};
 
 class AboutPage extends Component {
 
@@ -22,18 +30,40 @@ class AboutPage extends Component {
     return (
       <div>
         <Nav />
-        <h1>about</h1>
-        <p style={{color:'white'}}>{this.props.missionReducer.about}</p>
-        {this.props.foundationReducer.map( (item) => {
-          return(
-            <div>
-              <h3>{item.name}</h3>,
-              <img src={item.url} alt={item.name} width='220px' height='200px' />,
-              <p>{item.bio}</p>
+        <h1 style={{textAlign:'center', fontSize:'90px'}}>ABOUT</h1>
+
+        <Grid conatainer spacing={4} justify="center">
+            <div className='mission'>
+              <p style={{color:'rgb(37,49,85);', textAlign: 'center', width:'800px', bottom:'100px', right:'400px', display: 'inline-block'}}>
+                {this.props.missionReducer.about}
+              </p>
+            </div>
+          
+        </Grid>
+          <Grid container spacing={9} justify='center'>
+          {this.props.foundationReducer.map( (item) => {
+            return(
+              <div style={{background:'#C8CCD4', width:'auto', height: 'auto', color:'#253055', marginTop: 100, padding:40}}>
+              <Grid item key={item.id}>
+                <h3 style={{textAlign:'center', bottom:'100px', right:'400px', marginTop: 40}}>{item.name}</h3>
+
+                <Grid container spacing={1} justify='center' >
+                  <img src={item.url} alt={item.name} width='240px' height='200px' textAlign='center' style={{float:'left', paddingRight : '5px', 
+                  display:'inline-block'}}/>
+                </Grid>
+
+                <br></br>
+                  <Grid container spacing={1} justify='center'>
+                  <p  style={{textAlign:'center', width:'450px', bottom:'100px', right:'400px' }}>{item.bio}</p>
+                </Grid>
+
+              </Grid>
               </div>
-          )
-        })}
-      </div>
+            )
+          })}
+          </Grid>
+        </div>
+      
     )
   }
 }
@@ -42,4 +72,4 @@ const putReduxStateOnProps = (reduxStore) => ({
   foundationReducer: reduxStore.foundationReducer
 });
 
-export default connect(putReduxStateOnProps) (AboutPage);
+export default connect(putReduxStateOnProps)(withStyles(styles)(AboutPage));
