@@ -26,7 +26,17 @@ function* getPublicContact() {
 //post to send email
 function* sendEmail(action){
     try{
-        yield axios.post(`/api/public/email`,  action.payload);
+        const getResponse = yield axios.get(`/api/public/email`);
+
+        const data = {
+            to: getResponse.data,
+            email: action.payload.email,
+            name: action.payload.name,
+            subject: action.payload.subject,
+            body: action.payload.body
+        }
+
+        yield axios.post(`/api/public/email`, data);
     }
       catch(error){
           console.log('error in POST item', error);

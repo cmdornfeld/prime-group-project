@@ -28,6 +28,41 @@ router.get('/event-info', (req, res) => {
     });
 });
 
+//GET route for golfer goal total
+router.get('/golfer-goal-total', (req, res) => {
+    let queryString  = `SELECT SUM("goal") "total" FROM "golfer";`
+    pool.query(queryString)
+        .then(results => res.send(results.rows[0]))
+        .catch(error => {
+            console.log('Error GETTING comments:', error);
+            res.sendStatus(500);
+    });
+});
+
+//GET route for golfer donation total
+router.get('/golfer-donation-total', (req, res) => {
+    let queryString  = `SELECT SUM("amount") "total_received" FROM "donation";`
+    pool.query(queryString)
+        .then(results => res.send(results.rows[0]))
+        .catch(error => {
+            console.log('Error GETTING comments:', error);
+            res.sendStatus(500);
+    });
+});
+
+//GET route for partner pledge total
+router.get('/partner-pledge-total', (req, res) => {
+    let queryString  = `SELECT SUM("sponsor_level"."amount") "total"
+                        FROM "sponsor"
+                        JOIN "sponsor_level" ON "sponsor_level"."id" = "sponsor"."level";`;
+    pool.query(queryString)
+        .then(results => res.send(results.rows[0]))
+        .catch(error => {
+            console.log('Error GETTING comments:', error);
+            res.sendStatus(500);
+    });
+});
+
 /* Public About Page */
 //get route public for mission
 router.get('/mission', (req, res) => {
@@ -73,7 +108,13 @@ router.get('/golfers', (req, res) => {
 //GET route for individual golfer
 router.get('/golfers/:id', (req, res) => {
     const id = req.params.id;
-    pool.query(`SELECT * FROM "golfer" WHERE id = $1;`, [id])
+    let queryString = `SELECT "golfer"."id", "golfer"."first_name", "golfer"."last_name", "bio", "purpose", "goal", "img_url", 
+                        SUM("amount") "total"
+                        FROM "golfer"
+                        JOIN "donation" ON "donation"."golfer_id" = "golfer"."id"
+                        WHERE "golfer"."id" = $1
+                        GROUP BY "golfer"."id";`
+    pool.query(queryString, [id])
         .then(results => res.send(results.rows[0]))
         .catch(error => {
             console.log('Error GETTING event info:', error);
@@ -149,12 +190,29 @@ router.get('/contact', (req, res)=>{
     })
  });
 
+ // get route for email address
+router.get('/email', (req, res)=>{
+    const queryText = `SELECT "email" FROM "contact";`;
+    pool.query(queryText).then(( results ) =>{
+        res.send(results.rows);
+    }).catch( (error) =>{
+         console.log('Error GETTING contact:', error);
+     res.sendStatus(500);
+    })
+ });
+
  router.post('/email', function(req, res, next) {
-    console.log(req.body)
     const email = req.body.email;
     const name = req.body.name;
     const subject = req.body.subject;
     const body = req.body.body;
+    let toArray = req.body.to;
+    let to = [];
+
+    toArray.forEach((element) => {
+        to.push(element.email)
+    });
+
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -164,7 +222,7 @@ router.get('/contact', (req, res)=>{
     })
     const mailOptions = {
       from: `jamie.richison19@gmail.com`,
-      to: `jamie.richison19@gmail.com`,
+      to: `${to}`,
       subject: `${subject}`,
       text: `Hello, 
 
