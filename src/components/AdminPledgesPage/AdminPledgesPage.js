@@ -76,6 +76,10 @@ export class AdminPledgesPage extends Component {
         });
     };
 
+    refreshPage() {
+        window.location.reload(false);
+    }
+
     render() {
 
         const filterDates = this.state.filterDates === false ? (
@@ -162,6 +166,9 @@ export class AdminPledgesPage extends Component {
             </div>
             <div>{filterDates}</div>
             <div>{deleteRows}</div>
+            <div>
+                <button onClick={this.refreshPage}>Refresh</button>
+            </div>
             <div>
                 <table>
                     <thead>
