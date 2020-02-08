@@ -33,13 +33,19 @@ class ContactPage extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.dispatch({ type: 'SEND_EMAIL', payload: this.state });
-        this.setState({
-            email: '',
-            name: '',
-            subject: '',
-            body: ''
-        })
+        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email)){
+            alert('Please fill in a valid email')
+        } else if (this.state.name === '' || this.state.subject === '' || this.state.body === '' || this.state.email === ''){
+            alert('Please fill in text field')
+        } else {
+            this.props.dispatch({ type: 'SEND_EMAIL', payload: this.state });
+            this.setState({
+                email: '',
+                name: '',
+                subject: '',
+                body: ''
+            })
+        }
     }
 
     render() {
