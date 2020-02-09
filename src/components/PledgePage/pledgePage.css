@@ -1,18 +1,5 @@
-.pledge{
-    margin: auto;
-    width: 95%;
-    /* border: 3px solid #73AD21; */
-    padding: 10px;
-}
-.pledge-header{
-    text-align: center;
-    color: rgb(180,151,89);
-    font-size: 30px;
-}
-.pledge-form{
-    width:450px;
-	padding: 100px;
-	margin:40px auto;
-	background: #FFF;
-	border-radius: 10px;
+h1 {
+    font-size: 6rem;
+    padding: 0;
+    margin: 2rem;
 }
