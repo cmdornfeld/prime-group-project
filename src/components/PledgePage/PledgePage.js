@@ -57,27 +57,61 @@ class Pledge extends Component {
         })
     }
     handleSubmit = () => {
-        console.log('sumbit');
-        this.props.dispatch({ type: 'POST_PLEDGE', payload: {
-            first_name: this.state.first_name,
-            last_name: this.state.last_name,
-            phone_number: this.state.phone_number,
-            email: this.state.email,
-            golfer_id: this.state.golfer_id,
-            type: this.state.type,
-            amount: this.state.amount,
-            max: this.state.max
-         }})
-         this.setState({
-            first_name: '',
-            last_name: '',
-            phone_number: '',
-            email: '',
-            golfer_id: '',
-            type: '',
-            amount: '',
-            max: '',
-        })
+        if (this.state.phone_number.length < 10 || !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email) || 
+            this.state.first_name === '' || this.state.last_name === '' || this.state.phone_number === '' || 
+            this.state.email === '' || this.state.amount === ''){
+            alert('Please fill out the form completely')
+        } else {
+            if (/^\d{3}-\d{3}-\d{4}$/.test(this.state.phone_number) || /^\(\d{3}\)-\d{3}-\d{4}$/.test(this.state.phone_number) || 
+            /^\(\d{3}\)\d{3}-\d{4}$/.test(this.state.phone_number) || /^\(\d{3}\)\s\d{3}-\d{4}$/.test(this.state.phone_number) || 
+            /^\(\d{3}\)\s\d{3}\s\d{4}$/.test(this.state.phone_number)) {
+            this.state.phone_number = this.state.phone_number.replace(/[()\\s-]+/g, "")
+            this.props.dispatch({ type: 'POST_PLEDGE', payload: {
+                first_name: this.state.first_name,
+                last_name: this.state.last_name,
+                phone_number: this.state.phone_number,
+                email: this.state.email,
+                golfer_id: this.state.golfer_id,
+                type: this.state.type,
+                amount: this.state.amount,
+                max: this.state.max
+                }})
+                this.setState({
+                    first_name: '',
+                    last_name: '',
+                    phone_number: '',
+                    email: '',
+                    golfer_id: '',
+                    type: '',
+                    amount: '',
+                    max: '',
+                }) 
+        } 
+        else {
+            console.log(this.state)
+            this.props.dispatch({ type: 'POST_PLEDGE', payload: {
+                first_name: this.state.first_name,
+                last_name: this.state.last_name,
+                phone_number: this.state.phone_number,
+                email: this.state.email,
+                golfer_id: this.state.golfer_id,
+                type: this.state.type,
+                amount: this.state.amount,
+                max: this.state.max
+                
+             }})
+            this.setState({
+                first_name: '',
+                last_name: '',
+                phone_number: '',
+                email: '',
+                golfer_id: '',
+                type: '',
+                amount: '',
+                max: '',
+            }) 
+        } 
+        }
         
     }
     componentDidMount() {
@@ -118,7 +152,7 @@ class Pledge extends Component {
                 </label>
                 <br></br>
                 <label>Phone Number<br></br>
-                    <input placeholder='Phone Number' type='number' onChange={this.handleChangePhone} value={this.state.phone_number}></input>
+                    <input placeholder='Phone Number' type='text' onChange={this.handleChangePhone} value={this.state.phone_number}></input>
                 </label>
                 <br></br>
                 <label>Email<br></br>
