@@ -8,7 +8,7 @@ body {
     margin: 50px;
 }
 
-form {
+.register-form, .login-form {
     background-color: #dbd5d5;
     width: 30%;
     height: 260px;
