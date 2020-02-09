@@ -31,7 +31,7 @@ class PhotosPage extends Component {
         return (
             <div>
                 <Nav />
-                <h1 style={{textAlign:'center', fontSize:'50px', fontFamily:'serif'}}>100 HOLES FOR HOPE PHOTOS</h1>
+                <h1 style={{textAlign:'center', fontSize:'50px'}}>100 HOLES FOR HOPE PHOTOS</h1>
                         <Card className={classes.card}>
                             <Grid container spacing={3} justify='center'>
                             {this.props.photosReducer.map( (item) => {
