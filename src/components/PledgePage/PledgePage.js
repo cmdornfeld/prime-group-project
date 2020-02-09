@@ -25,7 +25,10 @@ const styles =  {
     },
     title: {
         width: 600,
-    }
+    },
+    topMargin: {
+        marginTop: '100px'
+    },
 }
 
 class Pledge extends Component {
@@ -170,9 +173,11 @@ class Pledge extends Component {
         return (
             <div>
                 <Nav />
-                <header style={{textAlign: 'center'}}>
-                    <h1 style={{size: "6rem"}}>PLEDGES</h1>
-                </header>
+                <div className={classes.topMargin}>
+                    <header style={{textAlign: 'center'}}>
+                        <h1 style={{size: "6rem"}}>PLEDGES</h1>
+                    </header>
+                </div>
                 <div style={{textAlign: 'center', width: 800, margin: '0 auto'}}>
                     <p>By filling out the form below, you are making a commitment to support the golfer of your choice in their 100 Holes for HOPE marathon. 
                         You will receive an e-mail after the event with a summary of information on your golfer's performance 
