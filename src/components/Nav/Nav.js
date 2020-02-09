@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import logo from './100HolesforHope.png';
-// import './Nav.css';
 
 // Material UI stuff
 import { withStyles } from '@material-ui/core/styles';
@@ -34,7 +33,7 @@ class Nav extends Component {
     return(
 
       <AppBar style={{backgroundColor: 'rgb(180,151,89)'}}>
-        <Grid container spacint={4}>
+        <Grid container spacing={4}>
           <Grid item className={classes.buttonLeft} sm={6}>
             <div style={{width: 300}}>
               <Button>

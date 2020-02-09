@@ -22,7 +22,7 @@ const styles = theme => ({
   },
   topMargin: {
     marginTop: '100px'
-},
+  },
 });
 
 class UserPage extends Component {

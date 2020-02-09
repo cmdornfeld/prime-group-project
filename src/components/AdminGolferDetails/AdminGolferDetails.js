@@ -3,6 +3,14 @@ import { connect } from 'react-redux';
 import AdminNav from '../AdminNav/AdminNav';
 import DropzoneS3Uploader from 'react-dropzone-s3-uploader';
 
+//Material UI Stuff
+import { withStyles } from '@material-ui/core/styles';
+
+const styles =  {
+    topMargin: {
+        marginTop: '100px'
+    }
+}
 
 class AdminGolferDetails extends Component {
 
@@ -163,6 +171,8 @@ class AdminGolferDetails extends Component {
     };
 
     render() {
+
+        const { classes } = this.props;
 
         const uploadOptions = {
             server: 'http://localhost:5000',
@@ -350,17 +360,19 @@ class AdminGolferDetails extends Component {
         return (
             <div>
                 <AdminNav />
-                <div>
-                    {editName}
+                <div className={classes.topMargin}>
+                    <div>
+                        {editName}
+                    </div>
+                    <div>
+                        {editImage}
+                    </div>
+                    <h3>Goal: {editGoal}</h3>
+                    <h3>Bio</h3>
+                    {editBio}
+                    <h3>Why am I doing this?</h3>
+                    {editPurpose}
                 </div>
-                <div>
-                    {editImage}
-                </div>
-                <h3>Goal: {editGoal}</h3>
-                <h3>Bio</h3>
-                {editBio}
-                <h3>Why am I doing this?</h3>
-                {editPurpose}
             </div>
         )
     }
@@ -370,4 +382,4 @@ const putReduxStateOnProps = (reduxStore) => ({
     golferIdReducer: reduxStore.golferIdReducer
 });
 
-export default connect(putReduxStateOnProps)(AdminGolferDetails)
+export default connect(putReduxStateOnProps)(withStyles(styles)(AdminGolferDetails));

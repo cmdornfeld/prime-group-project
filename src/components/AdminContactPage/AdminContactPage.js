@@ -2,6 +2,15 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import AdminNav from '../AdminNav/AdminNav';
 
+//Material UI Stuff
+import { withStyles } from '@material-ui/core/styles';
+
+const styles =  {
+    topMargin: {
+        marginTop: '100px'
+    }
+}
+
 class AdminContactPage extends Component {
 
     state = {
@@ -84,6 +93,8 @@ class AdminContactPage extends Component {
 
     render() {
 
+        const { classes } = this.props;
+
         const editAddress = this.state.editAddress === false ? (
             <div className="address-info-box">
                 <h4>Address</h4>
@@ -163,9 +174,11 @@ class AdminContactPage extends Component {
         return (
             <Fragment>
                 <AdminNav />
-                <h2>Contact</h2>
-                {editAddress}
-                {editContact}
+                <div className={classes.topMargin}>
+                    <h2>Contact</h2>
+                    {editAddress}
+                    {editContact}
+                </div>
             </Fragment>
         )
     }
@@ -176,4 +189,4 @@ const putReduxStateOnProps = (reduxStore) => ({
     contactInfoReducer: reduxStore.contactInfoReducer
 });
 
-export default connect(putReduxStateOnProps)(AdminContactPage);
+export default connect(putReduxStateOnProps)(withStyles(styles)(AdminContactPage));

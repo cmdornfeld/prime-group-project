@@ -4,6 +4,15 @@ import dayjs from 'dayjs';
 
 import AdminNav from '../AdminNav/AdminNav';
 
+//Material UI Stuff
+import { withStyles } from '@material-ui/core/styles';
+
+const styles =  {
+    topMargin: {
+        marginTop: '100px'
+    }
+}
+
 class AdminHomePage extends Component {
 
     state = {
@@ -90,6 +99,8 @@ class AdminHomePage extends Component {
     }
     
     render() {
+
+        const { classes } = this.props;
 
         const editLocation = this.state.editLocation === false ? (
             <Fragment>
@@ -188,30 +199,32 @@ class AdminHomePage extends Component {
         return (
             <div>
                 <AdminNav />
-                <p>Admin Home</p>
-                <div>
-                    {editLocation}
-                </div>
-                <div>
-                    {editDate}
-                </div>
-                <div>
-                    {addVideo}
-                </div>
-                {this.props.videoReducer.map( (item) => {
-                return(
-                    <div key={item.id}>
-                        <h2>{item.title}</h2>
-                        <iframe src={item.url} width='auto' height='auto' />
-                        <br />
-                        <button
-                        onClick={() => this.deleteVideo(item.id)}
-                        >
-                            Delete
-                        </button>
+                <div className={classes.topMargin}>
+                    <p>Admin Home</p>
+                    <div>
+                        {editLocation}
                     </div>
-                )
-                })}
+                    <div>
+                        {editDate}
+                    </div>
+                    <div>
+                        {addVideo}
+                    </div>
+                    {this.props.videoReducer.map( (item) => {
+                    return(
+                        <div key={item.id}>
+                            <h2>{item.title}</h2>
+                            <iframe src={item.url} width='auto' height='auto' />
+                            <br />
+                            <button
+                            onClick={() => this.deleteVideo(item.id)}
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    )
+                    })}
+                </div>
             </div>
         )
     }
@@ -222,4 +235,4 @@ const putReduxStateOnProps = (reduxStore) => ({
     videoReducer: reduxStore.videoReducer
 });
 
-export default connect(putReduxStateOnProps)(AdminHomePage);
+export default connect(putReduxStateOnProps)(withStyles(styles)(AdminHomePage));
