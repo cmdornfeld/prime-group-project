@@ -3,6 +3,15 @@ import AdminNav from '../AdminNav/AdminNav';
 import { connect } from 'react-redux';
 import DropzoneS3Uploader from 'react-dropzone-s3-uploader';
 
+//Material UI Stuff
+import { withStyles } from '@material-ui/core/styles';
+
+const styles =  {
+    topMargin: {
+        marginTop: '100px'
+    }
+}
+
 class AdminAboutPage extends Component {
 
     state ={ 
@@ -122,6 +131,8 @@ class AdminAboutPage extends Component {
     };
 
     render() {
+
+        const { classes } = this.props;
 
         const editMission = this.state.editMission === false ? (
             <Fragment>
@@ -273,16 +284,18 @@ class AdminAboutPage extends Component {
         return (
             <div>
                 <AdminNav />
-                <p>Admin About</p>
-                <div>
-                    {editMission}
-                </div>
-                <br />
-                <div>
-                    {addFoundation}
-                </div>
-                <div>
-                    {editFoundation}
+                <div className={classes.topMargin}>
+                    <p>Admin About</p>
+                    <div>
+                        {editMission}
+                    </div>
+                    <br />
+                    <div>
+                        {addFoundation}
+                    </div>
+                    <div>
+                        {editFoundation}
+                    </div>
                 </div>
             </div>
         )
@@ -295,4 +308,4 @@ const putReduxStateOnProps = (reduxStore) => ({
     foundationReducer: reduxStore.foundationReducer
   });
 
-  export default connect(putReduxStateOnProps)(AdminAboutPage);
+  export default connect(putReduxStateOnProps)(withStyles(styles)(AdminAboutPage));

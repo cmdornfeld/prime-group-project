@@ -3,6 +3,15 @@ import { connect } from 'react-redux';
 import AdminNav from '../AdminNav/AdminNav';
 import dayjs from 'dayjs';
 
+//Material UI Stuff
+import { withStyles } from '@material-ui/core/styles';
+
+const styles =  {
+    topMargin: {
+        marginTop: '100px'
+    }
+}
+
 export class AdminPledgesPage extends Component {
 
     state = {
@@ -81,6 +90,8 @@ export class AdminPledgesPage extends Component {
     }
 
     render() {
+
+        const { classes } = this.props;
 
         const filterDates = this.state.filterDates === false ? (
             <Fragment>
@@ -162,53 +173,55 @@ export class AdminPledgesPage extends Component {
             <>
             <div>
                 <AdminNav />
-                <h2>Donations</h2>
             </div>
-            <div>{filterDates}</div>
-            <div>{deleteRows}</div>
-            <div>
-                <button onClick={this.refreshPage}>Refresh</button>
-            </div>
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <td>Date</td>
-                            <td>Name</td>
-                            <td>Phone</td>
-                            <td>Email</td>
-                            <td>Type</td>
-                            <td>Amount</td>
-                            <td>Max</td>
-                            <td>Golfer</td>
-                            <td>Status</td>
-                            <td>Mark Paid</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.props.donationReducer.map( donation => {
-                            return (
-                                <tr key={donation.id}>
-                                    <td>{dayjs(donation.date).format('MM/DD/YYYY')}</td>
-                                    <td>{donation.first_name} {donation.last_name}</td>
-                                    <td>{donation.phone_number}</td>
-                                    <td>{donation.email}</td>
-                                    <td>{donation.type}</td>
-                                    <td>{donation.amount}</td>
-                                    <td>{donation.max}</td>
-                                    <td>{donation.firstname} {donation.lastname}</td>
-                                    <td>{donation.status}</td>
-                                    <td><input type="checkbox" name="status"
-                                        checked={donation.status === 'paid'} onChange={() => this.updatePaymentStatus(donation.id, donation.status)}/>
-                                    </td>
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                </table>
-            </div>
-            <div>
-                <button onClick={this.exportToExcel}>Export</button>
+            <div className={classes.topMargin}>
+                <h2>DONATIONS</h2>
+                <div>{filterDates}</div>
+                <div>{deleteRows}</div>
+                <div>
+                    <button onClick={this.refreshPage}>Refresh</button>
+                </div>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Date</td>
+                                <td>Name</td>
+                                <td>Phone</td>
+                                <td>Email</td>
+                                <td>Type</td>
+                                <td>Amount</td>
+                                <td>Max</td>
+                                <td>Golfer</td>
+                                <td>Status</td>
+                                <td>Mark Paid</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.props.donationReducer.map( donation => {
+                                return (
+                                    <tr key={donation.id}>
+                                        <td>{dayjs(donation.date).format('MM/DD/YYYY')}</td>
+                                        <td>{donation.first_name} {donation.last_name}</td>
+                                        <td>{donation.phone_number}</td>
+                                        <td>{donation.email}</td>
+                                        <td>{donation.type}</td>
+                                        <td>{donation.amount}</td>
+                                        <td>{donation.max}</td>
+                                        <td>{donation.firstname} {donation.lastname}</td>
+                                        <td>{donation.status}</td>
+                                        <td><input type="checkbox" name="status"
+                                            checked={donation.status === 'paid'} onChange={() => this.updatePaymentStatus(donation.id, donation.status)}/>
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <button onClick={this.exportToExcel}>Export</button>
+                </div>
             </div>
             </>
         )
@@ -219,4 +232,4 @@ const putReduxStateOnProps = (reduxStore) => ({
     donationReducer: reduxStore.donationReducer
 });
 
-export default connect(putReduxStateOnProps)(AdminPledgesPage);
+export default connect(putReduxStateOnProps)(withStyles(styles)(AdminPledgesPage));
