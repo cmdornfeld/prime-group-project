@@ -21,8 +21,16 @@ const partnerPledgeTotal =  (state={}, action)=>{
     return state;
 }
 
+const entireGoalInfo = (state={}, action)=>{
+    if(action.type === `SET_ENTIRE_GOAL_INFO`){
+        return action.payload;
+    }
+    return state;
+}
+
 export default combineReducers({
     golferGoalTotal,
     golferDonationTotal,
     partnerPledgeTotal,
+    entireGoalInfo,
   });

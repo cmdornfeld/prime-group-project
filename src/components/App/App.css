@@ -3,12 +3,19 @@ body {
     margin: 0px;
 }
 
+h1 {
+    font-size: 6rem;
+    padding: 0;
+    margin: 2rem;
+    text-align: center;
+}
+
 .alert {
     background-color: #ff4545;
     margin: 50px;
 }
 
-form {
+.register-form, .login-form {
     background-color: #dbd5d5;
     width: 30%;
     height: 260px;

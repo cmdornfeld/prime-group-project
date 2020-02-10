@@ -13,6 +13,9 @@ const styles = {
         padding: 90,
         margin: 100,
         textAlign: 'center'
+    },
+    topMargin: {
+        marginTop: '100px'
     }
 };
 
@@ -29,9 +32,9 @@ class PhotosPage extends Component {
     render() {
         const {classes} = this.props;
         return (
-            <div>
+            <div className={classes.topMargin}>
                 <Nav />
-                <h1 style={{textAlign:'center', fontSize:'50px', fontFamily:'serif'}}>100 HOLES FOR HOPE PHOTOS</h1>
+                <h1 style={{textAlign:'center', fontSize:'50px'}}>EVENT PHOTOS</h1>
                         <Card className={classes.card}>
                             <Grid container spacing={3} justify='center'>
                             {this.props.photosReducer.map( (item) => {

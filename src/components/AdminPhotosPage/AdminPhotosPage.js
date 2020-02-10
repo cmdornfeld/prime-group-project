@@ -3,6 +3,15 @@ import { connect } from 'react-redux';
 import AdminNav from '../AdminNav/AdminNav';
 import DropzoneS3Uploader from 'react-dropzone-s3-uploader';
 
+//Material UI Stuff
+import { withStyles } from '@material-ui/core/styles';
+
+const styles =  {
+    topMargin: {
+        marginTop: '100px'
+    }
+}
+
 
 class AdminPhotosPage extends Component {
 
@@ -58,6 +67,8 @@ class AdminPhotosPage extends Component {
     } 
 
     render() {
+
+        const { classes } = this.props;
 
         const uploadOptions = {
             server: 'http://localhost:5000',
@@ -116,24 +127,26 @@ class AdminPhotosPage extends Component {
         return (
             <div>
                 <AdminNav />
-                <p>Admin Photos</p>
-                <div>
-                    {addPhoto}
-                </div>
-                <div>
-                {this.props.photosReducer.map( (item) => {
-                return(
-                    <div key={item.id}>
-                        <img src={item.url} alt={item.description} width='220px' height='200px' />
-                        <br />
-                        <button
-                        onClick={() => this.deletePhoto(item.id)}
-                        >
-                            Delete
-                        </button>
+                <div className={classes.topMargin}>
+                    <p>Admin Photos</p>
+                    <div>
+                        {addPhoto}
                     </div>
-                    )
-                })}
+                    <div>
+                    {this.props.photosReducer.map( (item) => {
+                    return(
+                        <div key={item.id}>
+                            <img src={item.url} alt={item.description} width='220px' height='200px' />
+                            <br />
+                            <button
+                            onClick={() => this.deletePhoto(item.id)}
+                            >
+                                Delete
+                            </button>
+                        </div>
+                        )
+                    })}
+                    </div>
                 </div>
             </div>
         )
@@ -144,4 +157,4 @@ const putReduxStateOnProps = (reduxStore) => ({
     photosReducer: reduxStore.photosReducer
 });
 
-export default connect(putReduxStateOnProps)(AdminPhotosPage);
+export default connect(putReduxStateOnProps)(withStyles(styles)(AdminPhotosPage));

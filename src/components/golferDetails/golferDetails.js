@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Nav from '../Nav/Nav'
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
-
-import Nav from '../Nav/Nav';
 
 const styles = theme => ({
     progress: {
@@ -20,7 +19,7 @@ const styles = theme => ({
         backgroundColor: '#b49759',
     },
     card: {
-        marginTop: 50,
+        marginTop: 150,
         width: 1000,
         height: 'auto',
         margin: '0 auto',
@@ -30,6 +29,9 @@ const styles = theme => ({
         color: '#253055',
         display:'inline-block',
     },
+    topMargin: {
+        marginTop: '100px'
+    }
 });
 
 class golferDetails extends Component {

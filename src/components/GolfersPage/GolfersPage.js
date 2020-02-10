@@ -6,6 +6,7 @@ import {withStyles} from '@material-ui/core/styles';
 
 import Nav from '../Nav/Nav';
 
+
 const styles = {
     card: {
         width: 'auto',
@@ -13,7 +14,10 @@ const styles = {
         padding: 90,
         margin: 100,
         textAlign: 'center'
-    }
+    },
+    topMargin: {
+        marginTop: '100px'
+      }
 };
 
 class GolfersPage extends Component {
@@ -58,4 +62,4 @@ const putReduxStateOnProps = (reduxStore) => ({
     golferReducer: reduxStore.golferReducer
 });
 
-export default connect(putReduxStateOnProps)(withStyles(styles) (GolfersPage));
+export default connect(putReduxStateOnProps)(withStyles(styles)(GolfersPage));

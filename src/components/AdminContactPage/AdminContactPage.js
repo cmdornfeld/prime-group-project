@@ -2,6 +2,33 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import AdminNav from '../AdminNav/AdminNav';
 
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
+const styles = theme => ({
+    root: {
+      flexGrow: 1,
+    },
+    paper: {
+      padding: theme.spacing.unit,
+      textAlign: 'center',
+      color: '#253055',
+      margin: theme.spacing(2),
+      backgroundColor: '#A3BED9'
+    },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+      },
+    topMargin: {
+        marginTop: '100px'
+    }
+});
+
 class AdminContactPage extends Component {
 
     state = {
@@ -18,14 +45,21 @@ class AdminContactPage extends Component {
     }
 
     componentDidMount(){
-        this.props.dispatch({ type: 'GET_CONTACT_INFO'});
-        this.props.dispatch({ type: 'GET_ADDRESS_INFO'});
+        this.props.dispatch({ type: 'GET_CONTACT_INFO' });
+        this.props.dispatch({ type: 'GET_ADDRESS_INFO' });
     }
 
     editAddress = () => {
         if(this.state.editAddress === false){
             this.setState({
-                editAddress: true
+                editAddress: true,
+                street: this.props.addressReducer.street,
+                city: this.props.addressReducer.city,
+                state: this.props.addressReducer.state,
+                zip: this.props.addressReducer.zip,
+                phone: this.props.addressReducer.phone,
+                fax: this.props.addressReducer.fax
+
             })
         } else {
             let objectToSend = {
@@ -35,7 +69,7 @@ class AdminContactPage extends Component {
                     zip: this.state.zip,
                     phone: this.state.phone,
                     fax: this.state.fax,
-                    id: this.props.addressInfoReducer.id
+                    id: this.props.addressReducer.id
                 }
             this.props.dispatch({type: 'EDIT_ADDRESS', payload: objectToSend})
             this.setState({
@@ -47,7 +81,9 @@ class AdminContactPage extends Component {
     editContact = () => {
         if(this.state.editContact === false){
             this.setState({
-                editContact: true
+                editContact: true,
+                contactName: this.props.contactInfoReducer.name,
+                contactEmail: this.props.contactInfoReducer.email
             })
         } else {
             let objectToSend = {
@@ -82,90 +118,150 @@ class AdminContactPage extends Component {
         });
     };
 
-    render() {
+    render(props) {
+
+        const { classes } = this.props;
 
         const editAddress = this.state.editAddress === false ? (
-            <div className="address-info-box">
-                <h4>Address</h4>
-                {JSON.stringify(this.props.addressReducer)}
-                <p>{this.props.addressReducer.street}  <button onClick={this.editAddress}>Edit</button><br/>
+            <Paper className={classes.paper}>
+                <h2>Address</h2>
+                <Button onClick={this.editAddress} variant="contained" className={classes.button}
+                    style={{backgroundColor: '#b49759', marginBottom: '.5rem', color: '#FFFFFF'}}
+                >
+                    Edit
+                </Button>
+                <p>{this.props.addressReducer.street}<br/>
                     {this.props.addressReducer.city}, {this.props.addressReducer.state}  {this.props.addressReducer.zip}<br/>
+                    info@minnesotapga.com<br/>
                     Phone: {this.props.addressReducer.phone}<br/>
                     Fax: {this.props.addressReducer.fax}
                 </p>
-            </div>
+            </Paper>
 
         ) : (
-            <div className="address-info-box">
-                <h4>Address</h4>
-                <input 
+            <Paper className={classes.paper}>
+                <h2>Address</h2>
+                <TextField
+                    label="Street"
                     value={this.state.street}
                     onChange={this.handleInputChangeFor('street')}
+                    className={classes.textField}
+                    margin="normal"
+                    variant="outlined"
                 />
-                <input 
+                <TextField
+                    label="City"
                     value={this.state.city}
                     onChange={this.handleInputChangeFor('city')}
+                    className={classes.textField}
+                    margin="normal"
+                    variant="outlined"
                 />
-                <input 
+                <TextField
+                    label="State"
                     value={this.state.state}
                     onChange={this.handleInputChangeFor('state')}
+                    className={classes.textField}
+                    margin="normal"
+                    variant="outlined"
                 />
-                <input 
+                <TextField
+                    label="Zip Code"
                     value={this.state.zip}
                     onChange={this.handleInputChangeFor('zip')}
+                    className={classes.textField}
+                    margin="normal"
+                    variant="outlined"
                 />
-                <input 
+                <TextField
+                    label="Phone"
                     value={this.state.phone}
                     onChange={this.handleInputChangeFor('phone')}
+                    className={classes.textField}
+                    margin="normal"
+                    variant="outlined"
                 />
-                <input 
+                <TextField
+                    label="Fax"
                     value={this.state.fax}
                     onChange={this.handleInputChangeFor('fax')}
+                    className={classes.textField}
+                    margin="normal"
+                    variant="outlined"
                 />
-                <button onClick={this.cancelEditAddress}>
-                    Cancel
-                </button>
-                <button onClick={this.editAddress}>
-                    Save
-                </button>
-            </div>
+                <div>
+                    <Button onClick={this.cancelEditAddress} variant="contained" className={classes.button}
+                        style={{backgroundColor: '#253155', margin: '.5rem', color: '#FFFFFF'}}
+                    >
+                        Cancel
+                    </Button>
+                    <Button onClick={this.editAddress} variant="contained" className={classes.button}
+                        style={{backgroundColor: '#b49759', margin: '.5rem', color: '#FFFFFF'}}
+                    >
+                        Save
+                    </Button>
+                </div>
+            </Paper>
         )
 
         const editContact = this.state.editContact === false ? (
-            <div className="contact-info-box">
-                <h4>Contact</h4>
-                {JSON.stringify(this.props.contactInfoReducer)}
-                <p>For any additional  <button onClick={this.editContact}>Edit</button><br/>
-                    information, please contact:<br/>
+            <Paper className={classes.paper}>
+                <h2>Contact</h2>
+                <Button onClick={this.editContact} variant="contained" className={classes.button}
+                        style={{backgroundColor: '#b49759', marginBottom: '.5rem', color: '#FFFFFF'}}
+                >
+                    Edit
+                </Button>
+                <p>For any additional information, please contact:<br/>
                     <b>{this.props.contactInfoReducer.name}</b><br/>
                     {this.props.contactInfoReducer.email}
                 </p>
-            </div>
+            </Paper>
         ) : (
-            <div className="contact-info-box">
-                <h4>Contact</h4>
-                <input 
-                    value={this.state.name}
+            <Paper className={classes.paper}>
+                <h2>Contact</h2>
+                <TextField
+                    label="Name"
+                    value={this.state.contactName}
                     onChange={this.handleInputChangeFor('contactName')}
+                    className={classes.textField}
+                    margin="normal"
+                    variant="outlined"
                 />
-                <input 
-                    value={this.state.email}
+                <TextField
+                    label="Email"
+                    value={this.state.contactEmail}
                     onChange={this.handleInputChangeFor('contactEmail')}
+                    className={classes.textField}
+                    margin="normal"
+                    variant="outlined"
                 />
-                <button onClick={this.cancelEditContact}>
+                <Button onClick={this.cancelEditContact} variant="contained" className={classes.button}
+                    style={{backgroundColor: '#253155', margin: '.5rem', color: '#FFFFFF'}}>
                     Cancel
-                </button>
-                <button onClick={this.editContact}>
+                </Button>
+                <Button onClick={this.editContact} variant="contained" className={classes.button}
+                    style={{backgroundColor: '#b49759', margin: '.5rem', color: '#FFFFFF'}}>
                     Save
-                </button>
-            </div>
+                </Button>
+            </Paper>
         )
         return (
             <Fragment>
                 <AdminNav />
-                <h2>Contact</h2>
-                {editAddress}
-                {editContact}
+                <div className={classes.topMargin}>
+                    <h1>Contact</h1>
+                    <div className={classes.root} style={{width: '65%', margin: '0 auto'}}>
+                    <Grid container spacing={2}>
+                        <Grid item xs>
+                            {editAddress}
+                        </Grid>
+                        <Grid item xs>
+                            {editContact}
+                        </Grid>
+                    </Grid>
+                    </div>
+                </div>
             </Fragment>
         )
     }
@@ -176,4 +272,8 @@ const putReduxStateOnProps = (reduxStore) => ({
     contactInfoReducer: reduxStore.contactInfoReducer
 });
 
-export default connect(putReduxStateOnProps)(AdminContactPage);
+AdminContactPage.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default connect(putReduxStateOnProps)(withStyles(styles)(AdminContactPage));
