@@ -38,7 +38,7 @@ class PhotosPage extends Component {
                             return(
                                 <Grid item>
                                 <div style={{ textAlign:'center'}}>
-                                    <img src={item.url} alt={item.description} width='220px' height='330px'  width='240px' height='200px' textAlign='center'/>
+                                    <img src={item.url} alt={item.description} width='240px' height='200px' textAlign='center'/>
                                 </div>
                                 </Grid>
                                 )
