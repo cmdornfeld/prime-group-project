@@ -63,6 +63,17 @@ router.get('/partner-pledge-total', (req, res) => {
     });
 });
 
+//GET route for entire goal total
+router.get('/entire-goal-info', (req, res) => {
+    let queryString  = `SELECT * FROM "goal";`
+    pool.query(queryString)
+        .then(results => res.send(results.rows[0]))
+        .catch(error => {
+            console.log('Error GETTING comments:', error);
+            res.sendStatus(500);
+    });
+});
+
 /* Public About Page */
 //get route public for mission
 router.get('/mission', (req, res) => {

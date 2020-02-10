@@ -69,7 +69,7 @@ class AdminContactPage extends Component {
                     zip: this.state.zip,
                     phone: this.state.phone,
                     fax: this.state.fax,
-                    id: this.props.addressInfoReducer.id
+                    id: this.props.addressReducer.id
                 }
             this.props.dispatch({type: 'EDIT_ADDRESS', payload: objectToSend})
             this.setState({
