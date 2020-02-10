@@ -8,7 +8,6 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 
 import Nav from '../Nav/Nav';
-import './golferDetails.css';
 
 const styles = theme => ({
     progress: {
