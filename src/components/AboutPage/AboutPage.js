@@ -49,7 +49,7 @@ class AboutPage extends Component {
             <Grid container spacing={9} justify='center'>
             {this.props.foundationReducer.map( (item) => {
               return(
-                <div style={{background:'#C8CCD4', width:'auto', height: 'auto', color:'#253055', marginTop: 100, padding:40}}>
+                <div style={{background:'#ffffff', width:'auto', height: 'auto', color:'#253055', marginTop: 100, padding:40}}>
                 <Grid item key={item.id}>
                   <h3 style={{textAlign:'center', bottom:'100px', right:'400px', marginTop: 40}}>{item.name}</h3>
 

@@ -16,9 +16,6 @@ const styles =  {
   buttonRight: {
     marginTop: '50px'
   },
-  right: {
-    float: 'right'
-  },
   buttonStyling: {
     textDecoration: 'none',
     color: 'white'
@@ -32,9 +29,9 @@ class Nav extends Component {
 
     return(
 
-      <AppBar style={{backgroundColor: 'rgb(180,151,89)'}}>
+      <AppBar style={{backgroundColor: '#253155'}}>
         <Grid container spacing={4}>
-          <Grid item className={classes.buttonLeft} sm={6}>
+          <Grid item className={classes.buttonLeft} sm={4}>
             <div style={{width: 300}}>
               <Button>
                 <Link to="/home" className={classes.buttonStyling}>
@@ -43,8 +40,8 @@ class Nav extends Component {
               </Button>
             </div>
           </Grid>
-          <Grid item className={classes.buttonRight} sm={6}>
-            <span className={classes.right}>
+          <Grid item className={classes.buttonRight} sm={8}>
+            <span>
             <Button>
               <Link className="nav-link" to="/home" className={classes.buttonStyling}>
                 Home

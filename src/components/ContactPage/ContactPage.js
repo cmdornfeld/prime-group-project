@@ -19,7 +19,7 @@ const styles = theme => ({
       textAlign: 'center',
       color: '#253055',
       margin: theme.spacing(2),
-      backgroundColor: '#A3BED9'
+      backgroundColor: '#ffffff'
     },
     textField: {
         marginLeft: theme.spacing.unit,
