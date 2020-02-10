@@ -20,6 +20,9 @@ const styles = theme => ({
   linearBarColorPrimary: {
       backgroundColor: '#b49759',
   },
+  topMargin: {
+    marginTop: '100px'
+  },
 });
 
 class UserPage extends Component {
@@ -79,27 +82,29 @@ getPartnerPledgeTotal = () => {
     return (
       <div>
         <Nav />
-        <h4>This year's pledges: {this.props.golferDonationTotal.total_received}</h4>
-        <LinearProgress value={normaliseGolferTotals(golferDonationTotal)} classes={{colorPrimary: classes.linearColorPrimary, barColorPrimary: classes.linearBarColorPrimary}}
-          color="primary" variant="determinate" style={{height:"20px", width:"20%", borderRadius:"10px"}}/>
-        <h4>Goal ${this.props.golferGoalTotal.total}</h4>
-        <h4>Total Raised ${entireDonationTotal}</h4>
-        <LinearProgress value={normaliseEntireTotals(entireDonationTotal)} classes={{colorPrimary: classes.linearColorPrimary, barColorPrimary: classes.linearBarColorPrimary}}
-          color="primary" variant="determinate" style={{height:"20px", width:"20%", borderRadius:"10px"}}/>
-        <h4>Goal ${entireGoal}</h4>
-        <div class='title'>
-          <img src={HolesforHope} alt="100 Holes For Hope" width='420px' height='200px' />
-        </div>
-          <h2 align="center">{dayjs(this.props.eventInfoReducer.date).format('MMMM DD YYYY')} {this.props.eventInfoReducer.location}</h2>
-          <div class='card'>
-            {this.props.videoReducer.map( (item) => {
-              return(
-                <div >
-                  <h1 align="center" color='white'>{item.title}</h1>
-                  <iframe src={item.url} width='880px' height='500px' />
-                  </div>
-              )
-            })}
+        <div className={classes.topMargin}>
+          <h4>This year's pledges: {this.props.golferDonationTotal.total_received}</h4>
+          <LinearProgress value={normaliseGolferTotals(golferDonationTotal)} classes={{colorPrimary: classes.linearColorPrimary, barColorPrimary: classes.linearBarColorPrimary}}
+            color="primary" variant="determinate" style={{height:"20px", width:"20%", borderRadius:"10px"}}/>
+          <h4>Goal ${this.props.golferGoalTotal.total}</h4>
+          <h4>Total Raised ${entireDonationTotal}</h4>
+          <LinearProgress value={normaliseEntireTotals(entireDonationTotal)} classes={{colorPrimary: classes.linearColorPrimary, barColorPrimary: classes.linearBarColorPrimary}}
+            color="primary" variant="determinate" style={{height:"20px", width:"20%", borderRadius:"10px"}}/>
+          <h4>Goal ${entireGoal}</h4>
+          <div class='title'>
+            <img src={HolesforHope} alt="100 Holes For Hope" width='420px' height='200px' />
+          </div>
+            <h2 align="center">{dayjs(this.props.eventInfoReducer.date).format('MMMM DD YYYY')} {this.props.eventInfoReducer.location}</h2>
+            <div class='card'>
+              {this.props.videoReducer.map( (item) => {
+                return(
+                  <div >
+                    <h1 align="center" color='white'>{item.title}</h1>
+                    <iframe src={item.url} width='880px' height='500px' />
+                    </div>
+                )
+              })}
+            </div>
           </div>
       </div>
     );

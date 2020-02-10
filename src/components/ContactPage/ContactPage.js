@@ -24,7 +24,11 @@ const styles = theme => ({
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-      },
+    },
+    topMargin: {
+        marginTop: '100px'
+    }
+
 });
 
 class ContactPage extends Component {
@@ -78,10 +82,11 @@ class ContactPage extends Component {
         return (
             <Fragment>
                 <Nav />
-                <h1>Contact</h1>
-                <div className={classes.root} style={{width: '65%', margin: '0 auto'}}>
-                    <Grid container spacing={2}>
-                        <Grid item xs>
+                <div className={classes.topMargin}>
+                    <h1>Contact</h1>
+                    <div className={classes.root} style={{width: '65%', margin: '0 auto'}}>
+                        <Grid container spacing={2}>
+                            <Grid item xs>
                             <form>
                                 <Paper className={classes.paper}>
                                     <TextField
@@ -141,38 +146,40 @@ class ContactPage extends Component {
                                 </div>
                                 </Paper>
                             </form>
-                        </Grid>
-                        <Grid item xs>
-                            {this.props.addressPublicReducer.map( (item) => {
-                                return(
-                                    <Paper key= {item.id} className={classes.paper}>
-                                        <h2>Address</h2>
-                                        <p>{item.street}</p>
-                                        <p>{item.city}, {item.state} {item.zip}</p>
-                                        <p>info@minnesotapga.com</p><br/>
+                            </Grid>
+                            <Grid item xs>
+                                {this.props.addressPublicReducer.map( (item) => {
+                                    return(
+                                        <Paper key= {item.id} className={classes.paper}>
+                                            <h2>Address</h2>
+                                            <p>{item.street}</p>
+                                            <p>{item.city}, {item.state} {item.zip}</p>
+                                            <p>info@minnesotapga.com</p><br/>
 
-                                        <p>Tel:{item.phone}</p>
-                                        <p>Fax:{item.fax}</p>
-                                    </Paper>
-                                )
-                            })}
-                            {this.props.contactPublicReducer.map( (item) => {
-                                return(
-                                    <Paper key= {item.id} className={classes.paper}>
-                                        <h2>Contact</h2>
-                                        <p>For any additional information, please contact:</p>
-                                        <h3>{item.name}</h3>
-                                        <p>{item.email}</p>
-                                    </Paper>
-                                )
-                            })}
+                                            <p>Tel:{item.phone}</p>
+                                            <p>Fax:{item.fax}</p>
+                                        </Paper>
+                                    )
+                                })}
+                                {this.props.contactPublicReducer.map( (item) => {
+                                    return(
+                                        <Paper key= {item.id} className={classes.paper}>
+                                            <h2>Contact</h2>
+                                            <p>For any additional information, please contact:</p>
+                                            <h3>{item.name}</h3>
+                                            <p>{item.email}</p>
+                                        </Paper>
+                                    )
+                                })}
+                            </Grid>
                         </Grid>
-                    </Grid>
+                    </div>
                 </div>
             </Fragment>
         )
     }
 }
+
 const putReduxStateOnProps = (reduxStore) => ({
     addressPublicReducer: reduxStore.addressPublicReducer,
     contactPublicReducer: reduxStore.contactPublicReducer

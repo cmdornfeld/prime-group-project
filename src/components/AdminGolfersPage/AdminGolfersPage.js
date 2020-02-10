@@ -3,6 +3,14 @@ import AdminNav from '../AdminNav/AdminNav';
 import { connect } from 'react-redux';
 import DropzoneS3Uploader from 'react-dropzone-s3-uploader';
 
+//Material UI Stuff
+import { withStyles } from '@material-ui/core/styles';
+
+const styles =  {
+    topMargin: {
+        marginTop: '100px'
+    }
+}
 
 export class AdminGolfersPage extends Component {
 
@@ -79,6 +87,8 @@ export class AdminGolfersPage extends Component {
     }
 
     render() {
+
+        const { classes } = this.props;
 
         const uploadOptions = {
             server: 'http://localhost:5000',
@@ -171,26 +181,28 @@ export class AdminGolfersPage extends Component {
         return (
             <div>
                 <AdminNav />
-                <p>Admin Golfers</p>
-                <div>
-                    {addGolfer}
-                </div>
-                <div>
-                    {this.props.golferReducer.map( (item) => {
-                    return(
-                        <div key={item.id}>
-                            <h3>{item.first_name} {item.last_name}</h3>
-                            <img src={item.img_url} alt={item.id} onClick={() => this.viewGolfer(item.id)} width='220px' height='200px' />
-                            <div>
-                                <button
-                                onClick={() => this.removeGolfer(item.id)}
-                                >
-                                    Remove
-                                </button>
-                            </div>
-                            </div>
-                            )
-                        })}
+                <div className={classes.topMargin}>
+                    <p>Admin Golfers</p>
+                    <div>
+                        {addGolfer}
+                    </div>
+                    <div>
+                        {this.props.golferReducer.map( (item) => {
+                        return(
+                            <div key={item.id}>
+                                <h3>{item.first_name} {item.last_name}</h3>
+                                <img src={item.img_url} alt={item.id} onClick={() => this.viewGolfer(item.id)} width='220px' height='200px' />
+                                <div>
+                                    <button
+                                    onClick={() => this.removeGolfer(item.id)}
+                                    >
+                                        Remove
+                                    </button>
+                                </div>
+                                </div>
+                                )
+                            })}
+                    </div>
                 </div>
             </div>
         )
@@ -201,4 +213,4 @@ const putReduxStateOnProps = (reduxStore) => ({
     golferReducer: reduxStore.golferReducer
 });
 
-export default connect(putReduxStateOnProps)(AdminGolfersPage);
+export default connect(putReduxStateOnProps)(withStyles(styles)(AdminGolfersPage));

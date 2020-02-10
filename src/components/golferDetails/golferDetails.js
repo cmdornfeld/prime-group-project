@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Nav from '../Nav/Nav'
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -15,6 +16,9 @@ const styles = theme => ({
     linearBarColorPrimary: {
         backgroundColor: '#b49759',
     },
+    topMargin: {
+        marginTop: '100px'
+    }
 });
 
 class golferDetails extends Component {
@@ -39,16 +43,19 @@ class golferDetails extends Component {
 
         return (
             <div>
-                <h3>{this.props.golferIdReducer.first_name} {this.props.golferIdReducer.last_name}</h3>
-                <img src={this.props.golferIdReducer.img_url} alt={this.props.golferIdReducer.id} width='220px' height='200px' />
-                <h3>Total Donations: {this.props.golferIdReducer.total}</h3>
-                <LinearProgress value={normalise(golferDonationTotal)} classes={{colorPrimary: classes.linearColorPrimary, barColorPrimary: classes.linearBarColorPrimary}} 
-                        onClick={this.handleTooltipOpen} color="primary" variant="determinate" style={{height:"20px", width:"20%", borderRadius:"10px"}}/>
-                <h3>Goal: {this.props.golferIdReducer.goal}</h3>
-                <h3>Bio</h3>
-                <p>{this.props.golferIdReducer.bio}</p>
-                <h3>Why am I doing this?</h3>
-                <p>{this.props.golferIdReducer.purpose}</p>
+                <Nav />
+                <div className={classes.topMargin}>
+                    <h3>{this.props.golferIdReducer.first_name} {this.props.golferIdReducer.last_name}</h3>
+                    <img src={this.props.golferIdReducer.img_url} alt={this.props.golferIdReducer.id} width='220px' height='200px' />
+                    <h3>Total Donations: {this.props.golferIdReducer.total}</h3>
+                    <LinearProgress value={normalise(golferDonationTotal)} classes={{colorPrimary: classes.linearColorPrimary, barColorPrimary: classes.linearBarColorPrimary}} 
+                            onClick={this.handleTooltipOpen} color="primary" variant="determinate" style={{height:"20px", width:"20%", borderRadius:"10px"}}/>
+                    <h3>Goal: {this.props.golferIdReducer.goal}</h3>
+                    <h3>Bio</h3>
+                    <p>{this.props.golferIdReducer.bio}</p>
+                    <h3>Why am I doing this?</h3>
+                    <p>{this.props.golferIdReducer.purpose}</p>
+                </div>
             </div>
         );
     }

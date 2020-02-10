@@ -24,6 +24,9 @@ const styles = theme => ({
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
       },
+    topMargin: {
+        marginTop: '100px'
+    }
 });
 
 class AdminContactPage extends Component {
@@ -246,16 +249,18 @@ class AdminContactPage extends Component {
         return (
             <Fragment>
                 <AdminNav />
-                <h1>Contact</h1>
-                <div className={classes.root} style={{width: '65%', margin: '0 auto'}}>
-                <Grid container spacing={2}>
-                    <Grid item xs>
-                        {editAddress}
+                <div className={classes.topMargin}>
+                    <h1>Contact</h1>
+                    <div className={classes.root} style={{width: '65%', margin: '0 auto'}}>
+                    <Grid container spacing={2}>
+                        <Grid item xs>
+                            {editAddress}
+                        </Grid>
+                        <Grid item xs>
+                            {editContact}
+                        </Grid>
                     </Grid>
-                    <Grid item xs>
-                        {editContact}
-                    </Grid>
-                </Grid>
+                    </div>
                 </div>
             </Fragment>
         )

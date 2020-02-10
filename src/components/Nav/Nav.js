@@ -1,39 +1,93 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import LogOutButton from '../LogOutButton/LogOutButton';
-import './Nav.css';
+import logo from './100HolesforHope.png';
 
-const Nav = (props) => (
-  <div className="nav">
-    <Link to="/home">
-      <h2 className="nav-title">100 Holes for Hope</h2>
-    </Link>
-    <div className="nav-right">
-      <Link className="nav-link" to="/home">
-        Home
-      </Link>
-      <Link className="nav-link" to="/about">
-        About
-      </Link>
-      <Link className="nav-link" to="/photos">
-        Photos
-      </Link>
-      <Link className="nav-link" to="/golfers">
-        Golfers
-      </Link>
-      <Link className="nav-link" to="/pledge">
-        Pledge
-      </Link>
-      <Link className="nav-link" to="/partners">
-        Partners
-      </Link>
-      <Link className="nav-link" to="/contact">
-        Contact
-      </Link>
-    </div>
-  </div>
-);
+// Material UI stuff
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+
+const styles =  {
+  buttonLeft: {
+    float: 'left'
+  },
+  buttonRight: {
+    marginTop: '50px'
+  },
+  right: {
+    float: 'right'
+  },
+  buttonStyling: {
+    textDecoration: 'none',
+    color: 'white'
+  }
+};
+
+class Nav extends Component {
+  render(){
+
+    const { classes } = this.props;
+
+    return(
+
+      <AppBar style={{backgroundColor: 'rgb(180,151,89)'}}>
+        <Grid container spacing={4}>
+          <Grid item className={classes.buttonLeft} sm={6}>
+            <div style={{width: 300}}>
+              <Button>
+                <Link to="/home" className={classes.buttonStyling}>
+                <img src={logo} alt="100 Holes For Hope" width='200px' height='75px' />
+                </Link>
+              </Button>
+            </div>
+          </Grid>
+          <Grid item className={classes.buttonRight} sm={6}>
+            <span className={classes.right}>
+            <Button>
+              <Link className="nav-link" to="/home" className={classes.buttonStyling}>
+                Home
+              </Link>
+            </Button>
+            <Button>
+              <Link className="nav-link" to="/about" className={classes.buttonStyling}>
+                About
+              </Link>
+            </Button>
+            <Button>
+              <Link className="nav-link" to="/photos" className={classes.buttonStyling}>
+                Photos
+              </Link>
+            </Button>
+            <Button>
+              <Link className="nav-link" to="/golfers" className={classes.buttonStyling}>
+                Golfers
+              </Link>
+            </Button>
+            <Button>
+              <Link className="nav-link" to="/pledge" className={classes.buttonStyling}>
+                Pledge
+              </Link>
+            </Button>
+            <Button>
+              <Link className="nav-link" to="/partners" className={classes.buttonStyling}>
+                Partners
+              </Link>
+            </Button>
+            <Button>
+              <Link className="nav-link" to="/contact" className={classes.buttonStyling}>
+                Contact
+              </Link>
+            </Button>
+            </span>
+          </Grid>
+        </Grid>
+      </AppBar>
+    )
+  }
+  
+};
 
 // Instead of taking everything from state, we just want the user
 // object to determine if they are logged in
@@ -44,4 +98,4 @@ const mapStateToProps = state => ({
   user: state.user,
 });
 
-export default connect(mapStateToProps)(Nav);
+export default connect(mapStateToProps)(withStyles(styles)(Nav));
