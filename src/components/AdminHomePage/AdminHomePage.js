@@ -18,16 +18,20 @@ class AdminHomePage extends Component {
     state = {
         editLocation: false,
         editDate: false,
+        editGoal: false,
         addVideo: false,
         location: '',
         date: '',
         videoUrl: '',
-        videoTitle: ''
+        videoTitle: '',
+        goalAmount: '',
+        goalYear: ''
     }
 
     componentDidMount(){
-        this.props.dispatch({ type: 'GET_EVENT_INFO'})
-        this.props.dispatch({ type: 'GET_VIDEOS_ADMIN'})
+        this.props.dispatch({ type: 'GET_EVENT_INFO' })
+        this.props.dispatch({ type: 'GET_VIDEOS_ADMIN' })
+        this.props.dispatch({ type: 'GET_GOAL_INFO' })
     }
 
     editLocation = () => {
@@ -53,6 +57,23 @@ class AdminHomePage extends Component {
             this.props.dispatch({type: 'EDIT_DATE', payload: {date: this.state.date, id: this.props.eventInfoReducer.id}})
             this.setState({
                 editDate: false
+            })
+        }
+    }
+
+    editGoal = () => {
+        if(this.state.editGoal === false){
+            this.setState({
+                editGoal: true,
+                goalAmount: this.props.entireGoal.goal,
+                goalYear: this.props.entireGoal.year
+            })
+        } else {
+            this.props.dispatch({ type: 'EDIT_GOAL_INFO', 
+                payload: {goalYear: this.state.goalYear, goalAmount: this.state.goalAmount, id: this.props.entireGoal.id } 
+            })
+            this.setState({
+                editGoal: false
             })
         }
     }
@@ -92,13 +113,19 @@ class AdminHomePage extends Component {
         })
     }
 
+    cancelGoalSave = () => {
+        this.setState({
+            editGoal: false
+        })
+    }
+
     cancelVideoAdd = () => {
         this.setState({
             addVideo: false
         })
     }
     
-    render() {
+    render(props) {
 
         const { classes } = this.props;
 
@@ -125,6 +152,42 @@ class AdminHomePage extends Component {
                 </button>
                 <button
                 onClick={this.editLocation}
+                >
+                    Save
+                </button>
+            </Fragment>
+        )
+
+        const editGoal = this.state.editGoal === false ? (
+            <Fragment>
+                Goal Year: {this.props.entireGoal.year} Goal Amount: {this.props.entireGoal.goal} 
+                    <button
+                    onClick={this.editGoal}
+                    >
+                        Edit
+                    </button>
+            </Fragment>
+        ) : (
+            <Fragment>
+                <h5>Year</h5>
+                <input
+                type="text" 
+                value={this.state.goalYear}
+                onChange={this.handleInputChangeFor('goalYear')}
+                />
+                <h5>Amount</h5>
+                <input
+                type="text" 
+                value={this.state.goalAmount}
+                onChange={this.handleInputChangeFor('goalAmount')}
+                />
+                <button
+                onClick={this.cancelGoalSave}
+                >
+                    Cancel
+                </button>
+                <button
+                onClick={this.editGoal}
                 >
                     Save
                 </button>
@@ -200,12 +263,16 @@ class AdminHomePage extends Component {
             <div>
                 <AdminNav />
                 <div className={classes.topMargin}>
-                    <p>Admin Home</p>
+                    <h1>Admin Home</h1>
+                    {JSON.stringify(this.state)}
                     <div>
                         {editLocation}
                     </div>
                     <div>
                         {editDate}
+                    </div>
+                    <div>
+                        {editGoal}
                     </div>
                     <div>
                         {addVideo}
@@ -232,7 +299,8 @@ class AdminHomePage extends Component {
 
 const putReduxStateOnProps = (reduxStore) => ({
     eventInfoReducer: reduxStore.eventInfoReducer,
-    videoReducer: reduxStore.videoReducer
+    videoReducer: reduxStore.videoReducer,
+    entireGoal: reduxStore.goalReducer.entireGoalInfo
 });
 
 export default connect(putReduxStateOnProps)(withStyles(styles)(AdminHomePage));
