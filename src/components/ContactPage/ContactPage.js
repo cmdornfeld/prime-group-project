@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import Nav from '../Nav/Nav';
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -8,8 +9,6 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import Nav from '../Nav/Nav';
-import './contactPage.css';
 
 const styles = theme => ({
     root: {
@@ -19,7 +18,7 @@ const styles = theme => ({
       padding: theme.spacing.unit,
       textAlign: 'center',
       color: '#253055',
-      margin: theme.spacing.unit * 2,
+      margin: theme.spacing(2),
       backgroundColor: '#A3BED9'
     },
     textField: {
@@ -81,15 +80,15 @@ class ContactPage extends Component {
                 <Nav />
                 <h1>Contact</h1>
                 <div className={classes.root} style={{width: '65%', margin: '0 auto'}}>
-                    <Grid container spacing={4}>
+                    <Grid container spacing={2}>
                         <Grid item xs>
                             <form>
                                 <Paper className={classes.paper}>
                                     <TextField
                                         required
-                                        id="standard-required"
+                                        id="email-input"
                                         label="Email"
-                                        placeholder="Enter your email"
+                                        placeholder="your email"
                                         value={this.state.email}
                                         onChange={this.handleInputChangeFor('email')}
                                         className={classes.textField}
@@ -99,9 +98,9 @@ class ContactPage extends Component {
                                     />
                                     <TextField
                                         required
-                                        id="standard-required"
+                                        id="name-input"
                                         label="Name"
-                                        placeholder="Enter your name"
+                                        placeholder="your name"
                                         value={this.state.name}
                                         onChange={this.handleInputChangeFor('name')}
                                         className={classes.textField}
@@ -110,9 +109,9 @@ class ContactPage extends Component {
                                         style={{width: '30%'}}
                                     />
                                     <TextField
-                                        id="standard"
+                                        id="subject-input"
                                         label="Subject"
-                                        placeholder="Enter the email subject"
+                                        placeholder="subject of email"
                                         value={this.state.subject}
                                         onChange={this.handleInputChangeFor('subject')}
                                         className={classes.textField}
@@ -121,7 +120,7 @@ class ContactPage extends Component {
                                         style={{width: '64%'}}
                                     />
                                     <TextField
-                                        id="filled-multiline-flexible"
+                                        id="email-body-input"
                                         label="Message"
                                         multiline
                                         rows="8"
@@ -147,9 +146,10 @@ class ContactPage extends Component {
                             {this.props.addressPublicReducer.map( (item) => {
                                 return(
                                     <Paper key= {item.id} className={classes.paper}>
-                                        <h3>Address</h3>
+                                        <h2>Address</h2>
                                         <p>{item.street}</p>
                                         <p>{item.city}, {item.state} {item.zip}</p>
+                                        <p>info@minnesotapga.com</p><br/>
 
                                         <p>Tel:{item.phone}</p>
                                         <p>Fax:{item.fax}</p>
@@ -159,9 +159,9 @@ class ContactPage extends Component {
                             {this.props.contactPublicReducer.map( (item) => {
                                 return(
                                     <Paper key= {item.id} className={classes.paper}>
-                                        <h3>Contact</h3>
-                                        <h4>For any additional information, please contact:</h4>
-                                        <p>{item.name}</p>
+                                        <h2>Contact</h2>
+                                        <p>For any additional information, please contact:</p>
+                                        <h3>{item.name}</h3>
                                         <p>{item.email}</p>
                                     </Paper>
                                 )
