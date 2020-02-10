@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import Nav from '../Nav/Nav';
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -8,8 +9,6 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import Nav from '../Nav/Nav';
-import './contactPage.css';
 
 const styles = theme => ({
     root: {
@@ -19,7 +18,7 @@ const styles = theme => ({
       padding: theme.spacing.unit,
       textAlign: 'center',
       color: '#253055',
-      margin: theme.spacing.unit * 2,
+      margin: theme.spacing(2),
       backgroundColor: '#A3BED9'
     },
     textField: {
@@ -86,75 +85,76 @@ class ContactPage extends Component {
                 <div className={classes.topMargin}>
                     <h1>Contact</h1>
                     <div className={classes.root} style={{width: '65%', margin: '0 auto'}}>
-                        <Grid container spacing={4}>
+                        <Grid container spacing={2}>
                             <Grid item xs>
-                                <form>
-                                    <Paper className={classes.paper}>
-                                        <TextField
-                                            required
-                                            id="standard-required"
-                                            label="Email"
-                                            placeholder="Enter your email"
-                                            value={this.state.email}
-                                            onChange={this.handleInputChangeFor('email')}
-                                            className={classes.textField}
-                                            margin="normal"
-                                            variant="outlined"
-                                            style={{width: '30%'}}
-                                        />
-                                        <TextField
-                                            required
-                                            id="standard-required"
-                                            label="Name"
-                                            placeholder="Enter your name"
-                                            value={this.state.name}
-                                            onChange={this.handleInputChangeFor('name')}
-                                            className={classes.textField}
-                                            margin="normal"
-                                            variant="outlined"
-                                            style={{width: '30%'}}
-                                        />
-                                        <TextField
-                                            id="standard"
-                                            label="Subject"
-                                            placeholder="Enter the email subject"
-                                            value={this.state.subject}
-                                            onChange={this.handleInputChangeFor('subject')}
-                                            className={classes.textField}
-                                            margin="normal"
-                                            variant="outlined"
-                                            style={{width: '64%'}}
-                                        />
-                                        <TextField
-                                            id="filled-multiline-flexible"
-                                            label="Message"
-                                            multiline
-                                            rows="8"
-                                            rowsMax="10"
-                                            value={this.state.body}
-                                            onChange={this.handleInputChangeFor('body')}
-                                            className={classes.textField}
-                                            margin="normal"
-                                            variant="outlined"
-                                            style={{width: '64%'}}
-                                        />
-                                    <div>
-                                        <Button variant="contained" className={classes.button} 
-                                            style={{backgroundColor: '#b49759', marginTop: '.5rem', marginBottom: '.5rem', width: '64%', 
-                                            color: '#FFFFFF'}} onClick={(event) => this.handleSubmit(event)}>
-                                            Send Email
-                                        </Button>
-                                    </div>
-                                    </Paper>
-                                </form>
+                            <form>
+                                <Paper className={classes.paper}>
+                                    <TextField
+                                        required
+                                        id="email-input"
+                                        label="Email"
+                                        placeholder="your email"
+                                        value={this.state.email}
+                                        onChange={this.handleInputChangeFor('email')}
+                                        className={classes.textField}
+                                        margin="normal"
+                                        variant="outlined"
+                                        style={{width: '30%'}}
+                                    />
+                                    <TextField
+                                        required
+                                        id="name-input"
+                                        label="Name"
+                                        placeholder="your name"
+                                        value={this.state.name}
+                                        onChange={this.handleInputChangeFor('name')}
+                                        className={classes.textField}
+                                        margin="normal"
+                                        variant="outlined"
+                                        style={{width: '30%'}}
+                                    />
+                                    <TextField
+                                        id="subject-input"
+                                        label="Subject"
+                                        placeholder="subject of email"
+                                        value={this.state.subject}
+                                        onChange={this.handleInputChangeFor('subject')}
+                                        className={classes.textField}
+                                        margin="normal"
+                                        variant="outlined"
+                                        style={{width: '64%'}}
+                                    />
+                                    <TextField
+                                        id="email-body-input"
+                                        label="Message"
+                                        multiline
+                                        rows="8"
+                                        rowsMax="10"
+                                        value={this.state.body}
+                                        onChange={this.handleInputChangeFor('body')}
+                                        className={classes.textField}
+                                        margin="normal"
+                                        variant="outlined"
+                                        style={{width: '64%'}}
+                                    />
+                                <div>
+                                    <Button variant="contained" className={classes.button} 
+                                        style={{backgroundColor: '#b49759', marginTop: '.5rem', marginBottom: '.5rem', width: '64%', 
+                                        color: '#FFFFFF'}} onClick={(event) => this.handleSubmit(event)}>
+                                        Send Email
+                                    </Button>
+                                </div>
+                                </Paper>
+                            </form>
                             </Grid>
                             <Grid item xs>
                                 {this.props.addressPublicReducer.map( (item) => {
                                     return(
                                         <Paper key= {item.id} className={classes.paper}>
-                                            <h3>Address</h3>
+                                            <h2>Address</h2>
                                             <p>{item.street}</p>
                                             <p>{item.city}, {item.state} {item.zip}</p>
+                                            <p>info@minnesotapga.com</p><br/>
 
                                             <p>Tel:{item.phone}</p>
                                             <p>Fax:{item.fax}</p>
@@ -164,9 +164,9 @@ class ContactPage extends Component {
                                 {this.props.contactPublicReducer.map( (item) => {
                                     return(
                                         <Paper key= {item.id} className={classes.paper}>
-                                            <h3>Contact</h3>
-                                            <h4>For any additional information, please contact:</h4>
-                                            <p>{item.name}</p>
+                                            <h2>Contact</h2>
+                                            <p>For any additional information, please contact:</p>
+                                            <h3>{item.name}</h3>
                                             <p>{item.email}</p>
                                         </Paper>
                                     )
@@ -179,6 +179,7 @@ class ContactPage extends Component {
         )
     }
 }
+
 const putReduxStateOnProps = (reduxStore) => ({
     addressPublicReducer: reduxStore.addressPublicReducer,
     contactPublicReducer: reduxStore.contactPublicReducer
