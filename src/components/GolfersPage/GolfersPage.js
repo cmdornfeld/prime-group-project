@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import {withStyles} from '@material-ui/core/styles';
 
 import Nav from '../Nav/Nav';
 
-// Material UI Stuff
-import {withStyles} from '@material-ui/core/styles';
-
 
 const styles = {
+    card: {
+        width: 'auto',
+        height: 'auto',
+        padding: 90,
+        margin: 100,
+        textAlign: 'center'
+    },
     topMargin: {
-      marginTop: '100px'
-    }
-  
-  };
-
+        marginTop: '100px'
+      }
+};
 
 class GolfersPage extends Component {
 
@@ -30,23 +35,25 @@ class GolfersPage extends Component {
     }
     
     render() {
-
-        const { classes } = this.props;
-
+        const {classes} = this.props;
         return (
             <div>
                 <Nav />
-                <div className={classes.topMargin}>
-                    <p>Golfers Page</p>
+                <h1 style={{textAlign:'center', fontSize:'50px', fontFamily:'serif'}}>2020 GOLFERS</h1>
+                <Card className={classes.card}>
+                <Grid container spacing={3} justify='center'>
                     {this.props.golferReducer.map( (item) => {
                     return(
+                        <Grid item>
                         <div key={item.id}>
-                            <h3>{item.first_name} {item.last_name}</h3>
-                            <img src={item.img_url} alt={item.id} onClick={() => this.viewGolfer(item.id)} width='220px' height='200px' />
-                            </div>
+                            <h3 style={{textAlign:'center'}}>{item.first_name} {item.last_name}</h3>
+                            <img src={item.img_url} alt={item.id} onClick={() => this.viewGolfer(item.id)} width='240px' height='200px' textAlign='center' />
+                        </div>
+                        </Grid>
                             )
                         })}
-                </div>
+                </Grid>
+                </Card>
             </div>
         )
     }
