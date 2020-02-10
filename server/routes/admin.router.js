@@ -457,5 +457,21 @@ router.put('/partners/level/:id', rejectUnauthenticated, (req, res) => {
     .catch(() => res.sendStatus(500))
 });
 
+//PUT route to edit goal
+router.put('/goal-info/:id', rejectUnauthenticated, (req, res) => {
+    console.log(req.body)
+    const year = req.body.goalYear;
+    const goal = req.body.goalAmount;
+    const id = req.body.id;
+    
+    const queryString = `UPDATE "goal" 
+                        SET "year" = $1,
+                            "goal" = $2
+                        WHERE id = $3;`;
+    pool.query(queryString, [year, goal, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
 
 module.exports = router;

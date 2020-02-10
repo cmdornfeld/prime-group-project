@@ -45,11 +45,22 @@ function* getEntireGoalInfo() {
     }
 }
 
+function* editGoalInfo(action) {
+    try{
+        yield axios.put(`/api/admin/goal-info/${action.payload.id}`, action.payload);
+        yield put({type: 'GET_ENTIRE_GOAL_INFO'});
+    }
+    catch (error){
+        console.log('failed editing address info', error); 
+    }
+}
+
 function* goalSaga() {
     yield takeLatest('GET_GOLFERS_GOAL_TOTAL', getGolfersGoalTotal)
     yield takeLatest('GET_GOLFERS_DONATION_TOTAL', getGolfersDonationTotal)
     yield takeLatest('GET_PARTNER_PLEDGE_TOTAL', getPartnerPledgeTotal)
     yield takeLatest('GET_ENTIRE_GOAL_INFO', getEntireGoalInfo)
+    yield takeLatest('EDIT_GOAL_INFO', editGoalInfo)
 }
 
 export default goalSaga;

@@ -65,7 +65,7 @@ router.get('/partner-pledge-total', (req, res) => {
 
 //GET route for entire goal total
 router.get('/entire-goal-info', (req, res) => {
-    let queryString  = `SELECT "year", "goal" FROM "goal";`
+    let queryString  = `SELECT * FROM "goal";`
     pool.query(queryString)
         .then(results => res.send(results.rows[0]))
         .catch(error => {
