@@ -91,6 +91,12 @@ CREATE TABLE "foundation" (
   "url" VARCHAR (400)
 );
 
+CREATE TABLE "goal" (
+  "id" SERIAL PRIMARY KEY,
+  "year" INT,
+  "goal" INT
+);
+
 -- populating "address" table with information from Wix site
 INSERT INTO "address" ("street", "city", "state", "zip", "phone", "fax") VALUES ('12800 Bunker Prairie Rd.', 'Coon Rapids', 'MN', '55448',
  '7637540820', '7637546682');
@@ -170,35 +176,5 @@ INSERT INTO "donation" ("first_name", "last_name", "phone_number", "email", "typ
 '6515555555', 'test@test.com', 'flat', '50', null, 1), ('Jane', 'Doe', '6515555556', 'test2@test.com', 'per birdie', '5', '100', 2), 
 ('Bill', 'Thomas', '6515555557', 'test3@test.com', 'flat', '25', null, 3);
 
-
--- GET h4h address, phone and fax
-SELECT * FROM "address";
-
--- GET h4h contact name and email
-SELECT * FROM "contact";
-
--- GET all donation information
-SELECT * FROM "donation";
-
--- GET h4h event information
-SELECT * FROM "event";
-
--- GET all foundation information
-SELECT * FROM "foundation";
-
--- GET all golfer information
-SELECT * FROM "golfer";
-
--- GET h4h mission statement
-SELECT * FROM "mission";
-
--- GET all photos
-SELECT * FROM "photos";
-
--- GET all sponsors and their level
-SELECT "sponsor"."id", "img_url", "sponsor_level"."title", "sponsor_level"."amount"
-FROM "sponsor"
-JOIN "sponsor_level" ON "sponsor_level"."id" = "sponsor"."level";
-
--- GET all videos
-SELECT * FROM "videos";
+-- populating "goal" table with information from Wix site
+INSERT INTO "goal" ("year", "goal") VALUES ('2019', '75000');

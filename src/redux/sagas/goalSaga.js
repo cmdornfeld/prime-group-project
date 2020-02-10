@@ -34,10 +34,22 @@ function* getPartnerPledgeTotal() {
     }
 }
 
+function* getEntireGoalInfo() {
+    try{
+        const getResponse = yield axios.get(`/api/public/entire-goal-info`);
+        console.log(getResponse.data)
+        yield put({type: 'SET_ENTIRE_GOAL_INFO', payload: getResponse.data})
+    }
+    catch (error){
+        console.log(error); 
+    }
+}
+
 function* goalSaga() {
     yield takeLatest('GET_GOLFERS_GOAL_TOTAL', getGolfersGoalTotal)
     yield takeLatest('GET_GOLFERS_DONATION_TOTAL', getGolfersDonationTotal)
     yield takeLatest('GET_PARTNER_PLEDGE_TOTAL', getPartnerPledgeTotal)
+    yield takeLatest('GET_ENTIRE_GOAL_INFO', getEntireGoalInfo)
 }
 
 export default goalSaga;
