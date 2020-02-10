@@ -12,29 +12,6 @@ import App from './components/App/App';
 
 const sagaMiddleware = createSagaMiddleware();
 
-const loadState = () => {
-  try {
-    const serializedState = localStorage.getItem('state');
-    if(serializedState === null) {
-      return undefined;
-    }
-    return JSON.parse(serializedState);
-  } catch (e) {
-    return undefined;
-  }
-};
-
-const saveState = (state) => {
-  try {
-    const serializedState = JSON.stringify(state);
-    localStorage.setItem('state', serializedState);
-  } catch (e) {
-    // Ignore write errors;
-  }
-};
-
-const persistedState = loadState();
-
 // this line creates an array of all of redux middleware you want to use
 // we don't want a whole ton of console logs in our production code
 // logger will only be added to your project if your in development mode
@@ -46,13 +23,9 @@ const store = createStore(
   // tells the saga middleware to use the rootReducer
   // rootSaga contains all of our other reducers
   rootReducer,
-  persistedState,
   // adds all middleware to our project including saga and logger
   applyMiddleware(...middlewareList),
 );
-store.subscribe(() => {
-  saveState(store.getState());
-});
 
 // tells the saga middleware to use the rootSaga
 // rootSaga contains all of our other sagas

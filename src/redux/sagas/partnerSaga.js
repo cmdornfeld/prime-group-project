@@ -81,6 +81,16 @@ function* editPartnerLevel(action) {
     }
 }
 
+function* addPartnerLevel(action) {
+    try{
+        yield axios.post(`/api/admin/partner-level`, action.payload);
+        yield put({type: 'GET_PARTNER_LEVELS'});
+    }
+    catch (error){
+        console.log('failed adding new partner', error); 
+    }
+}
+
 function* partnerSaga() {
     yield takeLatest('GET_PARTNERS', getPartnerInfo)
     yield takeLatest('GET_PARTNER_LEVELS', getPartnerLevels)
@@ -90,6 +100,7 @@ function* partnerSaga() {
     yield takeLatest('EDIT_PARTNER_NAME', editPartnerName)
     yield takeLatest('EDIT_PARTNER_IMAGE', editPartnerImage)
     yield takeLatest('EDIT_PARTNER_LEVEL', editPartnerLevel)
+    yield takeLatest('ADD_LEVEL', addPartnerLevel)
 }
 
 export default partnerSaga;

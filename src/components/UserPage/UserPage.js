@@ -9,6 +9,7 @@ import Nav from '../Nav/Nav'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Typography from '@material-ui/core/Typography'
 
 const styles = theme => ({
   progress: {

@@ -113,7 +113,7 @@ router.get('/partners', rejectUnauthenticated, (req, res) => {
 
 //GET route for sponsor levels
 router.get('/partner-levels', rejectUnauthenticated, (req, res) => {
-    pool.query(`SELECT * FROM "sponsor_level";`)
+    pool.query(`SELECT * FROM "sponsor_level" ORDER BY "amount" DESC;`)
         .then(results => res.send(results.rows))
         .catch(error => {
             console.log('Error GETTING partner info:', error);
@@ -133,6 +133,17 @@ router.get('/partners/:id', rejectUnauthenticated, (req, res) => {
             console.log('Error GETTING event info:', error);
             res.sendStatus(500);
     });
+});
+
+//POST new partner level
+router.post('/partner-level', rejectUnauthenticated, (req, res) => {
+    console.log(req.body)
+    const name = req.body.name;
+    const number = req.body.number;
+    const queryString = `INSERT INTO "sponsor_level" ("title", "amount") VALUES ($1, $2);`;
+    pool.query(queryString, [name, number])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
 });
 
 //POST new video

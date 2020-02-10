@@ -13,7 +13,7 @@ const styles =  {
         width: 900,
         height: 'auto',
         textAlign: 'center',
-        margin: ' 0 auto',
+        margin: '0 auto',
         padding: 30,
   
     },

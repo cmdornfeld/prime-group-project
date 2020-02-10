@@ -17,9 +17,6 @@ const styles =  {
   buttonRight: {
     marginTop: '50px'
   },
-  right: {
-    float: 'right'
-  },
   buttonStyling: {
     textDecoration: 'none',
     color: 'white'
@@ -32,9 +29,9 @@ class AdminNav extends Component{
     const { classes } = this.props;
 
     return (
-      <AppBar style={{backgroundColor: 'rgb(180,151,89)'}}>
+      <AppBar style={{backgroundColor: '#253155'}}>
         <Grid container spacing={4}>
-          <Grid item className={classes.buttonLeft} sm={6}>
+          <Grid item className={classes.buttonLeft} sm={3}>
             <div style={{width: 300}}>
               <Button>
                 <Link to="/admin">
@@ -43,8 +40,8 @@ class AdminNav extends Component{
               </Button>
             </div>
           </Grid>
-          <Grid item className={classes.buttonRight} sm={6}>
-          <span className={classes.right}>
+          <Grid item className={classes.buttonRight} sm={9}>
+          <span>
             <Button>
               <Link className="nav-link" to="/admin" className={classes.buttonStyling}>
                 Home

@@ -20,7 +20,7 @@ const styles =  {
         textAlign: 'center',
         margin: ' 0 auto',
         padding: 30,
-        backgroundColor: '#A3BED9',
+        backgroundColor: '#ffffff',
   
     },
     title: {
@@ -37,7 +37,7 @@ class Pledge extends Component {
         last_name: '',
         phone_number: '',
         email: '',
-        golfer_id: '1',
+        golfer_id: '',
         type: 'Flat',
         amount: '',
         max: '',
@@ -86,7 +86,7 @@ class Pledge extends Component {
     handleSubmit = () => {
         if (this.state.phone_number.length < 10 || !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email) || 
             this.state.first_name === '' || this.state.last_name === '' || this.state.phone_number === '' || 
-            this.state.email === '' || this.state.amount === ''){
+            this.state.email === '' || this.state.amount === '' || this.state.golfer_id === ''){
             alert('Please fill out the form completely')
         } else {
             if (/^\d{3}-\d{3}-\d{4}$/.test(this.state.phone_number) || /^\(\d{3}\)-\d{3}-\d{4}$/.test(this.state.phone_number) || 
@@ -245,7 +245,7 @@ class Pledge extends Component {
                     <Select 
                     variant="outlined"
                     onChange={this.handleChangePledging} 
-                    value={this.state.golfer_id}
+                    // value={this.state.golfer_id}
                     >
                         {this.props.golferReducer.map( (item) => {
                         return(<MenuItem key={item.id} value={item.id}>{item.first_name} {item.last_name}</MenuItem>)
