@@ -1,6 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import dayjs from 'dayjs';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 import AdminNav from '../AdminNav/AdminNav';
 
@@ -10,6 +13,9 @@ import { withStyles } from '@material-ui/core/styles';
 const styles =  {
     topMargin: {
         marginTop: '100px'
+    },
+    nameTextField: {
+        width: 250
     }
 }
 
@@ -131,131 +137,188 @@ class AdminHomePage extends Component {
 
         const editLocation = this.state.editLocation === false ? (
             <Fragment>
-                {this.props.eventInfoReducer.location}
-                    <button
+                {this.props.eventInfoReducer.location}:
+                    <Button
                     onClick={this.editLocation}
+                    variant="contained"
+                    style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                     >
                         Edit
-                    </button>
+                    </Button>
             </Fragment>
         ) : (
             <Fragment>
-                <input
+                <div style={{marginBottom: 10}}>
+                <TextField
+                label="Location"
+                variant="outlined"
+                className={classes.nameTextField}
                 type="text" 
                 value={this.state.location}
                 onChange={this.handleInputChangeFor('location')}
                 />
-                <button
+                <div>
+                <Button
                 onClick={this.cancelLocationSave}
+                variant="contained"
+                style={{backgroundColor: '#253155', color: '#ffffff', marginLeft: '10px', marginTop: '5px'}}
                 >
                     Cancel
-                </button>
-                <button
+                </Button>
+                <Button
                 onClick={this.editLocation}
+                variant="contained"
+                style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                 >
                     Save
-                </button>
+                </Button>
+                </div>
+                </div>
             </Fragment>
         )
 
         const editGoal = this.state.editGoal === false ? (
             <Fragment>
                 Goal Year: {this.props.entireGoal.year} Goal Amount: {this.props.entireGoal.goal} 
-                    <button
+                    <Button
                     onClick={this.editGoal}
+                    variant="contained"
+                    style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '35px', marginTop: '5px'}}
                     >
                         Edit
-                    </button>
+                    </Button>
             </Fragment>
         ) : (
             <Fragment>
-                <h5>Year</h5>
-                <input
-                type="text" 
-                value={this.state.goalYear}
-                onChange={this.handleInputChangeFor('goalYear')}
+                <div style={{marginBottom: 5}}>
+                <TextField
+                    label="Year"
+                    variant="outlined"
+                    type="text" 
+                    value={this.state.goalYear}
+                    onChange={this.handleInputChangeFor('goalYear')}
                 />
-                <h5>Amount</h5>
-                <input
-                type="text" 
-                value={this.state.goalAmount}
-                onChange={this.handleInputChangeFor('goalAmount')}
+                </div>
+                <div style={{marginBottom: 8 }}>
+                <TextField
+                    label="Amount"
+                    variant="outlined"
+                    type="text" 
+                    type="text" 
+                    value={this.state.goalAmount}
+                    onChange={this.handleInputChangeFor('goalAmount')}
                 />
-                <button
+                </div>
+                <Button
                 onClick={this.cancelGoalSave}
+                variant="contained"
+                style={{backgroundColor: '#253155', color: '#ffffff', marginTop: '5px'}}
                 >
                     Cancel
-                </button>
-                <button
+                </Button>
+                <Button
                 onClick={this.editGoal}
+                variant="contained"
+                style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                 >
                     Save
-                </button>
+                </Button>
             </Fragment>
         )
 
         const editDate = this.state.editDate === false ? (
             <Fragment>
-                {dayjs(this.props.eventInfoReducer.date).format('MMMM DD YYYY')}
-                    <button
+                {dayjs(this.props.eventInfoReducer.date).format('MMMM DD YYYY')}:
+                    <Button
                     onClick={this.editDate}
+                    variant="contained"
+                    style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '115px', marginTop: '5px'}}
                     >
                         Edit
-                    </button>
+                    </Button>
             </Fragment>
         ) : (
             <Fragment>
-                <input 
+                <div style={{marginBottom: 10, marginTop: 10}}>
+                <TextField 
+                label="Event Date"
+                variant="outlined"
                 type="date"
                 value={this.state.date}
                 onChange={this.handleInputChangeFor('date')}
+                InputLabelProps={{
+                    shrink: true,
+                    }}
                 />
-                <button
+                <div>
+                <Button
                 onClick={this.cancelDateSave}
+                variant="contained"
+                style={{backgroundColor: '#253155', color: '#ffffff', marginTop: '5px'}}
                 >
                     Cancel
-                </button>
-                <button
+                </Button>
+                <Button
                 onClick={this.editDate}
+                variant="contained"
+                style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                 >
                     Save
-                </button>
+                </Button>
+                </div>
+                </div>
             </Fragment>
         )
 
         const addVideo = this.state.addVideo === false ? (
             <Fragment>
-                    <button
+                    <Button
                     onClick={this.addVideo}
+                    variant="contained"
+                    style={{backgroundColor: '#b49759', color: '#ffffff', marginTop: 30}}
                     >
                         Add Video
-                    </button>
+                    </Button>
             </Fragment>
         ) : (
             <Fragment>
-                <label>Video Title:</label>
-                <input
+                <div style={{marginTop: 10}}>
+                <div >
+                <TextField
+                label="Video Title"
+                variant="outlined"
                 type="text" 
                 value={this.state.videoTitle}
                 onChange={this.handleInputChangeFor('videoTitle')}
                 />
+                </div>
                 <br />
-                <label>Video URL:</label>
-                <input
+                <div style={{marginBottom: 10}}>
+                <TextField
+                label="Video URL"
+                variant="outlined"
                 type="text" 
                 value={this.state.videoUrl}
                 onChange={this.handleInputChangeFor('videoUrl')}
                 />
-                <button
+                </div>
+                </div>
+                <div>
+                <Button
                 onClick={this.cancelVideoAdd}
+                variant="contained"
+                style={{backgroundColor: '#253155', color: '#ffffff', marginRight: '5px', marginTop: '5px'}}
                 >
                     Cancel
-                </button>
-                <button
+                </Button>
+                <Button
                 onClick={this.addVideo}
+                variant="contained"
+                style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                 >
                     Save
-                </button>
+                </Button>
+                </div>
             </Fragment>
         )
 
@@ -263,34 +326,42 @@ class AdminHomePage extends Component {
             <div>
                 <AdminNav />
                 <div className={classes.topMargin}>
-                    <h1 style={{textAlign:'center', fontSize:'6rem'}}>Home</h1>
-                    {JSON.stringify(this.state)}
-                    <div>
+
+                    <h1>Admin Home</h1>
+                  
+                    <div style={{textAlign:'center'}}> 
+
                         {editLocation}
                     </div>
-                    <div>
+                    <div style={{textAlign:'center'}}>
                         {editDate}
                     </div>
-                    <div>
+                    <div style={{textAlign:'center'}}>
                         {editGoal}
                     </div>
-                    <div>
+                    <div style={{textAlign:'center'}}>
                         {addVideo}
                     </div>
+                    <Grid container spacing={4} justify='center'>
                     {this.props.videoReducer.map( (item) => {
                     return(
-                        <div key={item.id}>
-                            <h2>{item.title}</h2>
-                            <iframe src={item.url} width='auto' height='auto' />
+                        <Grid item key={item.id}>
+                            <h2 style={{textAlign:'center'}}>{item.title}</h2>
+                            <iframe src={item.url} width='450px' height='250px'  />
                             <br />
-                            <button
+                            <div style={{textAlign:'center'}}>
+                            <Button
                             onClick={() => this.deleteVideo(item.id)}
+                            variant="contained"
+                            style={{backgroundColor: '#253155', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                             >
                                 Delete
-                            </button>
-                        </div>
+                            </Button>
+                            </div>
+                        </Grid>
                     )
                     })}
+                    </Grid>
                 </div>
             </div>
         )
