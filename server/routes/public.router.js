@@ -150,9 +150,12 @@ router.post( '/pledges', (req, res) => {
     if(type === 'Flat'){
         queryString = `INSERT INTO "donation" ("first_name", "last_name", "phone_number", "email", "type", "amount", "golfer_id") 
         VALUES  ($1, $2, $3, $4, $5, $6, $7 );`;
-    } else if (type === 'Per Birdie'){
+    } else if (type === 'Per Birdie' && max !== ''){
         queryString = `INSERT INTO "donation" ("first_name", "last_name", "phone_number", "email", "type", "amount", "max", "golfer_id") 
         VALUES  ($1, $2, $3, $4, $5, $6, $7, $8);`;
+    } else if (type === 'Per Birdie' && max === ''){
+        queryString = `INSERT INTO "donation" ("first_name", "last_name", "phone_number", "email", "type", "amount", "golfer_id") 
+        VALUES  ($1, $2, $3, $4, $5, $6, $7);`;
     }
     // const queryText = `INSERT INTO "donation" ("first_name", "last_name", "phone_number", "email", "type", "amount", "max", "golfer_id") 
     //                     VALUES  ($1, $2, $3, $4, $5, $6, $7, $8);`;
@@ -166,8 +169,17 @@ router.post( '/pledges', (req, res) => {
             res.sendStatus(500);
         });
 
-    } else {
+    } else if (type === 'Per Birdie' && max !== ''){
         pool.query(queryString, [first, last, phone, email, type, amount, max, golfer])
+        .then((result) => {
+            res.sendStatus(200);
+        }).catch((error) => {
+            console.log('Error POST PLEDGES**************', error)
+            res.sendStatus(500);
+        });
+
+    } else if (type === 'Per Birdie' && max === ''){
+        pool.query(queryString, [first, last, phone, email, type, amount, golfer])
         .then((result) => {
             res.sendStatus(200);
         }).catch((error) => {
