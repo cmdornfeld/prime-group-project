@@ -5,11 +5,25 @@ import DropzoneS3Uploader from 'react-dropzone-s3-uploader';
 
 //Material UI Stuff
 import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const styles =  {
     topMargin: {
-        marginTop: '100px'
+        marginTop: '120px',
+        textAlign: 'center'
     }
+}
+
+const dropStyles ={
+    width: "200px",
+    height: "50px",
+    border: "1px solid black",
+    "background-color": "#dddddd",
+    cursor: "pointer",
+    margin: '0 auto'
 }
 
 
@@ -118,6 +132,10 @@ class AdminPartnerDetails extends Component {
         });
     };
 
+    goBack = () => {
+        this.props.history.push('/admin/partners')
+    }
+
     render() {
 
         const { classes } = this.props;
@@ -138,66 +156,81 @@ class AdminPartnerDetails extends Component {
 
         const editName = this.state.editName === false ? (
             <Fragment>
-                <h3>{this.props.partner.company}</h3>
-                <button
+                <h2>{this.props.partner.company}</h2>
+                <Button
+                style={{backgroundColor: '#b49759', color: '#ffffff', marginBottom: '10px'}}
                 onClick={this.editName}
                 >
                     Edit Name
-                </button>
+                </Button>
             </Fragment>
         ) : (
             <Fragment>
                 <div>
-                    <input
+                    <TextField
+                    label="Organization Name"
+                    variant="outlined"
                     type="text"
                     value={this.state.name}
                     onChange={this.handleInputChangeFor('name')}
                     />
                 </div>
-                <button
-                onClick={this.cancelEditName}
-                >
-                    Cancel
-                </button>
-                <button
-                onClick={this.saveEditName}
-                >
-                    Save
-                </button>
+                <div style={{marginBottom: '10px'}}>
+                    <Button
+                        variant="contained"
+                        style={{backgroundColor: '#253155', color: '#ffffff', marginRight: '5px', marginTop: '5px'}}
+                        onClick={this.cancelEditName}
+                    >
+                        Cancel
+                    </Button>
+                    <Button
+                        variant="contained"
+                        style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
+                        onClick={this.saveEditName}
+                    >
+                        Save
+                    </Button>
+                </div>
             </Fragment>
         )
 
         const editLevel = this.state.editLevel === false ? (
             <Fragment>
-                <p>{this.props.partner.title}</p>
-                <button
-                onClick={this.editLevel}
+                <h2>{this.props.partner.title}</h2>
+                <Button
+                    variant="contained"
+                    style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
+                    onClick={this.editLevel}
                 >
                     Edit Level
-                </button>
+                </Button>
             </Fragment>
         ) : (
             <Fragment>
-                <div>
-                <select onChange={(event) => {this.assignPartnerLevel(event)}}>
+                <div style={{marginTop: '10px'}}>
+                <Select variant="outlined" onChange={(event) => {this.assignPartnerLevel(event)}}>
                     {this.props.level.map(level => (
-                        <option key={level.id} value={level.id}>
+                        <MenuItem key={level.id} value={level.id}>
                             {level.title} ({level.amount})
-                        </option>
+                        </MenuItem>
                     )
                     )}
-                </select>
+                </Select>
                 </div>
-                <button
-                onClick={this.cancelEditLevel}
+                <Button
+                    variant="contained"
+                    style={{backgroundColor: '#253155', color: '#ffffff', marginRight: '5px', marginTop: '5px'}}
+                    onClick={this.cancelEditLevel}
                 >
                     Cancel
-                </button>
-                <button
-                onClick={this.saveEditLevel}
+                </Button>
+                <Button
+                    variant="contained"
+                    style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
+                    onClick={this.saveEditLevel}
                 >
                     Save
-                </button>
+                </Button>
             </Fragment>
         )
 
@@ -205,11 +238,13 @@ class AdminPartnerDetails extends Component {
             <Fragment>
                 <img src={this.props.partner.img_url} alt={this.props.partner.company} width='220px' height='200px' />
                 <div>
-                    <button
-                    onClick={this.editImage}
+                    <Button
+                        variant="contained"
+                        style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
+                        onClick={this.editImage}
                     >
                         Edit Image
-                    </button>
+                    </Button>
                 </div>
             </Fragment>
         ) : (
@@ -218,20 +253,24 @@ class AdminPartnerDetails extends Component {
                     children={innderDropElement}
                     onFinish={this.handleFinishedUpload}
                     s3Url={s3Url}
-                    // style={dropStyles}
+                    style={dropStyles}
                     maxSize={1024 * 1024 * 5}
                     upload={uploadOptions}
                 />
-                <button
-                onClick={this.cancelEditImage}
+                <Button
+                    variant="contained"
+                    style={{backgroundColor: '#253155', color: '#ffffff', marginRight: '5px', marginTop: '5px'}}
+                    onClick={this.cancelEditImage}
                 >
                     Cancel
-                </button>
-                <button
-                onClick={this.saveEditImage}
+                </Button>
+                <Button
+                    variant="contained"
+                    style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
+                    onClick={this.saveEditImage}
                 >
                     Save
-                </button>
+                </Button>
             </Fragment>
         )
 
@@ -247,6 +286,15 @@ class AdminPartnerDetails extends Component {
                     </div>
                     <div>
                         {editLevel}
+                    </div>
+                    <div>
+                        <Button
+                        variant="contained"
+                        style={{backgroundColor: '#253155', color: '#ffffff', marginTop: '10px'}}
+                        onClick={this.goBack}
+                        >
+                            Back
+                        </Button>
                     </div>
                 </div>
             </div>

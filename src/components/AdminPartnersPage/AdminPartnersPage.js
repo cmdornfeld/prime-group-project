@@ -13,6 +13,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 
 const styles =  {
+    header: {
+        textAlign: 'center',
+        fontSize: '6rem',
+        padding: 0,
+        margin: '2rem',
+        color: '#253155'
+    },
     topMargin: {
         marginTop: '100px'
     },
@@ -209,8 +216,22 @@ export class AdminPartnersPage extends Component {
             <Fragment>
                 <input type="text" placeholder="Level Name" onChange={this.handleLevelNameChange}/>
                 <input type="number" placeholder="Level Number" onChange={this.handleLevelChange} />
-                <Button onClick={this.cancelAddLevel}>Cancel</Button>
-                <Button onClick={this.saveLevel}>Save</Button>
+                <div>
+                    <Button
+                        variant="contained"
+                        style={{backgroundColor: '#253155', color: '#ffffff', marginRight: '5px', marginTop: '5px'}}
+                        onClick={this.cancelAddLevel}
+                    >
+                        Cancel
+                    </Button>
+                    <Button 
+                        variant="contained"
+                        style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
+                        onClick={this.saveLevel}
+                    >
+                        Save
+                    </Button>
+                </div>
             </Fragment>
         )
 
@@ -263,7 +284,7 @@ export class AdminPartnersPage extends Component {
                 <AdminNav />
             </div>
             <div className={classes.topMargin}>
-                <Typography style={{textAlign: 'center', fontSize: '6rem', padding: 0, margin: '2rem', color: '#253155'}}>Manage Parnters</Typography>
+                <Typography className={classes.header}>Manage Parnters</Typography>
                 <div className={classes.center}>
                     {addPartnerButton}
                 </div>

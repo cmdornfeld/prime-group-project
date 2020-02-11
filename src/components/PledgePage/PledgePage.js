@@ -38,7 +38,7 @@ class Pledge extends Component {
         phone_number: '',
         email: '',
         golfer_id: '',
-        type: 'Flat',
+        type: '',
         amount: '',
         max: '',
     }
