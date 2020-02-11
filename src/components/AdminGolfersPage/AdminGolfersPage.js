@@ -182,12 +182,15 @@ export class AdminGolfersPage extends Component {
             <div>
                 <AdminNav />
                 <div className={classes.topMargin}>
-                    <p>Admin Golfers</p>
+                    <h1 style={{textAlign:'center', fontSize:'6rem'}}>Golfers</h1>
                     <div>
                         {addGolfer}
                     </div>
                     <div>
                         {this.props.golferReducer.map( (item) => {
+                        if(item.first_name === 'General'){
+                            return null;
+                        } else {
                         return(
                             <div key={item.id}>
                                 <h3>{item.first_name} {item.last_name}</h3>
@@ -201,7 +204,8 @@ export class AdminGolfersPage extends Component {
                                 </div>
                                 </div>
                                 )
-                            })}
+                            }
+                        })}
                     </div>
                 </div>
             </div>

@@ -285,7 +285,7 @@ class AdminAboutPage extends Component {
             <div>
                 <AdminNav />
                 <div className={classes.topMargin}>
-                    <p>Admin About</p>
+                    <h1 style={{textAlign:'center', fontSize:'6rem'}}>About</h1>
                     <div>
                         {editMission}
                     </div>

@@ -83,7 +83,7 @@ class ContactPage extends Component {
             <Fragment>
                 <Nav />
                 <div className={classes.topMargin}>
-                    <h1>Contact</h1>
+                    <h1>CONTACT</h1>
                     <div className={classes.root} style={{width: '65%', margin: '0 auto'}}>
                         <Grid container spacing={2}>
                             <Grid item xs>
