@@ -188,6 +188,9 @@ export class AdminGolfersPage extends Component {
                     </div>
                     <div>
                         {this.props.golferReducer.map( (item) => {
+                        if(item.first_name === 'General'){
+                            return null;
+                        } else {
                         return(
                             <div key={item.id}>
                                 <h3>{item.first_name} {item.last_name}</h3>
@@ -201,7 +204,8 @@ export class AdminGolfersPage extends Component {
                                 </div>
                                 </div>
                                 )
-                            })}
+                            }
+                        })}
                     </div>
                 </div>
             </div>
