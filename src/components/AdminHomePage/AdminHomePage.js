@@ -326,8 +326,11 @@ class AdminHomePage extends Component {
             <div>
                 <AdminNav />
                 <div className={classes.topMargin}>
+
                     <h1>Admin Home</h1>
-                    <div style={{textAlign:'center'}}>
+                  
+                    <div style={{textAlign:'center'}}> 
+
                         {editLocation}
                     </div>
                     <div style={{textAlign:'center'}}>

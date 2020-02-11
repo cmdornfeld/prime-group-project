@@ -39,10 +39,14 @@ class GolfersPage extends Component {
         return (
             <div>
                 <Nav />
-                <h1 style={{textAlign:'center', fontSize:'50px', fontFamily:'serif'}}>2020 GOLFERS</h1>
+                <div className={classes.topMargin}>
+                <h1>GOLFERS</h1>
                 <Card className={classes.card}>
                 <Grid container spacing={3} justify='center'>
-                    {this.props.golferReducer.map( (item) => {
+                    {this.props.golferReducer.map( item => {
+                    if(item.first_name === 'General'){
+                        return null;
+                    } else {
                     return(
                         <Grid item>
                         <div key={item.id}>
@@ -50,10 +54,12 @@ class GolfersPage extends Component {
                             <img src={item.img_url} alt={item.id} onClick={() => this.viewGolfer(item.id)} width='240px' height='200px' textAlign='center' />
                         </div>
                         </Grid>
-                            )
+                        )
+                    }
                         })}
                 </Grid>
                 </Card>
+                </div>
             </div>
         )
     }

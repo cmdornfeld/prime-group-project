@@ -128,7 +128,7 @@ class AdminPhotosPage extends Component {
             <div>
                 <AdminNav />
                 <div className={classes.topMargin}>
-                    <p>Admin Photos</p>
+                    <h1>Photos</h1>
                     <div>
                         {addPhoto}
                     </div>

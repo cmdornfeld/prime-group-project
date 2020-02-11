@@ -36,7 +36,7 @@ class AboutPage extends Component {
       <div>
         <Nav />
         <div className={classes.topMargin}>
-          <h1 style={{textAlign:'center', fontSize:'90px'}}>ABOUT</h1>
+          <h1 style={{textAlign:'center', fontSize:'6rem'}}>ABOUT</h1>
 
           <Grid conatainer spacing={4} justify="center">
               <div className='mission'>

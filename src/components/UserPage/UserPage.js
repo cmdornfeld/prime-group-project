@@ -9,7 +9,8 @@ import Nav from '../Nav/Nav'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import Typography from '@material-ui/core/Typography'
+
+import Grid from '@material-ui/core/grid';
 
 const styles = theme => ({
   progress: {
@@ -22,8 +23,14 @@ const styles = theme => ({
       backgroundColor: '#b49759',
   },
   topMargin: {
-    marginTop: '100px'
+    marginTop: '140px'
   },
+  card: {
+    textAlign: 'center'
+  },
+  logo: {
+    textAlign: 'center'
+  }
 });
 
 class UserPage extends Component {
@@ -89,19 +96,33 @@ getGoalInfo = () => {
       <div>
         <Nav />
         <div className={classes.topMargin}>
-          <h4>{this.props.entireGoal.year} pledges: {this.props.golferDonationTotal.total_received}</h4>
-          <LinearProgress value={normaliseGolferTotals(golferDonationTotal)} classes={{colorPrimary: classes.linearColorPrimary, barColorPrimary: classes.linearBarColorPrimary}}
-            color="primary" variant="determinate" style={{height:"20px", width:"20%", borderRadius:"10px"}}/>
-          <h4>Goal ${this.props.golferGoalTotal.total}</h4>
-          <h4>Total Raised in {this.props.entireGoal.year} ${entireDonationTotal}</h4>
-          <LinearProgress value={normaliseEntireTotals(entireDonationTotal)} classes={{colorPrimary: classes.linearColorPrimary, barColorPrimary: classes.linearBarColorPrimary}}
-            color="primary" variant="determinate" style={{height:"20px", width:"20%", borderRadius:"10px"}}/>
-          <h4>Goal ${entireGoal}</h4>
-          <div class='title'>
-            <img src={HolesforHope} alt="100 Holes For Hope" width='420px' height='200px' />
+          <div className={classes.logo}>
+            <img src={HolesforHope} alt="100 Holes For Hope" width='30%'  />
           </div>
+          <Grid container spacing={4}>
+
+            <Grid item sm={6}>
+              <div style={{marginLeft: '60%'}}>
+                <h4>{this.props.entireGoal.year} pledges: ${this.props.golferDonationTotal.total_received}</h4>
+                <LinearProgress value={normaliseGolferTotals(golferDonationTotal)} classes={{colorPrimary: classes.linearColorPrimary, barColorPrimary: classes.linearBarColorPrimary}}
+                color="primary" variant="determinate" style={{height:"20px", width:"75%", borderRadius:"10px"}}/>
+                <h4>Goal ${this.props.golferGoalTotal.total}</h4>
+              </div>
+              
+            </Grid>
+
+            <Grid item sm={6}>
+              <div style={{marginLeft: '5%'}}>
+              <h4>Total Raised in {this.props.entireGoal.year} ${entireDonationTotal}</h4>
+              <LinearProgress value={normaliseEntireTotals(entireDonationTotal)} classes={{colorPrimary: classes.linearColorPrimary, barColorPrimary: classes.linearBarColorPrimary}}
+              color="primary" variant="determinate" style={{height:"20px", width:"30%", borderRadius:"10px"}}/>
+              <h4>Goal ${entireGoal}</h4>
+              </div>
+              
+            </Grid>
+          </Grid>
             <h2 align="center">{dayjs(this.props.eventInfoReducer.date).format('MMMM DD YYYY')} {this.props.eventInfoReducer.location}</h2>
-            <div class='card'>
+            <div className={classes.card}>
               {this.props.videoReducer.map( (item) => {
                 return(
                   <div >
