@@ -32,9 +32,10 @@ class PhotosPage extends Component {
     render() {
         const {classes} = this.props;
         return (
-            <div className={classes.topMargin}>
+            <div>
                 <Nav />
-                <h1 style={{textAlign:'center', fontSize:'50px'}}>EVENT PHOTOS</h1>
+                <div className={classes.topMargin}>
+                <h1 style={{textAlign:'center', fontSize:'6rem'}}>EVENT PHOTOS</h1>
                         <Card className={classes.card}>
                             <Grid container spacing={3} justify='center'>
                             {this.props.photosReducer.map( (item) => {
@@ -48,6 +49,7 @@ class PhotosPage extends Component {
                                 })}
                             </Grid>
                         </Card>
+                </div>
             </div>
         )
     }

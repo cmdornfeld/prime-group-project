@@ -263,7 +263,7 @@ class AdminHomePage extends Component {
             <div>
                 <AdminNav />
                 <div className={classes.topMargin}>
-                    <h1>Admin Home</h1>
+                    <h1 style={{textAlign:'center', fontSize:'6rem'}}>Home</h1>
                     {JSON.stringify(this.state)}
                     <div>
                         {editLocation}

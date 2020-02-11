@@ -280,11 +280,9 @@ export class AdminPartnersPage extends Component {
 
         return (
             <Fragment>
-            <div>
                 <AdminNav />
-            </div>
             <div className={classes.topMargin}>
-                <Typography className={classes.header}>Manage Parnters</Typography>
+                <h1 style={{textAlign:'center', fontSize:'6rem'}}>Manage Parnters</h1>
                 <div className={classes.center}>
                     {addPartnerButton}
                 </div>

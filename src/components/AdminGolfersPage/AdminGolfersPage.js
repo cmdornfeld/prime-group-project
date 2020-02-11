@@ -182,7 +182,7 @@ export class AdminGolfersPage extends Component {
             <div>
                 <AdminNav />
                 <div className={classes.topMargin}>
-                    <p>Admin Golfers</p>
+                    <h1 style={{textAlign:'center', fontSize:'6rem'}}>Golfers</h1>
                     <div>
                         {addGolfer}
                     </div>
