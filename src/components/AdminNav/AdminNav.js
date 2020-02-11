@@ -64,7 +64,7 @@ class AdminNav extends Component{
             </Button>
             <Button>
               <Link className="nav-link" to="/admin/pledges" className={classes.buttonStyling}>
-                Pledges
+                Donations
               </Link>
             </Button>
             <Button>
