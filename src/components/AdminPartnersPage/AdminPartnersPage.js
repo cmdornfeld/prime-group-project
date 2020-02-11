@@ -13,6 +13,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 
 const styles =  {
+    header: {
+        textAlign: 'center',
+        fontSize: '6rem',
+        padding: 0,
+        margin: '2rem',
+        color: '#253155'
+    },
     topMargin: {
         marginTop: '100px'
     },
@@ -277,7 +284,7 @@ export class AdminPartnersPage extends Component {
                 <AdminNav />
             </div>
             <div className={classes.topMargin}>
-                <Typography style={{textAlign: 'center', fontSize: '6rem', padding: 0, margin: '2rem', color: '#253155'}}>Manage Parnters</Typography>
+                <Typography className={classes.header}>Manage Parnters</Typography>
                 <div className={classes.center}>
                     {addPartnerButton}
                 </div>

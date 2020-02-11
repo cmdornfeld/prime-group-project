@@ -5,10 +5,38 @@ import dayjs from 'dayjs';
 
 //Material UI Stuff
 import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
-const styles =  {
+
+const styles = {
+    root: {
+        width: '100%',
+        overflowX: 'auto',
+    },
+    header: {
+        textAlign: 'center',
+        fontSize: '6rem',
+        padding: 0,
+        margin: '2rem',
+        color: '#253155'
+    },
     topMargin: {
         marginTop: '100px'
+    },
+    center: {
+        margin: '0 auto',
+        textAlign: 'center'
+    },
+    table: {
+        marginLeft: 'auto',
+        marginRight: 'auto'
     }
 }
 
@@ -95,77 +123,110 @@ export class AdminPledgesPage extends Component {
 
         const filterDates = this.state.filterDates === false ? (
             <Fragment>
-                    <button
+                    <Button
+                    variant="contained"
+                    style={{backgroundColor: '#b49759', color: '#ffffff', marginTop: '10px'}}
                     onClick={this.filterDates}
                     >
                         Filter
-                    </button>
+                    </Button>
             </Fragment>
         ) : (
             <Fragment>
-                <label>Starting Date:
-                    <input 
-                    type="date"
-                    value={this.state.startingDate}
-                    onChange={this.handleInputChangeFor('startingDate')}
-                    />
-                </label>
+                <TextField
+                label="Starting Date"
+                variant="outlined"
+                type="date"
+                style={{marginRight: '5px'}}
+                value={this.state.startingDate}
+                onChange={this.handleInputChangeFor('startingDate')}
+                InputLabelProps={{
+                    shrink: true,
+                    }}
+                />
 
-                <label>Ending Date:
-                    <input 
-                    type="date"
-                    value={this.state.endingDate}
-                    onChange={this.handleInputChangeFor('endingDate')}
-                    />
-                </label>
-                <button
-                onClick={this.cancelFilter}
-                >
-                    Cancel
-                </button>
-                <button
-                onClick={this.sendFilter}
-                >
-                    Filter
-                </button>
+                <TextField
+                label="Ending Date"
+                variant="outlined"
+                type="date"
+                style={{marginLeft: '5px'}}
+                value={this.state.endingDate}
+                onChange={this.handleInputChangeFor('endingDate')}
+                InputLabelProps={{
+                    shrink: true,
+                    }}
+                />
+                <div>
+                    <Button
+                    variant="contained"
+                    style={{backgroundColor: '#253155', color: '#ffffff', marginRight: '5px', marginTop: '5px'}}
+                    onClick={this.cancelFilter}
+                    >
+                        Cancel
+                    </Button>
+                    <Button
+                    variant="contained"
+                    style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
+                    onClick={this.sendFilter}
+                    >
+                        Filter
+                    </Button>
+                </div>
             </Fragment>
         )
 
         const deleteRows = this.state.deleteRows === false ? (
             <Fragment>
-                    <button
+                    <Button
+                    variant="contained"
+                    style={{backgroundColor: '#b49759', color: '#ffffff', marginTop: '10px'}}
                     onClick={this.deleteRows}
                     >
                         Delete Rows
-                    </button>
+                    </Button>
             </Fragment>
         ) : (
             <Fragment>
-                <label>Starting Date:
-                    <input 
+                <div style={{marginTop: '20px'}}>
+                    <TextField
+                    label="Starting Date"
+                    variant="outlined"
                     type="date"
+                    style={{marginRight: '5px'}}
                     value={this.state.startingDate}
                     onChange={this.handleInputChangeFor('startingDate')}
+                    InputLabelProps={{
+                        shrink: true,
+                        }}
                     />
-                </label>
-
-                <label>Ending Date:
-                    <input 
+                    <TextField
+                    label="Ending Date"
+                    variant="outlined"
                     type="date"
+                    style={{marginLeft: '5px'}}
                     value={this.state.endingDate}
                     onChange={this.handleInputChangeFor('endingDate')}
+                    InputLabelProps={{
+                        shrink: true,
+                        }}
                     />
-                </label>
-                <button
-                onClick={this.cancelDeleteRows}
-                >
-                    Cancel
-                </button>
-                <button
-                onClick={this.sendDeleteRows}
-                >
-                    Delete
-                </button>
+                    <div>
+                        <Button
+                        variant="contained"
+                        style={{backgroundColor: '#253155', color: '#ffffff', marginRight: '5px', marginTop: '5px'}}
+                        onClick={this.cancelDeleteRows}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                        variant="contained"
+                        style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
+                        onClick={this.sendDeleteRows}
+                        >
+                            Delete
+                        </Button>
+                    </div>
+                </div>
             </Fragment>
         )
 
@@ -175,52 +236,74 @@ export class AdminPledgesPage extends Component {
                 <AdminNav />
             </div>
             <div className={classes.topMargin}>
-                <h2>DONATIONS</h2>
-                <div>{filterDates}</div>
-                <div>{deleteRows}</div>
-                <div>
-                    <button onClick={this.refreshPage}>Refresh</button>
+                <div style={{textAlign: 'center'}}>
+                    <h2 className={classes.header}>Donations</h2>
                 </div>
-                <div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>Date</td>
-                                <td>Name</td>
-                                <td>Phone</td>
-                                <td>Email</td>
-                                <td>Type</td>
-                                <td>Amount</td>
-                                <td>Max</td>
-                                <td>Golfer</td>
-                                <td>Status</td>
-                                <td>Mark Paid</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.props.donationReducer.map( donation => {
-                                return (
-                                    <tr key={donation.id}>
-                                        <td>{dayjs(donation.date).format('MM/DD/YYYY')}</td>
-                                        <td>{donation.first_name} {donation.last_name}</td>
-                                        <td>{donation.phone_number}</td>
-                                        <td>{donation.email}</td>
-                                        <td>{donation.type}</td>
-                                        <td>{donation.amount}</td>
-                                        <td>{donation.max}</td>
-                                        <td>{donation.firstname} {donation.lastname}</td>
-                                        <td>{donation.status}</td>
-                                        <td><input type="checkbox" name="status"
-                                            checked={donation.status === 'paid'} onChange={() => this.updatePaymentStatus(donation.id, donation.status)}/>
-                                        </td>
-                                    </tr>
-                                )
-                            })}
-                        </tbody>
-                    </table>
-                </div>
-                <div>
-                    <button onClick={this.exportToExcel}>Export</button>
+                <div className={classes.center}>
+                    <div>
+                        {filterDates}
+                    </div>
+                    <div>
+                        {deleteRows}
+                    </div>
+                    <div>
+                        <Button
+                        variant="contained"
+                        style={{backgroundColor: '#b49759', color: '#ffffff', marginTop: '10px', marginBottom: '10px'}}
+                        onClick={this.refreshPage}
+                        >
+                            Refresh
+                        </Button>
+                    </div>
+                    <div>
+                        <Paper className={classes.root}>
+                            <Table className={classes.table}>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Date</TableCell>
+                                        <TableCell>Name</TableCell>
+                                        <TableCell>Phone</TableCell>
+                                        <TableCell>Email</TableCell>
+                                        <TableCell>Type</TableCell>
+                                        <TableCell>Amount</TableCell>
+                                        <TableCell>Max</TableCell>
+                                        <TableCell>Golfer</TableCell>
+                                        <TableCell>Status</TableCell>
+                                        <TableCell>Mark Paid</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {this.props.donationReducer.map( donation => {
+                                        return (
+                                            <TableRow key={donation.id}>
+                                                <TableCell>{dayjs(donation.date).format('MM/DD/YYYY')}</TableCell>
+                                                <TableCell>{donation.first_name} {donation.last_name}</TableCell>
+                                                <TableCell>{donation.phone_number}</TableCell>
+                                                <TableCell>{donation.email}</TableCell>
+                                                <TableCell>{donation.type}</TableCell>
+                                                <TableCell>{donation.amount}</TableCell>
+                                                <TableCell>{donation.max}</TableCell>
+                                                <TableCell>{donation.firstname} {donation.lastname}</TableCell>
+                                                <TableCell>{donation.status}</TableCell>
+                                                <TableCell><input type="checkbox" name="status"
+                                                    checked={donation.status === 'paid'} onChange={() => this.updatePaymentStatus(donation.id, donation.status)}/>
+                                                </TableCell>
+                                            </TableRow>
+                                        )
+                                    })}
+                                </TableBody>
+                            </Table>
+                        </Paper>
+                    </div>
+                    <div>
+                        <Button
+                        variant="contained"
+                        style={{backgroundColor: '#b49759', color: '#ffffff', marginTop: '10px'}}
+                        onClick={this.exportToExcel}
+                        >
+                            Export
+                        </Button>
+                    </div>
                 </div>
             </div>
             </>
