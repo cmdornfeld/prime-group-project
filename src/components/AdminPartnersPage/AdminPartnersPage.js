@@ -209,8 +209,22 @@ export class AdminPartnersPage extends Component {
             <Fragment>
                 <input type="text" placeholder="Level Name" onChange={this.handleLevelNameChange}/>
                 <input type="number" placeholder="Level Number" onChange={this.handleLevelChange} />
-                <Button onClick={this.cancelAddLevel}>Cancel</Button>
-                <Button onClick={this.saveLevel}>Save</Button>
+                <div>
+                    <Button
+                        variant="contained"
+                        style={{backgroundColor: '#253155', color: '#ffffff', marginRight: '5px', marginTop: '5px'}}
+                        onClick={this.cancelAddLevel}
+                    >
+                        Cancel
+                    </Button>
+                    <Button 
+                        variant="contained"
+                        style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
+                        onClick={this.saveLevel}
+                    >
+                        Save
+                    </Button>
+                </div>
             </Fragment>
         )
 
