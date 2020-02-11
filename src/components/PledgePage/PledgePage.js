@@ -38,7 +38,7 @@ class Pledge extends Component {
         phone_number: '',
         email: '',
         golfer_id: '',
-        type: '',
+        type: 'Flat',
         amount: '',
         max: '',
     }
@@ -152,38 +152,64 @@ class Pledge extends Component {
 
         const { classes } = this.props;
 
-        const maxBox = this.state.type === 'Per Birdie' ? (
-            <Fragment>
-                <div>
+        const perBirdiePledge = this.state.type === 'Per Birdie' ? (
+                <div style={{width: '50%', margin: '0 auto'}}>
                     <TextField
-                        label="Max"
+                        label="Per birdie donation"
                         variant="outlined"
-                        placeholder='Max' 
+                        type='number'
+                        onChange={this.handleChangeAmount}
+                        value={this.state.amount}
+                        helperText="Eagles will count as 2 Birdies. Minimum pledge $1.00."
+                        style={{width: '50%', marginTop: '5%'}}
+                    />
+                    <br/>
+                    <TextField
+                        label="Maxium donation"
+                        variant="outlined" 
                         type='number' 
                         onChange={this.handleChangeMax} 
-                        value={this.state.max} 
-                        />
+                        value={this.state.max}
+                        helperText="This is the amount you will be billed if your per birdie pledge amount multiplied by the golfers total number of birdies
+                            exceeds the maximum donation you set."
+                        style={{width: '50%', marginTop: '5%'}}
+                    />
                 </div>
-            </Fragment>
         ) : (
             <Fragment>
                 
             </Fragment>
         )
+
+        const flatPledge = this.state.type === 'Flat' ? (
+            <div>
+                <TextField
+                label="Pledge Total"
+                variant="outlined"
+                type='number'
+                onChange={this.handleChangeAmount}
+                value={this.state.amount}
+                helperText="Minimum pledge $1.00."
+                />
+            </div>
+        ) : (
+            <Fragment>
+
+            </Fragment>
+        )
+        
         return (
             <div>
                 <Nav />
                 <div className={classes.topMargin}>
-                    <header style={{textAlign: 'center'}}>
-                        <h1 style={{size: "6rem"}}>PLEDGES</h1>
-                    </header>
+                    <h1>PLEDGE</h1>
                 </div>
-                <div style={{textAlign: 'center', width: 800, margin: '0 auto'}}>
+                <div style={{textAlign: 'left', width: 800, margin: '0 auto'}}>
                     <p>By filling out the form below, you are making a commitment to support the golfer of your choice in their 100 Holes for HOPE marathon. 
                         You will receive an e-mail after the event with a summary of information on your golfer's performance 
                         and specific instructions on how to honor this pledge directly to his/her pledge total.
-                    </p>
-                    <p>In order to keep the pace of play going and to ensure that the golfers can play a full 100 holes in daylight, 
+                        <br/><br/>
+                        In order to keep the pace of play going and to ensure that the golfers can play a full 100 holes in daylight, 
                         we have modified some of the traditional rules of golf. If a ball is anywhere within a flag stick from the hole, 
                         that ball counts as "in the hole". Please be aware of this when pledging per birdie. An eagle will be worth two birdie pledges.
                     </p>
@@ -197,7 +223,7 @@ class Pledge extends Component {
                         <TextField 
                             label="First Name"
                             variant="outlined"
-                            style={{paddingRight:10}}
+                            style={{marginRight: 10}}
                             placeholder='First Name'
                             type="text"
                             onChange={this.handleChangeFirstName} 
@@ -206,7 +232,7 @@ class Pledge extends Component {
                         <TextField 
                             label="Last Name"
                             variant="outlined"
-                            style={{paddingLeft: 10}}
+                            style={{marginLeft: 10}}
                             placeholder='Last Name'
                             type="text" 
                             onChange={this.handleChangeLastName} 
@@ -241,7 +267,7 @@ class Pledge extends Component {
                 <div>
                     <h4>Golfer You are Pledging to</h4>
                 </div>
-                <div>
+                <div style={{marginBottom: 20}}>
                     <Select 
                     variant="outlined"
                     onChange={this.handleChangePledging} 
@@ -254,8 +280,7 @@ class Pledge extends Component {
                 </div>
                 <div>
                     <p style={{textAlign: 'center', width: 500, margin: '0 auto'}}>
-                        Please indicate your pledge or pledges below. You may pledge to one or multiple categories. 
-                        After the event and once scores have been calculated, you will be contacted with a total amount 
+                        Please indicate your pledge below. After the event and once scores have been calculated, you will be contacted with a total amount 
                         and payment can be made at that time.
                     </p>
                 </div>
@@ -273,18 +298,10 @@ class Pledge extends Component {
                     </Select>
                 </div>
                
-                <br></br>
-                {maxBox}
-                <br />
-                <div>
-                    <TextField
-                    label="Pledge Total"
-                    variant="outlined"
-                    type='number'
-                    onChange={this.handleChangeAmount}
-                    value={this.state.amount} 
-                    />
-                </div>
+                <br/>
+                {perBirdiePledge}
+                <br/>
+                {flatPledge}
                 <div>
                     <Button
                         variant="contained"
