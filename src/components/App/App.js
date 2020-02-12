@@ -31,6 +31,7 @@ import AdminContact from '../AdminContactPage/AdminContactPage';
 import golferDetails from '../golferDetails/golferDetails';
 import AdminGolferDetails from '../AdminGolferDetails/AdminGolferDetails';
 import AdminPartnerDetails from '../AdminPartnerDetails/AdminPartnerDetails';
+import AdminFoundationDetails from '../AdminFoundationDetails/AdminFoundationDetails';
 
 
 import './App.css';
@@ -95,6 +96,11 @@ class App extends Component {
               exact
               path="/admin/about"
               component={AdminAbout}
+            />
+            <ProtectedRoute
+              exact
+              path="/admin/foundation/:id"
+              component={AdminFoundationDetails}
             />
             <ProtectedRoute
               exact
