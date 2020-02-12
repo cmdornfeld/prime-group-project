@@ -16,6 +16,9 @@ const styles =  {
     },
     nameTextField: {
         width: 250
+    },
+    center: {
+        textAlign: 'center'
     }
 }
 
@@ -342,10 +345,9 @@ class AdminHomePage extends Component {
                     <div style={{textAlign:'center'}}>
                         {addVideo}
                     </div>
-                    <Grid container spacing={4} justify='center'>
                     {this.props.videoReducer.map( (item) => {
                     return(
-                        <Grid item key={item.id}>
+                        <div className={classes.center}key={item.id} sm={6}>
                             <h2 style={{textAlign:'center'}}>{item.title}</h2>
                             <iframe src={item.url} width='450px' height='250px'  />
                             <br />
@@ -358,10 +360,9 @@ class AdminHomePage extends Component {
                                 Delete
                             </Button>
                             </div>
-                        </Grid>
+                        </div>
                     )
                     })}
-                    </Grid>
                 </div>
             </div>
         )
