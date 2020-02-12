@@ -32,6 +32,7 @@ import golferDetails from '../golferDetails/golferDetails';
 import AdminGolferDetails from '../AdminGolferDetails/AdminGolferDetails';
 import AdminPartnerDetails from '../AdminPartnerDetails/AdminPartnerDetails';
 import AdminFoundationDetails from '../AdminFoundationDetails/AdminFoundationDetails';
+import AdminChangePassword from '../AdminChangePassword/AdminChangePassword';
 
 
 import './App.css';
@@ -135,6 +136,11 @@ class App extends Component {
               exact
               path="/admin/contact"
               component={AdminContact}
+            />
+            <ProtectedRoute 
+              exact
+              path="/admin/password"
+              component={AdminChangePassword}
             />
            
             {/* If none of the other routes matched, we will show a 404. */}
