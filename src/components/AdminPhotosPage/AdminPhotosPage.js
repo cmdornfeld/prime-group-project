@@ -2,14 +2,34 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import AdminNav from '../AdminNav/AdminNav';
 import DropzoneS3Uploader from 'react-dropzone-s3-uploader';
+import Grid from '@material-ui/core/grid';
+import Card from '@material-ui/core/Card';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 //Material UI Stuff
 import { withStyles } from '@material-ui/core/styles';
 
 const styles =  {
+    card: {
+        width: 'auto',
+        height: 'auto',
+        padding: 90,
+        margin: 100,
+        textAlign: 'center'
+    },
     topMargin: {
         marginTop: '100px'
     }
+}
+
+const dropStyles ={
+    width: "200px",
+    height: "50px",
+    border: "1px solid black",
+    "background-color": "#dddddd",
+    cursor: "pointer",
+    margin: '0 auto'
 }
 
 
@@ -85,17 +105,20 @@ class AdminPhotosPage extends Component {
 
         const addPhoto = this.state.addPhoto === false ? (
             <Fragment>
-                    <button
+                    <Button
                     onClick={this.addPhoto}
+                    variant="contained"
+                    style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                     >
                         Add Photo
-                    </button>
+                    </Button>
             </Fragment>
         ) : (
             <Fragment>
-                <div>
-                    <input
+                <div style={{ marginBottom: 20}}>
+                    <TextField
                     type="text"
+                    variant="outlined"
                     value={this.state.description}
                     onChange={this.handleInputChangeFor('description')}
                     />
@@ -105,22 +128,26 @@ class AdminPhotosPage extends Component {
                     children={innderDropElement}
                     onFinish={this.handleFinishedUpload}
                     s3Url={s3Url}
-                    // style={dropStyles}
+                    style={dropStyles}
                     maxSize={1024 * 1024 * 5}
                     upload={uploadOptions}
                 />
                 </div>
 
-                <button
+                <Button
                 onClick={this.cancelAddPhoto}
+                variant="contained"
+                style={{backgroundColor: '#253155', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                 >
                     Cancel
-                </button>
-                <button
+                </Button>
+                <Button
                 onClick={this.saveAddPhoto}
+                variant="contained"
+                style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                 >
                     Save
-                </button>
+                </Button>
             </Fragment>
         )
 
@@ -129,24 +156,32 @@ class AdminPhotosPage extends Component {
                 <AdminNav />
                 <div className={classes.topMargin}>
                     <h1>Photos</h1>
-                    <div>
-                        {addPhoto}
-                    </div>
-                    <div>
-                    {this.props.photosReducer.map( (item) => {
-                    return(
-                        <div key={item.id}>
-                            <img src={item.url} alt={item.description} width='220px' height='200px' />
-                            <br />
-                            <button
-                            onClick={() => this.deletePhoto(item.id)}
-                            >
-                                Delete
-                            </button>
+                    <Card className={classes.card}>
+                        <Grid container spacing={3} justify='center'>
+                        <div style={{ textAlign:'center', marginBottom:20}}>
+                            {addPhoto}
                         </div>
-                        )
-                    })}
-                    </div>
+                            <Grid container spacing={3} justify='center'>
+                            {this.props.photosReducer.map( (item) => {
+                            return(
+                                <Grid item>
+                                    <div key={item.id}>
+                                    <img src={item.url} alt={item.description} width='220px' height='200px' textAlign='center' />
+                                    <br />
+                                    <Button
+                                    onClick={() => this.deletePhoto(item.id)}
+                                    variant="contained"
+                                    style={{backgroundColor: '#253155', color: '#ffffff', marginTop: '5px'}}
+                                    >
+                                        Delete
+                                    </Button>
+                                    </div>
+                                </Grid>
+                                )
+                            })}
+                            </Grid>
+                        </Grid>
+                    </Card>
                 </div>
             </div>
         )
