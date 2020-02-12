@@ -75,6 +75,14 @@ class ContactPage extends Component {
         }
     }
 
+    adjustLayout(string) {
+        let phone = string.toString()
+        let area = phone.slice(0,3)
+        let first = phone.slice(3,6)
+        let last = phone.slice(6,10)
+        return string.replace(/\d{10}/g, ` (${area}) ${first}-${last}`); 
+    }
+
     render(props) {
 
         const { classes } = this.props;
@@ -156,8 +164,8 @@ class ContactPage extends Component {
                                             <p>{item.city}, {item.state} {item.zip}</p>
                                             <p>info@minnesotapga.com</p><br/>
 
-                                            <p>Tel:{item.phone}</p>
-                                            <p>Fax:{item.fax}</p>
+                                            <p>Tel:{this.adjustLayout(item.phone)}</p>
+                                            <p>Fax:{this.adjustLayout(item.fax)}</p>
                                         </Paper>
                                     )
                                 })}
