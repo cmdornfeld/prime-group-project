@@ -112,6 +112,7 @@ class Pledge extends Component {
                     amount: '',
                     max: '',
                 }) 
+                alert('Thank you for your donation, please check your the email address you entered for conformation.')
         } 
         else {
             console.log(this.state)
@@ -136,6 +137,7 @@ class Pledge extends Component {
                 amount: '',
                 max: '',
             }) 
+            alert('Thank you for your donation, please check your the email address you entered for conformation.')
         } 
         }
         

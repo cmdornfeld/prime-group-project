@@ -5,11 +5,49 @@ import DropzoneS3Uploader from 'react-dropzone-s3-uploader';
 
 //Material UI Stuff
 import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 const styles =  {
     topMargin: {
         marginTop: '100px'
+    },
+    center: {
+        textAlign: 'center'
+    },
+    primaryButton: {
+        backgroundColor: '#b49759', 
+        color: '#ffffff',
+        marginTop: 10,
+        '&:hover': {
+            backgroundColor: '#b49759'
+        }
+    },
+    secondaryButton: {
+        backgroundColor: '#253155', 
+        color: '#ffffff',
+        marginTop: 10,
+        '&:hover': {
+            backgroundColor: '#253155'
+        }
+    },
+    paragraph: {
+        width: 600, 
+        margin: '0 auto'
+    },
+    textArea: {
+        width: 600
     }
+}
+
+const dropStyles ={
+    width: "200px",
+    height: "50px",
+    border: "1px solid black",
+    "background-color": "#dddddd",
+    cursor: "pointer",
+    margin: '0 auto',
+    marginTop: 10
 }
 
 class AdminAboutPage extends Component {
@@ -22,7 +60,6 @@ class AdminAboutPage extends Component {
         id: '',
         editMission: false,
         addFoundation: false,
-        editFoundation: false
     }
 
     componentDidMount(){
@@ -34,12 +71,6 @@ class AdminAboutPage extends Component {
         this.setState({
             editMission: false,
             mission: ''
-        })
-    }
-
-    cancelEditFoundation = () => {
-        this.setState({
-            editFoundation: false,
         })
     }
 
@@ -75,35 +106,6 @@ class AdminAboutPage extends Component {
         this.props.dispatch({type: 'DELETE_FOUNDATION', payload: id})
     }
 
-    editFoundationState = (id) => {
-        if(this.state.editFoundation === false){
-            this.setState({
-                editFoundation: true,
-                id: id
-            })
-        } else {
-            this.setState({
-                editFoundation: false
-            })
-        }
-    }
-
-    saveEditFoundation = () => {
-        this.props.dispatch({type: 'EDIT_ADMIN_FOUNDATION', payload: {
-            title: this.state.title, 
-            bio: this.state.bio,
-            url: this.state.url,
-            id: this.state.id
-        }})
-        this.setState({
-            editFoundation: false,
-            title: '', 
-            bio: '',
-            url: '',
-            id: ''
-        })
-    }
-
     saveAddFoundation = () => {
         this.props.dispatch({ type: 'ADD_FOUNDATION', payload: {
             title: this.state.title,
@@ -130,39 +132,61 @@ class AdminAboutPage extends Component {
         });
     };
 
+    viewPartner = (id) => {
+        this.props.history.push(`/admin/foundation/${id}`);
+    }
+
     render() {
 
         const { classes } = this.props;
 
         const editMission = this.state.editMission === false ? (
             <Fragment>
-                {this.props.missionReducer.about}
-                    <button
+                <div className={classes.paragraph}>
+                    <p>{this.props.missionReducer.about}</p>
+                </div>
+                <div className={classes.center}>
+                    <Button
+                    variant="contained"
                     onClick={this.editMission}
+                    className={classes.primaryButton}
                     >
                         Edit
-                    </button>
+                    </Button>
+                </div>
             </Fragment>
         ) : (
             <Fragment>
-                <textarea
-                type="text"
-                rows="6"
-                cols="100"
-                value={this.state.mission}
-                onChange={this.handleInputChangeFor('mission')}
-                >
-                </textarea>
-                <button
-                onClick={this.cancelMissionSave}
-                >
-                    Cancel
-                </button>
-                <button
-                onClick={this.editMission}
-                >
-                    Save
-                </button>
+                <div className={classes.center}>
+                    <TextField
+                    label="Mission"
+                    multiline
+                    variant="outlined"
+                    type="text"
+                    rows="6"
+                    className={classes.textArea}
+                    value={this.state.mission}
+                    onChange={this.handleInputChangeFor('mission')}
+                    />
+                    <div>
+                        <Button
+                        variant="contained"
+                        className={classes.secondaryButton}
+                        style={{marginLeft: '10px'}}
+                        onClick={this.cancelMissionSave}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                        variant="contained"
+                        className={classes.primaryButton}
+                        style={{marginLeft: '10px'}}
+                        onClick={this.editMission}
+                        >
+                            Save
+                        </Button>
+                    </div>
+                </div>
             </Fragment>
         )
 
@@ -179,104 +203,70 @@ class AdminAboutPage extends Component {
             </div>
         )
 
-        const editFoundation = this.state.editFoundation === false ? (
-            <Fragment>
-                {this.props.foundationReducer.map( (item) => {
-                return(
-                    <div key={item.id}>
-                    <h3>{item.name}</h3>
-                    <img src={item.url} alt={item.name} width='220px' height='200px' />
-                    <p>{item.bio}</p>
-                    <button
-                        onClick={() => this.editFoundationState(item.id)}
-                    >
-                        Edit
-                    </button>
-                    <button
-                    onClick={() => this.deleteFoundation(item.id)}
-                    >
-                        Delete
-                    </button>
-                    </div>
-                )
-                })}
-            </Fragment>
-        ) : (
-            <Fragment>
-                <input
-                    type="text"
-                    value={this.state.title}
-                    onChange={this.handleInputChangeFor('title')}
-                />
-                <br />
-                <textarea
-                    type="text"
-                    rows="6"
-                    cols="100"
-                    value={this.state.bio}
-                    onChange={this.handleInputChangeFor('bio')}
-                />
-                <DropzoneS3Uploader
-                    children={innderDropElement}
-                    onFinish={this.handleFinishedUpload}
-                    s3Url={s3Url}
-                    // style={dropStyles}
-                    maxSize={1024 * 1024 * 5}
-                    upload={uploadOptions}
-                />
-                <button onClick={this.cancelEditFoundation}>Cancel</button>
-                <button onClick={this.saveEditFoundation}>Save</button>
-            </Fragment>
-        )
-
         const addFoundation = this.state.addFoundation === false ? (
             <Fragment>
-                    <button
+                <div className={classes.center}>
+                    <Button
+                    variant="contained"
+                    className={classes.primaryButton}
                     onClick={this.addFoundation}
                     >
                         Add Foundation
-                    </button>
+                    </Button>
+                </div>
             </Fragment>
         ) : (
             <Fragment>
-                <div>
-                    <input
-                    type="text"
-                    value={this.state.title}
-                    onChange={this.handleInputChangeFor('title')}
+                <div className={classes.center}>
+                    <div>
+                        <TextField
+                        label="Title"
+                        variant="outlined"
+                        type="text"
+                        value={this.state.title}
+                        onChange={this.handleInputChangeFor('title')}
+                        />
+                    </div>
+                    <div>
+                        <TextField
+                        label="Bio"
+                        variant="outlined"
+                        multiline
+                        type="text"
+                        rows="6"
+                        style={{marginTop: '10px'}}
+                        className={classes.textArea}
+                        value={this.state.bio}
+                        onChange={this.handleInputChangeFor('bio')}
+                        />
+                    </div>
+                    <div>
+                    <DropzoneS3Uploader
+                        children={innderDropElement}
+                        onFinish={this.handleFinishedUpload}
+                        s3Url={s3Url}
+                        style={dropStyles}
+                        maxSize={1024 * 1024 * 5}
+                        upload={uploadOptions}
                     />
-                </div>
-                <div>
-                    <textarea
-                    type="text"
-                    rows="6"
-                    cols="100"
-                    value={this.state.bio}
-                    onChange={this.handleInputChangeFor('bio')}
+                    </div>
+                    <Button
+                    variant="contained"
+                    style={{marginRight: '10px'}}
+                    className={classes.secondaryButton}
+                    onClick={this.cancelAddFoundation}
                     >
-                    </textarea>
+                        Cancel
+                    </Button>
+                    <Button
+                    variant="contained"
+                    style={{marginLeft: '10px'}}
+                    className={classes.primaryButton}
+                    onClick={this.saveAddFoundation}
+                    >
+                        Save
+                    </Button>
                 </div>
-                <div>
-                <DropzoneS3Uploader
-                    children={innderDropElement}
-                    onFinish={this.handleFinishedUpload}
-                    s3Url={s3Url}
-                    // style={dropStyles}
-                    maxSize={1024 * 1024 * 5}
-                    upload={uploadOptions}
-                />
-                </div>
-
-                <button
-                onClick={this.cancelAddFoundation}
-                >
-                    Cancel
-                </button>
-                <button
-                onClick={this.saveAddFoundation}
-                >
-                    Save
-                </button>
             </Fragment>
         )
 
@@ -293,8 +283,32 @@ class AdminAboutPage extends Component {
                     <div>
                         {addFoundation}
                     </div>
-                    <div>
-                        {editFoundation}
+                    <div className={classes.center}>
+                        {this.props.foundationReducer.map( (item) => {
+                        return(
+                            <div key={item.id}>
+                            <h2>{item.name}</h2>
+                            <img src={item.url} alt={item.name} width='260px'  />
+                            <p className={classes.paragraph}>{item.bio}</p>
+                            <Button
+                                variant="contained"
+                                style={{marginRight: '10px'}}
+                                className={classes.secondaryButton}
+                                onClick={() => this.deleteFoundation(item.id)}
+                            >
+                                Delete
+                            </Button>
+                            <Button
+                                variant="contained"
+                                style={{marginLeft: '10px'}}
+                                className={classes.primaryButton}
+                                onClick={() => this.viewPartner(item.id)}
+                            >
+                                Edit
+                            </Button>
+                            </div>
+                        )
+                        })}
                     </div>
                 </div>
             </div>

@@ -144,7 +144,6 @@ router.post( '/pledges', (req, res) => {
     const max = req.body.max;
     const golfer = req.body.golfer_id;
 
-    console.log('req.body', req.body);
     //insert data
     let queryString = ``;
     if(type === 'Flat'){
@@ -157,14 +156,39 @@ router.post( '/pledges', (req, res) => {
         queryString = `INSERT INTO "donation" ("first_name", "last_name", "phone_number", "email", "type", "amount", "golfer_id") 
         VALUES  ($1, $2, $3, $4, $5, $6, $7);`;
     }
-    // const queryText = `INSERT INTO "donation" ("first_name", "last_name", "phone_number", "email", "type", "amount", "max", "golfer_id") 
-    //                     VALUES  ($1, $2, $3, $4, $5, $6, $7, $8);`;
-
     if(type === 'Flat'){
         pool.query(queryString, [first, last, phone, email, type, amount, golfer])
         .then((result) => {
             res.sendStatus(200);
-        }).catch((error) => {
+        })
+        .then( () => {
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                  user: process.env.EMAIL,
+                  pass: process.env.PASSWORD
+                }
+              })
+
+              const mailOptions = {
+                from: `jamie.richison19@gmail.com`,
+                to: `${email}`,
+                subject: `Donation Comformation`,
+                text: `Hello ${first},
+
+                Thank you for your donation.  Minnesota PGA will be in contact after the 100 Holes for HOPE event to collect your pledge.`,
+              }
+              transporter.sendMail(mailOptions, function(err, res) {
+                if (err) {
+                  console.error('there was an error: ', err);
+                  res.sendStatus(500);
+                } else {
+                  console.log('here is the res: ', res);
+                  res.sendStatus(200);
+                }
+              })
+        })
+        .catch((error) => {
             console.log('Error POST PLEDGES**************', error)
             res.sendStatus(500);
         });
@@ -173,7 +197,35 @@ router.post( '/pledges', (req, res) => {
         pool.query(queryString, [first, last, phone, email, type, amount, max, golfer])
         .then((result) => {
             res.sendStatus(200);
-        }).catch((error) => {
+        })
+        .then( () => {
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                  user: process.env.EMAIL,
+                  pass: process.env.PASSWORD
+                }
+              })
+
+              const mailOptions = {
+                from: `jamie.richison19@gmail.com`,
+                to: `${email}`,
+                subject: `Donation Comformation`,
+                text: `Hello ${first},
+
+                Thank you for your donation.  Minnesota PGA will be in contact after the 100 Holes for HOPE event to collect your pledge.`,
+              }
+              transporter.sendMail(mailOptions, function(err, res) {
+                if (err) {
+                  console.error('there was an error: ', err);
+                  res.sendStatus(500);
+                } else {
+                  console.log('here is the res: ', res);
+                  res.sendStatus(200);
+                }
+              })
+        })
+        .catch((error) => {
             console.log('Error POST PLEDGES**************', error)
             res.sendStatus(500);
         });
@@ -182,7 +234,35 @@ router.post( '/pledges', (req, res) => {
         pool.query(queryString, [first, last, phone, email, type, amount, golfer])
         .then((result) => {
             res.sendStatus(200);
-        }).catch((error) => {
+        })
+        .then( () => {
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                  user: process.env.EMAIL,
+                  pass: process.env.PASSWORD
+                }
+              })
+
+              const mailOptions = {
+                from: `jamie.richison19@gmail.com`,
+                to: `${email}`,
+                subject: `Donation Comformation`,
+                text: `Hello ${first},
+
+                Thank you for your donation.  Minnesota PGA will be in contact after the 100 Holes for HOPE event to collect your pledge.`,
+              }
+              transporter.sendMail(mailOptions, function(err, res) {
+                if (err) {
+                  console.error('there was an error: ', err);
+                  res.sendStatus(500);
+                } else {
+                  console.log('here is the res: ', res);
+                  res.sendStatus(200);
+                }
+              })
+        })
+        .catch((error) => {
             console.log('Error POST PLEDGES**************', error)
             res.sendStatus(500);
         });
