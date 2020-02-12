@@ -9,14 +9,14 @@ import Nav from '../Nav/Nav';
 
 const styles = {
     card: {
-        width: 'auto',
+        width: '70%',
         height: 'auto',
-        padding: 90,
-        margin: 100,
-        textAlign: 'center'
+        margin: '0 auto',
+        marginTop: '4%',
+        padding: '3%'
     },
     topMargin: {
-        marginTop: '100px'
+        marginTop: '8%'
       }
 };
 

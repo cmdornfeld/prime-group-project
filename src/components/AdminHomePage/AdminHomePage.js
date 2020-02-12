@@ -37,7 +37,7 @@ class AdminHomePage extends Component {
     componentDidMount(){
         this.props.dispatch({ type: 'GET_EVENT_INFO' })
         this.props.dispatch({ type: 'GET_VIDEOS_ADMIN' })
-        this.props.dispatch({ type: 'GET_GOAL_INFO' })
+        this.props.dispatch({ type: 'GET_ENTIRE_GOAL_INFO' })
     }
 
     editLocation = () => {
