@@ -118,7 +118,7 @@ getGoalInfo = () => {
               <h4>Total Raised in {this.props.entireGoal.year}: ${parseInt(entireDonationTotal).toLocaleString()}</h4>
               <LinearProgress value={normaliseEntireTotals(entireDonationTotal)} classes={{colorPrimary: classes.linearColorPrimary, barColorPrimary: classes.linearBarColorPrimary}}
               color="primary" variant="determinate" style={{height:"1.8rem", width:"30%", borderRadius:"2rem"}}/>
-              <h4>Goal: ${entireGoal}</h4>
+              <h4>Goal: ${parseInt(entireGoal).toLocaleString()}</h4>
               </div>
             </Grid>
           </Grid>

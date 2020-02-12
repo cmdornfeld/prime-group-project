@@ -4,12 +4,72 @@ import { connect } from 'react-redux';
 import DropzoneS3Uploader from 'react-dropzone-s3-uploader';
 
 //Material UI Stuff
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
-const styles =  {
+const styles = theme => ({
+    root: {
+        flexGrow: 1,
+        width: '70%',
+        margin: '0 auto'
+    },
+    paper: {
+        padding: theme.spacing.unit,
+        textAlign: 'center',
+        width: '40%',
+        color: '#253055',
+        margin: '0 auto',
+    },
     topMargin: {
-        marginTop: '100px'
+        marginTop: '8%'
+    },
+    addGolfer: {
+        textAlign: 'center',
+    },
+    addButton: {
+        backgroundColor: '#b49759',
+        margin: '.5rem',
+        color: '#FFFFFF',
+        '&:hover': {
+            backgroundColor: '#b49759'
+        }
+    },
+    textField: {
+        margin: '1rem'
+    },
+    cancelButton: {
+        backgroundColor: '#253155',
+        margin: '.5rem',
+        color: '#FFFFFF',
+        '&:hover': {
+            backgroundColor: '#253155'
+        }
+    },
+    saveButton: {
+        backgroundColor: '#b49759',
+        margin: '.5rem',
+        color: '#FFFFFF',
+        '&:hover': {
+            backgroundColor: '#b49759'
+        }
+    },
+    golfer: {
+        textAlign: 'center'
     }
+})
+
+const dropStyles = {
+    width: "29%",
+    border: "1px solid black",
+    backgroundColor: "#dddddd",
+    cursor: "pointer",
+    margin: '0 auto',
+    marginTop: '1rem',
+    marginBottom: '1rem'
 }
 
 export class AdminGolfersPage extends Component {
@@ -86,7 +146,7 @@ export class AdminGolfersPage extends Component {
         this.props.history.push(`/admin/golfers/${id}`);
     }
 
-    render() {
+    render(props) {
 
         const { classes } = this.props;
 
@@ -104,52 +164,70 @@ export class AdminGolfersPage extends Component {
         )
 
         const addGolfer = this.state.addGolfer === false ? (
-            <Fragment>
-                    <button
-                    onClick={this.addGolfer}
+            <div className={classes.addGolfer}>
+                    <Button
+                        className={classes.addButton}
+                        onClick={this.addGolfer}
+                        variant="contained"
                     >
                         Add Golfer
-                    </button>
-            </Fragment>
+                    </Button>
+            </div>
         ) : (
-            <Fragment>
+            <div className={classes.addGolfer}>
+                <div className={classes.paper}>
                 <div>
-                    <input
+                    <TextField
                     type="text"
+                    label="First name"
+                    className={classes.textField}
+                    variant="outlined"
                     value={this.state.first}
                     onChange={this.handleInputChangeFor('first')}
                     />
                 </div>
                 <div>
-                    <input
+                    <TextField
                     type="text"
+                    label="Last name"
+                    className={classes.textField}
+                    variant="outlined"
                     value={this.state.last}
                     onChange={this.handleInputChangeFor('last')}
                     />
                 </div>
                 <div>
-                    <textarea
+                    <TextField
                     type="text"
-                    rows="6"
-                    cols="100"
+                    multiline
+                    rows="4"
+                    label="Bio"
+                    className={classes.textField}
+                    style={{width: '60%'}}
+                    variant="outlined"
                     value={this.state.bio}
                     onChange={this.handleInputChangeFor('bio')}
-                    >
-                    </textarea>
+                    />
                 </div>
                 <div>
-                    <textarea
+                    <TextField
                     type="text"
-                    rows="6"
-                    cols="100"
+                    multiline
+                    rows="4"
+                    label="Purpose"
+                    className={classes.textField}
+                    style={{width: '60%'}}
+                    variant="outlined"
                     value={this.state.purpose}
                     onChange={this.handleInputChangeFor('purpose')}
-                    >
-                    </textarea>
+                    />
                 </div>
                 <div>
-                    <input
+                    <TextField
                     type="number"
+                    label="Goal"
+                    className={classes.textField}
+                    variant="outlined"
                     value={this.state.goal}
                     onChange={this.handleInputChangeFor('goal')}
                     />
@@ -159,53 +237,59 @@ export class AdminGolfersPage extends Component {
                     children={innderDropElement}
                     onFinish={this.handleFinishedUpload}
                     s3Url={s3Url}
-                    // style={dropStyles}
+                    style={dropStyles}
                     maxSize={1024 * 1024 * 5}
                     upload={uploadOptions}
                 />
                 </div>
 
-                <button
-                onClick={this.cancelAddGolfer}
+                <Button
+                    className={classes.cancelButton}
+                    onClick={this.cancelAddGolfer}
+                    variant="contained"
                 >
                     Cancel
-                </button>
-                <button
-                onClick={this.saveAddGolfer}
+                </Button>
+                <Button
+                    className={classes.saveButton}
+                    onClick={this.saveAddGolfer}
+                    variant="contained"
                 >
                     Save
-                </button>
-            </Fragment>
+                </Button>
+                </div>
+            </div>
         )
 
         return (
             <div>
                 <AdminNav />
                 <div className={classes.topMargin}>
-                    <h1 style={{textAlign:'center', fontSize:'6rem'}}>Golfers</h1>
-                    <div>
-                        {addGolfer}
-                    </div>
-                    <div>
-                        {this.props.golferReducer.map( (item) => {
-                        if(item.first_name === 'General'){
-                            return null;
-                        } else {
-                        return(
-                            <div key={item.id}>
-                                <h3>{item.first_name} {item.last_name}</h3>
-                                <img src={item.img_url} alt={item.id} onClick={() => this.viewGolfer(item.id)} width='220px' height='200px' />
-                                <div>
-                                    <button
-                                    onClick={() => this.removeGolfer(item.id)}
-                                    >
-                                        Remove
-                                    </button>
-                                </div>
-                                </div>
+                    <h1>GOLFERS</h1>
+                    {addGolfer}
+                    <div className={classes.root}>
+                        <Grid container spacing={2}>
+                            {this.props.golferReducer.map( (item) => {
+                            if(item.first_name === 'General'){
+                                return null;
+                            } else {
+                            return(
+                                <Grid item xs key={item.id} className={classes.golfer}>
+                                    <h4>{item.first_name} {item.last_name}</h4>
+                                    <img src={item.img_url} alt={item.id} onClick={() => this.viewGolfer(item.id)} width='220px'/>
+                                    <div>
+                                        <Button
+                                            className={classes.cancelButton}
+                                            onClick={() => this.removeGolfer(item.id)}
+                                        >
+                                            Remove
+                                        </Button>
+                                    </div>
+                                </Grid>
                                 )
-                            }
-                        })}
+                                }
+                            })}
+                        </Grid>
                     </div>
                 </div>
             </div>
@@ -216,5 +300,9 @@ export class AdminGolfersPage extends Component {
 const putReduxStateOnProps = (reduxStore) => ({
     golferReducer: reduxStore.golferReducer
 });
+
+AdminGolfersPage.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
 
 export default connect(putReduxStateOnProps)(withStyles(styles)(AdminGolfersPage));
