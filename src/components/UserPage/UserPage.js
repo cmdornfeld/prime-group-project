@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import dayjs from 'dayjs'
 import HolesforHope from './100HolesforHope.png';
-
-import './Userpage.css';
 import Nav from '../Nav/Nav'
 
 import PropTypes from 'prop-types';
@@ -14,7 +12,7 @@ import Grid from '@material-ui/core/grid';
 
 const styles = theme => ({
   progress: {
-    margin: theme.spacing.unit * 2,
+      margin: theme.spacing(2),
   },
   linearColorPrimary: {
       backgroundColor: '#d3dee0',
@@ -23,13 +21,16 @@ const styles = theme => ({
       backgroundColor: '#b49759',
   },
   topMargin: {
-    marginTop: '140px'
+      marginTop: '9%'
   },
   card: {
-    textAlign: 'center'
+      textAlign: 'center'
   },
   logo: {
-    textAlign: 'center'
+      textAlign: 'center'
+  },
+  event: {
+      marginBottom: '2.5rem'
   }
 });
 
@@ -97,36 +98,36 @@ getGoalInfo = () => {
         <Nav />
         <div className={classes.topMargin}>
           <div className={classes.logo}>
-            <img src={HolesforHope} alt="100 Holes For Hope" width='30%'  />
+            <img src={HolesforHope} alt="100 Holes For Hope" width='35%'  />
           </div>
+          <h3 className={classes.event}>{dayjs(this.props.eventInfoReducer.date).format('MMMM DD YYYY')} | {this.props.eventInfoReducer.location}</h3>
           <Grid container spacing={4}>
 
             <Grid item sm={6}>
               <div style={{marginLeft: '60%'}}>
-                <h4>{this.props.entireGoal.year} pledges: ${this.props.golferDonationTotal.total_received}</h4>
+                <h4>{this.props.entireGoal.year} pledges ${parseInt(this.props.golferDonationTotal.total_received).toLocaleString()}</h4>
                 <LinearProgress value={normaliseGolferTotals(golferDonationTotal)} classes={{colorPrimary: classes.linearColorPrimary, barColorPrimary: classes.linearBarColorPrimary}}
-                color="primary" variant="determinate" style={{height:"20px", width:"75%", borderRadius:"10px"}}/>
-                <h4>Goal ${this.props.golferGoalTotal.total}</h4>
+                color="primary" variant="determinate" style={{height:"1.8rem", width:"75%", borderRadius:"2rem"}}/>
+                <h4>Goal: ${parseInt(this.props.golferGoalTotal.total).toLocaleString()}</h4>
               </div>
               
             </Grid>
 
             <Grid item sm={6}>
               <div style={{marginLeft: '5%'}}>
-              <h4>Total Raised in {this.props.entireGoal.year} ${entireDonationTotal}</h4>
+              <h4>Total Raised in {this.props.entireGoal.year}: ${parseInt(entireDonationTotal).toLocaleString()}</h4>
               <LinearProgress value={normaliseEntireTotals(entireDonationTotal)} classes={{colorPrimary: classes.linearColorPrimary, barColorPrimary: classes.linearBarColorPrimary}}
-              color="primary" variant="determinate" style={{height:"20px", width:"30%", borderRadius:"10px"}}/>
-              <h4>Goal ${entireGoal}</h4>
+              color="primary" variant="determinate" style={{height:"1.8rem", width:"30%", borderRadius:"2rem"}}/>
+              <h4>Goal: ${entireGoal}</h4>
               </div>
-              
             </Grid>
           </Grid>
-            <h2 align="center">{dayjs(this.props.eventInfoReducer.date).format('MMMM DD YYYY')} {this.props.eventInfoReducer.location}</h2>
+            
             <div className={classes.card}>
               {this.props.videoReducer.map( (item) => {
                 return(
                   <div >
-                    <h1 align="center" color='white'>{item.title}</h1>
+                    <h2>{item.title}</h2>
                     <iframe src={item.url} width='880px' height='500px' />
                     </div>
                 )

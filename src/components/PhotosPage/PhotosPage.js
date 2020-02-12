@@ -15,7 +15,7 @@ const styles = {
         textAlign: 'center'
     },
     topMargin: {
-        marginTop: '100px'
+        marginTop: '8%'
     }
 };
 
@@ -35,7 +35,7 @@ class PhotosPage extends Component {
             <div>
                 <Nav />
                 <div className={classes.topMargin}>
-                <h1 style={{textAlign:'center', fontSize:'6rem'}}>EVENT PHOTOS</h1>
+                    <h1>EVENT PHOTOS</h1>
                         <Card className={classes.card}>
                             <Grid container spacing={3} justify='center'>
                             {this.props.photosReducer.map( (item) => {

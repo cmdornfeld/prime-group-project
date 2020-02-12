@@ -166,6 +166,16 @@ router.get('/foundation', rejectUnauthenticated, (req, res) => {
     });
 });
 
+//get route for foundation details
+router.get('/foundation-details', rejectUnauthenticated, (req, res) => {
+    pool.query(`SELECT * FROM "foundation" WHERE "id" = $1;`, [req.query.id])
+        .then(results => res.send(results.rows[0]))
+        .catch(error => {
+            console.log('Error GETTING Mission:', error);
+            res.sendStatus(500);
+    });
+});
+
 //POST new foundation
 router.post('/foundation', rejectUnauthenticated, (req, res) => {
     const name = req.body.title;
@@ -193,6 +203,39 @@ router.put('/foundation/:id', rejectUnauthenticated, (req, res) => {
     const url = req.body.url;
     const queryString = `UPDATE "foundation" SET "name" = $1, "bio" = $2, url = $3 where id = $4;`;
     pool.query(queryString, [title, bio, url, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
+//PUT route edit foundation name
+router.put('/foundation/name/:id', rejectUnauthenticated, (req, res) => {
+    console.log(req.body)
+    const id = req.body.id;
+    const name = req.body.name
+    const queryString = `UPDATE "foundation" SET "name" = $1 WHERE id = $2;`;
+    pool.query(queryString, [name, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
+//PUT route edit foundation image
+router.put('/foundation/image/:id', rejectUnauthenticated, (req, res) => {
+    console.log(req.body)
+    const id = req.body.id;
+    const url = req.body.url
+    const queryString = `UPDATE "foundation" SET "url" = $1 WHERE id = $2;`;
+    pool.query(queryString, [url, id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500))
+});
+
+//PUT route edit foundation bio
+router.put('/foundation/bio/:id', rejectUnauthenticated, (req, res) => {
+    console.log(req.body)
+    const id = req.body.id;
+    const bio = req.body.bio
+    const queryString = `UPDATE "foundation" SET "bio" = $1 WHERE id = $2;`;
+    pool.query(queryString, [bio, id])
     .then(() => res.sendStatus(201))
     .catch(() => res.sendStatus(500))
 });

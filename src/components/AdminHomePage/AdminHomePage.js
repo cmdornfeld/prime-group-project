@@ -37,7 +37,7 @@ class AdminHomePage extends Component {
     componentDidMount(){
         this.props.dispatch({ type: 'GET_EVENT_INFO' })
         this.props.dispatch({ type: 'GET_VIDEOS_ADMIN' })
-        this.props.dispatch({ type: 'GET_GOAL_INFO' })
+        this.props.dispatch({ type: 'GET_ENTIRE_GOAL_INFO' })
     }
 
     editLocation = () => {
@@ -137,7 +137,7 @@ class AdminHomePage extends Component {
 
         const editLocation = this.state.editLocation === false ? (
             <Fragment>
-                {this.props.eventInfoReducer.location}:
+                {this.props.eventInfoReducer.location}
                     <Button
                     onClick={this.editLocation}
                     variant="contained"
@@ -228,7 +228,7 @@ class AdminHomePage extends Component {
 
         const editDate = this.state.editDate === false ? (
             <Fragment>
-                {dayjs(this.props.eventInfoReducer.date).format('MMMM DD YYYY')}:
+                {dayjs(this.props.eventInfoReducer.date).format('MMMM DD YYYY')}
                     <Button
                     onClick={this.editDate}
                     variant="contained"

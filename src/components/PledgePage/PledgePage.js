@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import Nav from '../Nav/Nav';
-import './pledgePage.css';
 
 //Material UI Stuff
 import { withStyles } from '@material-ui/core/styles';
@@ -27,7 +26,7 @@ const styles =  {
         width: 600,
     },
     topMargin: {
-        marginTop: '100px'
+        marginTop: '8%'
     },
 }
 
@@ -113,6 +112,7 @@ class Pledge extends Component {
                     amount: '',
                     max: '',
                 }) 
+                alert('Thank you for your donation, please check your the email address you entered for conformation.')
         } 
         else {
             console.log(this.state)
@@ -137,6 +137,7 @@ class Pledge extends Component {
                 amount: '',
                 max: '',
             }) 
+            alert('Thank you for your donation, please check your the email address you entered for conformation.')
         } 
         }
         
