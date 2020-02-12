@@ -77,6 +77,11 @@ class AdminNav extends Component{
                 Contact
               </Link>
             </Button>
+            <Button>
+              <Link to="/admin/password"className={classes.buttonStyling}>
+                Change Password
+              </Link>
+            </Button>
             <LogOutButton />
             </span>
           </Grid>

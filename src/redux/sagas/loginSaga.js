@@ -59,9 +59,21 @@ function* logoutUser(action) {
   }
 }
 
+
+function* updatePassword(action) {
+  try {
+    const response = yield axios.put(`/api/user/password/${action.payload.id}`, action.payload);
+    console.log(response.status)
+  } catch (error){
+    yield put({ type: 'PASSWORD_DIDNT_MATCH' });
+    console.log('failed updating password', error); 
+  }
+}
+
 function* loginSaga() {
   yield takeLatest('LOGIN', loginUser);
   yield takeLatest('LOGOUT', logoutUser);
+  yield takeLatest('NEW_PASSWORD', updatePassword)
 }
 
 export default loginSaga;

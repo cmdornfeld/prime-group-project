@@ -3,6 +3,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
+// const passport = require('passport');
 
 const router = express.Router();
 
@@ -38,6 +39,34 @@ router.post('/logout', (req, res) => {
   // Use passport's built-in method to log out the user
   req.logout();
   res.sendStatus(200);
+});
+
+router.put('/password/:id', rejectUnauthenticated, async (req, res) => {
+  const oldPassword = req.body.old;
+  const newPassword = req.body.new;
+  const id = req.params.id
+
+  pool.query('SELECT * FROM "user" WHERE id = $1', [id])
+  .then((result) => {
+    const user = result && result.rows && result.rows[0];
+    if (user && encryptLib.comparePassword(oldPassword, user.password)) {
+      
+      const password= encryptLib.encryptPassword(newPassword)
+      pool.query('UPDATE "user" SET "password" = $1 where id = $2;', [password, id])
+      .then((res) => {
+        console.log('good')
+        res.sendStatus(200)
+      })
+    }
+    else{
+      console.log('passwords didnt match')
+      res.sendStatus(500)
+    }
+  }).catch((error) => {
+    console.log('bad query')
+    res.sendStatus(500)
+  });
+
 });
 
 module.exports = router;
