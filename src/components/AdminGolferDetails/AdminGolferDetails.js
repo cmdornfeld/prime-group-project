@@ -2,6 +2,9 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import AdminNav from '../AdminNav/AdminNav';
 import DropzoneS3Uploader from 'react-dropzone-s3-uploader';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 
 //Material UI Stuff
 import { withStyles } from '@material-ui/core/styles';
@@ -9,7 +12,18 @@ import { withStyles } from '@material-ui/core/styles';
 const styles =  {
     topMargin: {
         marginTop: '100px'
+    },
+    textField: {
+        width: 600
     }
+}
+const dropStyles ={
+    width: "200px",
+    height: "50px",
+    border: "1px solid black",
+    "background-color": "#dddddd",
+    cursor: "pointer",
+    margin: '0 auto'
 }
 
 class AdminGolferDetails extends Component {
@@ -191,147 +205,184 @@ class AdminGolferDetails extends Component {
         const editName = this.state.editName === false ? (
             <Fragment>
                 <h3>{this.props.golferIdReducer.first_name} {this.props.golferIdReducer.last_name}</h3>
-                <button
+                <Button
                 onClick={this.editName}
+                variant="contained"
+                style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                 >
                     Edit Name
-                </button>
+                </Button>
             </Fragment>
         ) : (
             <Fragment>
-                <div>
-                    <input
+                <div style={{marginTop:6}}>
+                    <TextField
                     type="text"
                     value={this.state.first}
                     onChange={this.handleInputChangeFor('first')}
                     />
                 </div>
-                <div>
-                    <input
+                <div style={{marginTop:6}}>
+                    <TextField
                     type="text"
                     value={this.state.last}
                     onChange={this.handleInputChangeFor('last')}
                     />
                 </div>
-                <button
+                <Button
                 onClick={this.cancelEditName}
+                variant="contained"
+                style={{backgroundColor: '#253155', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                 >
                     Cancel
-                </button>
-                <button
+                </Button>
+                <Button
                 onClick={this.saveEditName}
+                variant="contained"
+                style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
+                
                 >
                     Save
-                </button>
+                </Button>
             </Fragment>
         )
 
         const editGoal = this.state.editGoal === false ? (
             <Fragment>
-                ${this.props.golferIdReducer.goal}
-                <button
+                <div>
+                <h3>Goal: ${this.props.golferIdReducer.goal}</h3>
+                
+                </div>
+                <div>
+                <Button
                 onClick={this.editGoal}
+                style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                 >
                     Edit Goal
-                </button>
+                </Button>
+                </div>
             </Fragment>
         ) : (
             <Fragment>
                 <div>
-                    <input
+                    <TextField
                     type="number"
                     value={this.state.goal}
                     onChange={this.handleInputChangeFor('goal')}
                     />
                 </div>
-                <button
+                <Button
                 onClick={this.cancelEditGoal}
+                variant="contained"
+                style={{backgroundColor: '#253155', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                 >
                     Cancel
-                </button>
-                <button
+                </Button>
+                <Button
                 onClick={this.saveEditGoal}
+                variant="contained"
+                style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                 >
                     Save
-                </button>
+                </Button>
             </Fragment>
         )
 
         const editBio = this.state.editBio === false ? (
             <Fragment>
                 <p>{this.props.golferIdReducer.bio}</p>
-                <button
+                <Button
                 onClick={this.editBio}
+                variant="contained"
+                style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                 >
-                    Edit Goal
-                </button>
+                    Edit Bio
+                </Button>
             </Fragment>
         ) : (
             <Fragment>
                 <div>
-                    <textarea
-                    rows='10'
-                    cols="100"
-                    type="number"
+                    <TextField
+                    label='Bio'
+                    className={classes.textField}
+                    multiline
+                    variant="outlined"
+                    type="text"
+                    rows="6"
                     value={this.state.bio}
                     onChange={this.handleInputChangeFor('bio')}
                     />
                 </div>
-                <button
+                <Button
                 onClick={this.cancelEditBio}
+                variant="contained"
+                style={{backgroundColor: '#253155', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                 >
                     Cancel
-                </button>
-                <button
+                </Button>
+                <Button
                 onClick={this.saveEditBio}
+                variant="contained"
+                style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                 >
                     Save
-                </button>
+                </Button>
             </Fragment>
         )
 
         const editPurpose = this.state.editPurpose === false ? (
             <Fragment>
                 <p>{this.props.golferIdReducer.purpose}</p>
-                <button
+                <Button
                 onClick={this.editPurpose}
+                variant="contained"
+                style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                 >
-                    Edit Goal
-                </button>
+                    Edit purpose
+                </Button>
             </Fragment>
         ) : (
             <Fragment>
                 <div>
-                    <textarea
-                    rows='10'
-                    cols="100"
-                    type="number"
+                    <TextField
+                    label='Purpose'
+                    className={classes.textField}
+                    multiline
+                    variant="outlined"
+                    type="text"
+                    rows="6"
                     value={this.state.purpose}
                     onChange={this.handleInputChangeFor('purpose')}
                     />
                 </div>
-                <button
+                <Button
                 onClick={this.cancelEditPurpose}
+                variant="contained"
+                style={{backgroundColor: '#253155', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                 >
                     Cancel
-                </button>
-                <button
+                </Button>
+                <Button
                 onClick={this.saveEditPurpose}
+                variant="contained"
+                style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                 >
                     Save
-                </button>
+                </Button>
             </Fragment>
         )
 
         const editImage = this.state.editImage === false ? (
             <Fragment>
                 <img src={this.props.golferIdReducer.img_url} alt={this.props.golferIdReducer.id} width='220px' height='200px' />
-                <div>
-                    <button
+                <div style={{textAlign:'center'}}>
+                    <Button
                     onClick={this.editPhoto}
+                    variant="contained"
+                    style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                     >
                         Edit Photo
-                    </button>
+                    </Button>
                 </div>
             </Fragment>
         ) : (
@@ -340,20 +391,24 @@ class AdminGolferDetails extends Component {
                     children={innderDropElement}
                     onFinish={this.handleFinishedUpload}
                     s3Url={s3Url}
-                    // style={dropStyles}
+                    style={dropStyles}
                     maxSize={1024 * 1024 * 5}
                     upload={uploadOptions}
                 />
-                <button
+                <Button
                 onClick={this.cancelEditPhoto}
+                variant="contained"
+                style={{backgroundColor: '#253155', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                 >
                     Cancel
-                </button>
-                <button
+                </Button>
+                <Button
                 onClick={this.saveEditPhoto}
+                variant="contained"
+                style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                 >
                     Save
-                </button>
+                </Button>
             </Fragment>
         )
 
@@ -361,17 +416,23 @@ class AdminGolferDetails extends Component {
             <div>
                 <AdminNav />
                 <div className={classes.topMargin}>
-                    <div>
+                    <div style={{textAlign:'center', marginTop:1}}>
                         {editName}
                     </div>
-                    <div>
+                    <div style={{textAlign:'center', marginTop:10}}>
                         {editImage}
                     </div>
-                    <h3>Goal: {editGoal}</h3>
+                    <div style={{textAlign:'center', marginTop:10}}>
+                        {editGoal}
+                    </div>
+                    <div style={{textAlign:'center', marginTop:10}}>
                     <h3>Bio</h3>
                     {editBio}
+                    </div>
+                    <div style={{textAlign:'center', marginTop:10}}>
                     <h3>Why am I doing this?</h3>
                     {editPurpose}
+                    </div>
                 </div>
             </div>
         )
