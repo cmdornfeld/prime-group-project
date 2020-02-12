@@ -63,10 +63,10 @@ class golferDetails extends Component {
                         <Grid container spacing={3} justify='center'>
                             <Grid item sm={5}>
                                 <img src={this.props.golferIdReducer.img_url} alt={this.props.golferIdReducer.id} width='250px' />
-                                <h3 >Total Donations: {this.props.golferIdReducer.total}</h3>
+                                <h3 >Total Donations: ${parseInt(this.props.golferIdReducer.total).toLocaleString()}</h3>
                                 <LinearProgress value={normalise(golferDonationTotal)} classes={{colorPrimary: classes.linearColorPrimary, barColorPrimary: classes.linearBarColorPrimary}} 
-                                    onClick={this.handleTooltipOpen} color="primary" variant="determinate" style={{height:"20px", width:"20%", borderRadius:"10px", marginLeft:'150px'}}/>
-                                <h3>Goal: ${this.props.golferIdReducer.goal}</h3>
+                                    onClick={this.handleTooltipOpen} color="primary" variant="determinate" style={{height:"1.6rem", width:"45%", borderRadius:"2rem", marginLeft:'110px'}}/>
+                                <h3>Goal: ${parseInt(this.props.golferIdReducer.goal).toLocaleString()}</h3>
                     
                             </Grid>
                                 {/* <div>
@@ -97,16 +97,16 @@ class golferDetails extends Component {
                                     </Grid>
                                     <Grid item sm={12}> 
                                         <div style={{float: 'left'}}>
-                                            <h3>Bio</h3>
+                                            <h3 style={{marginLeft: '0'}}>Bio</h3>
                                         </div>
                                         <div style={{float: 'left', width:'600px'}}> 
-                                            <p>{this.props.golferIdReducer.bio}</p>
+                                            <p style={{textAlign: 'left'}}>{this.props.golferIdReducer.bio}</p>
                                         </div>
                                         <div style={{float: 'left'}}>
-                                            <h3>Why am I doing this?</h3>
+                                            <h3 style={{marginLeft: '0'}}>Why am I doing this?</h3>
                                         </div>
-                                        <div>
-                                            <p style={{float: 'left', width:'550px'}}>{this.props.golferIdReducer.purpose}</p>
+                                        <div style={{float: 'left', width:'550px'}}>
+                                            <p style={{textAlign: 'left'}}>{this.props.golferIdReducer.purpose}</p>
                                         </div>
                                     </Grid>
                                 </Grid>
