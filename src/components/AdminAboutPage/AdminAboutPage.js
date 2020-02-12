@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 
 const styles =  {
     topMargin: {
-        marginTop: '100px'
+        marginTop: '8%'
     },
     center: {
         textAlign: 'center'
