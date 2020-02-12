@@ -1,16 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {withStyles} from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-
-import './aboutPage.css';
 import Nav from '../Nav/Nav'
 
-const styles = {
-  topMargin: {
-    marginTop: '100px'
-  }
+// Material UI
+import {withStyles} from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
 
+const styles = {
+  card: {
+      width: '60%',
+      height: 'auto',
+      margin: '0 auto',
+      marginTop: '4%',
+      padding: '3%'
+  },
+  topMargin: {
+      marginTop: '8%'
+  },
+  mission: {
+      width: '50%',
+      margin: '0 auto',
+      textAlign: 'center'
+  },
+  bio: {
+      display: 'inline-block',
+      textAlign: 'center',
+      fontSize: '1rem',
+      bottom: '400px',
+      right: '100px',
+}
 };
 
 class AboutPage extends Component {
@@ -36,38 +55,36 @@ class AboutPage extends Component {
       <div>
         <Nav />
         <div className={classes.topMargin}>
-          <h1 style={{textAlign:'center', fontSize:'6rem'}}>ABOUT</h1>
-
-          <Grid conatainer spacing={4} justify="center">
-              <div className='mission'>
-                <p style={{color:'rgb(37,49,85);', textAlign: 'center', width:'800px', bottom:'100px', right:'400px', display: 'inline-block'}}>
-                  {this.props.missionReducer.about}
-                </p>
-              </div>
-            
-          </Grid>
+          <h1>ABOUT</h1>
+            <div className={classes.mission}>
+              <p>
+                {this.props.missionReducer.about}
+              </p>
+            </div>
+          <Card className={classes.card}>
             <Grid container spacing={9} justify='center'>
             {this.props.foundationReducer.map( (item) => {
               return(
-                <div style={{background:'#ffffff', width:'auto', height: 'auto', color:'#253055', marginTop: 100, padding:40}}>
+                <div style={{background:'#ffffff', width:'auto', height: 'auto', color:'#253055', padding:'2rem'}}>
                 <Grid item key={item.id}>
-                  <h3 style={{textAlign:'center', bottom:'100px', right:'400px', marginTop: 40}}>{item.name}</h3>
+                  <h3 style={{textAlign:'center', bottom:'100px', right:'400px', marginTop: '2.5rem'}}>{item.name}</h3>
 
                   <Grid container spacing={1} justify='center' >
-                    <img src={item.url} alt={item.name} width='240px' height='200px' textAlign='center' style={{float:'left', paddingRight : '5px', 
+                    <img src={item.url} alt={item.name} width='260px' height='auto' textAlign='center' style={{float:'left', paddingRight : '5px', 
                     display:'inline-block'}}/>
                   </Grid>
 
                   <br></br>
                     <Grid container spacing={1} justify='center'>
-                    <p  style={{textAlign:'center', width:'450px', bottom:'100px', right:'400px' }}>{item.bio}</p>
+                    <p  style={{textAlign:'left', width:'450px', bottom:'100px', right:'400px' }}>{item.bio}</p>
                   </Grid>
 
                 </Grid>
                 </div>
-              )
-            })}
-            </Grid>
+                )
+              })}
+              </Grid>
+            </Card>
           </div>
         </div>
       
