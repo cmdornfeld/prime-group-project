@@ -2,12 +2,27 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0px;
     background-color: #DBCCAC;
+    color: rgb(37,49,85);
 }
 
 h1 {
     font-size: 6rem;
     padding: 0;
     margin: 2rem;
+    text-align: center;
+}
+
+h2 {
+    font-size: 4rem;
+    padding: 0;
+    margin: 2rem;
+    text-align: center;
+}
+
+h3 {
+    font-size: 1.25rem;
+    padding: 0;
+    margin: 1rem;
     text-align: center;
 }
 
