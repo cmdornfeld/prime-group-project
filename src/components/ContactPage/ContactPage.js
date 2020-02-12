@@ -12,23 +12,31 @@ import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
     root: {
-      flexGrow: 1,
+        flexGrow: 1,
+        width: '65%',
+        margin: '0 auto'
     },
     paper: {
-      padding: theme.spacing.unit,
-      textAlign: 'center',
-      color: '#253055',
-      margin: theme.spacing(2),
-      backgroundColor: '#ffffff'
+        padding: theme.spacing.unit,
+        textAlign: 'center',
+        color: '#253055',
+        margin: theme.spacing(2),
+        backgroundColor: '#ffffff'
     },
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
     },
     topMargin: {
-        marginTop: '100px'
+        marginTop: '8%'
+    },
+    button: {
+        backgroundColor: '#b49759',
+        marginTop: '1rem',
+        marginBottom: '1rem',
+        width: '64%', 
+        color: '#FFFFFF'
     }
-
 });
 
 class ContactPage extends Component {
@@ -84,7 +92,7 @@ class ContactPage extends Component {
                 <Nav />
                 <div className={classes.topMargin}>
                     <h1>CONTACT</h1>
-                    <div className={classes.root} style={{width: '65%', margin: '0 auto'}}>
+                    <div className={classes.root}>
                         <Grid container spacing={2}>
                             <Grid item xs>
                             <form>
@@ -138,9 +146,7 @@ class ContactPage extends Component {
                                         style={{width: '64%'}}
                                     />
                                 <div>
-                                    <Button variant="contained" className={classes.button} 
-                                        style={{backgroundColor: '#b49759', marginTop: '.5rem', marginBottom: '.5rem', width: '64%', 
-                                        color: '#FFFFFF'}} onClick={(event) => this.handleSubmit(event)}>
+                                    <Button variant="contained" className={classes.button} onClick={(event) => this.handleSubmit(event)}>
                                         Send Email
                                     </Button>
                                 </div>
@@ -151,7 +157,7 @@ class ContactPage extends Component {
                                 {this.props.addressPublicReducer.map( (item) => {
                                     return(
                                         <Paper key= {item.id} className={classes.paper}>
-                                            <h2>Address</h2>
+                                            <h3>Address</h3>
                                             <p>{item.street}</p>
                                             <p>{item.city}, {item.state} {item.zip}</p>
                                             <p>info@minnesotapga.com</p><br/>
@@ -164,7 +170,7 @@ class ContactPage extends Component {
                                 {this.props.contactPublicReducer.map( (item) => {
                                     return(
                                         <Paper key= {item.id} className={classes.paper}>
-                                            <h2>Contact</h2>
+                                            <h3>Contact</h3>
                                             <p>For any additional information, please contact:</p>
                                             <h3>{item.name}</h3>
                                             <p>{item.email}</p>
