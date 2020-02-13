@@ -5,7 +5,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* getAdminPhotos() {
     try{
         const getResponse = yield axios.get(`/api/admin/photos`);
-        console.log(getResponse.data)
         yield put({type: 'SET_PHOTOS', payload: getResponse.data})
     }
     catch (error){
