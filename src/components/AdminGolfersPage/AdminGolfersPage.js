@@ -276,7 +276,7 @@ export class AdminGolfersPage extends Component {
                             return(
                                 <Grid item xs key={item.id} className={classes.golfer}>
                                     <h4>{item.first_name} {item.last_name}</h4>
-                                    <img src={item.img_url} alt={item.id} onClick={() => this.viewGolfer(item.id)} width='220px'/>
+                                    <img src={item.img_url} alt={item.id} onClick={() => this.viewGolfer(item.id)} width='240px'/>
                                     <div>
                                         <Button
                                             className={classes.cancelButton}
