@@ -5,7 +5,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* getPublicSponsor() {
     try{
         const getResponse = yield axios.get(`/api/public/sponsor`);
-        console.log(getResponse.data)
         yield put({type: 'SET_PUBLIC_SPONSOR', payload: getResponse.data})
     }
     catch (error){
