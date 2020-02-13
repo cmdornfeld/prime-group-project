@@ -24,7 +24,6 @@ function* getGolfersDonationTotal() {
 function* getPartnerPledgeTotal() {
     try{
         const getResponse = yield axios.get(`/api/public/partner-pledge-total`);
-        console.log(getResponse.data)
         yield put({type: 'SET_PARTNER_PLEDGE_TOTAL', payload: getResponse.data})
     }
     catch (error){
@@ -35,7 +34,6 @@ function* getPartnerPledgeTotal() {
 function* getEntireGoalInfo() {
     try{
         const getResponse = yield axios.get(`/api/public/entire-goal-info`);
-        console.log(getResponse.data)
         yield put({type: 'SET_ENTIRE_GOAL_INFO', payload: getResponse.data})
     }
     catch (error){
