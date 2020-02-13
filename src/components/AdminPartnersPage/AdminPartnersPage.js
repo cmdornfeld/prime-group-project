@@ -15,51 +15,58 @@ const styles =  {
     header: {
         textAlign: 'center',
         fontSize: '6rem',
-        padding: 0,
+        padding: '1rem',
         margin: '2rem',
         color: '#253155'
     },
     topMargin: {
-        marginTop: '100px'
+        marginTop: '8%'
     },
     center: {
         textAlign: 'center',
         margin: '0 auto'
     },
-    buttonStyle: {
-        backgroundColor: 'rgb(180,151,89)',
-        color: '#ffffff',
-        hover: 'pointer',
-            '&:hover': {
-                backgroundColor: 'rgb(180,151,40)'
-            }
-        
-    },
     card: {
-        width: 400,
+        width: '30%',
         height: 'auto',
         textAlign: 'center',
         margin: ' 0 auto',
-        padding: 30,
-  
+        padding: '1.5rem',
     },
     partnerCard: {
-        width: 900,
+        width: '60%',
         height: 'auto',
         textAlign: 'center',
         margin: '0 auto',
-        padding: 30,
-        marginTop: 20
-  
+        padding: '1.5rem',
+        marginTop: '1rem',
+        color: '#253155'
     },
-    
+    primaryButton: {
+        backgroundColor: '#b49759',
+        margin: '.25rem',
+        color: '#ffffff',
+        hover: 'pointer',
+            '&:hover': {
+                backgroundColor: '#b49759'
+            }
+    },
+    secondaryButton: {
+        backgroundColor: '#253155',
+        margin: '.25rem',
+        color: '#ffffff',
+        hover: 'pointer',
+            '&:hover': {
+                backgroundColor: '#253155'
+            }
+    }
 }
 
 const dropStyles ={
-    width: "200px",
-    height: "50px",
+    width: "40%",
+    height: "3.5rem",
     border: "1px solid black",
-    "background-color": "#dddddd",
+    backgroundColor: "#dddddd",
     cursor: "pointer",
     margin: '0 auto'
 }
@@ -205,28 +212,28 @@ export class AdminPartnersPage extends Component {
                 </Select>
                 <Button
                     variant="contained"
-                    style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                     onClick={this.addPartnerLevel}
+                    className={classes.primaryButton}
                 >
                     +
                 </Button>
             </Fragment>
         ) : (
             <Fragment>
-                <input type="text" placeholder="Level Name" onChange={this.handleLevelNameChange}/>
-                <input type="number" placeholder="Level Number" onChange={this.handleLevelChange} />
+                <TextField type="text" placeholder="New Level Name" variant="outlined" onChange={this.handleLevelNameChange}/>
+                <TextField type="number" placeholder="New Level Amount" variant="outlined" onChange={this.handleLevelChange} />
                 <div>
                     <Button
                         variant="contained"
-                        style={{backgroundColor: '#253155', color: '#ffffff', marginRight: '5px', marginTop: '5px'}}
                         onClick={this.cancelAddLevel}
+                        className={classes.secondaryButton}
                     >
                         Cancel
                     </Button>
                     <Button 
                         variant="contained"
-                        style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                         onClick={this.saveLevel}
+                        className={classes.primaryButton}
                     >
                         Save
                     </Button>
@@ -236,7 +243,7 @@ export class AdminPartnersPage extends Component {
 
         const addPartnerButton = this.state.addPartner === false ? (
             <Fragment>
-                <Button onClick={this.addNewPartner} className={classes.buttonStyle}>Add Partner</Button>
+                <Button onClick={this.addNewPartner} className={classes.primaryButton}>Add Partner</Button>
             </Fragment>
         ) : (
             <Fragment>
@@ -260,15 +267,15 @@ export class AdminPartnersPage extends Component {
                 <div>
                     <Button
                         variant="contained"
-                        style={{backgroundColor: '#253155', color: '#ffffff', marginRight: '5px', marginTop: '5px'}}
                         onClick={this.cancelAddNewPartner}
+                        className={classes.secondaryButton}
                     >
                         Cancel
                     </Button>
                     <Button
                         variant="contained"
-                        style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                         onClick={this.addPartner}
+                        className={classes.primaryButton}
                     >
                         Save
                     </Button>
@@ -280,68 +287,68 @@ export class AdminPartnersPage extends Component {
         return (
             <Fragment>
                 <AdminNav />
-            <div className={classes.topMargin}>
-                <h1 style={{textAlign:'center', fontSize:'6rem'}}>Manage Parnters</h1>
-                <div className={classes.center}>
-                    {addPartnerButton}
-                </div>
-                <Card className={classes.partnerCard}>
-                    <div className="partner-box">
-                        {this.props.companies.map(partner => {
-                            if(partner.sponsor_level === currentLevel){
-                                return (
-                                    <span key={partner.id} style={{display: 'inline-block'}}>
-                                        <img src={partner.img_url} alt={partner.name} />
-                                        <div> 
-                                            <Button 
+                <div className={classes.topMargin}>
+                    <h1>MANAGE PARTNERS</h1>
+                    <div className={classes.center}>
+                        {addPartnerButton}
+                    </div>
+                    <Card className={classes.partnerCard}>
+                        <div className="partner-box">
+                            {this.props.companies.map(partner => {
+                                if(partner.sponsor_level === currentLevel){
+                                    return (
+                                        <span key={partner.id} style={{display: 'inline-block'}}>
+                                            <img src={partner.img_url} alt={partner.name} />
+                                            <div> 
+                                                <Button 
+                                                    variant="contained"
+                                                    onClick={()=> this.removePartner(partner.id)}
+                                                    className={classes.secondaryButton}
+                                                >
+                                                    Remove
+                                                </Button>
+                                                <Button 
+                                                    variant="contained"
+                                                    onClick={() => this.viewPartner(partner.id)}
+                                                    className={classes.primaryButton}
+                                                >
+                                                    Edit
+                                                </Button>
+                                            </div>
+                                        </span>
+                                    )
+                                } 
+                                else {
+                                    currentLevel = partner.sponsor_level;
+                                    return (
+                                        <Fragment>
+                                        <div key={partner.id} >
+                                            <h3>{partner.title} - ${parseInt(partner.amount).toLocaleString()}</h3>
+                                        </div>
+                                        <img src={partner.img_url} alt={partner.name} style={{display: 'inline-block'}}/>
+                                        <div>
+                                            <Button
                                                 variant="contained"
-                                                style={{backgroundColor: '#253155', color: '#ffffff', marginRight: '5px', marginTop: '5px'}}
                                                 onClick={()=> this.removePartner(partner.id)}
+                                                className={classes.secondaryButton}
                                             >
                                                 Remove
                                             </Button>
                                             <Button 
                                                 variant="contained"
-                                                style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
                                                 onClick={() => this.viewPartner(partner.id)}
+                                                className={classes.primaryButton}
                                             >
                                                 Edit
                                             </Button>
                                         </div>
-                                    </span>
-                                )
-                            } 
-                            else {
-                                currentLevel = partner.sponsor_level;
-                                return (
-                                    <Fragment>
-                                    <div key={partner.id} >
-                                        <h3>{partner.title} - ${partner.amount}</h3>
-                                    </div>
-                                    <img src={partner.img_url} alt={partner.name} style={{display: 'inline-block'}}/>
-                                    <div>
-                                        <Button
-                                            variant="contained"
-                                            style={{backgroundColor: '#253155', color: '#ffffff', marginRight: '5px', marginTop: '5px'}}
-                                            onClick={()=> this.removePartner(partner.id)}
-                                        >
-                                            Remove
-                                        </Button>
-                                        <Button 
-                                            variant="contained"
-                                            style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
-                                            onClick={() => this.viewPartner(partner.id)}
-                                        >
-                                            Edit
-                                        </Button>
-                                    </div>
-                                    </Fragment>
-                                )
-                            }
-                        })}
-                    </div>
-                </Card>
-            </div>
+                                        </Fragment>
+                                    )
+                                }
+                            })}
+                            </div>
+                    </Card>
+                </div>
             </Fragment>
         )
     }
