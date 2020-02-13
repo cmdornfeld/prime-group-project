@@ -65,7 +65,6 @@ function* editFoundation(action) {
 function* getFoundationDetails(action) {
     try{
         const getResponse = yield axios.get(`/api/admin/foundation-details?id=${action.payload}`);
-        console.log(getResponse.data)
         yield put({type: 'SET_FOUNDATION_DETAILS', payload: getResponse.data})
     }
     catch (error){

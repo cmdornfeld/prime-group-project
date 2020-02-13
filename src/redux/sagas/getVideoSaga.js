@@ -4,7 +4,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* getPublicVideos() {
     try{
         const getResponse = yield axios.get(`/api/public/videos`);
-        console.log(getResponse.data)
         yield put({type: 'SET_VIDEOS', payload: getResponse.data})
     }
     catch (error){
@@ -15,7 +14,6 @@ function* getPublicVideos() {
 function* getPublicEvents() {
     try{
         const getResponse = yield axios.get(`/api/public/event-info`);
-        console.log(getResponse.data)
         yield put({type: 'SET_EVENT', payload: getResponse.data})
     }
     catch (error){

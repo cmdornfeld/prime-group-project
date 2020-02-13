@@ -4,7 +4,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* getContactInfo() {
     try{
         const getResponse = yield axios.get(`/api/admin/contact-info`);
-        console.log(getResponse.data)
         yield put({type: 'SET_CONTACT_INFO', payload: getResponse.data})
     }
     catch (error){

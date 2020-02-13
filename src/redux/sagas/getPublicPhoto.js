@@ -4,7 +4,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* getPublicPhoto() {
     try{
         const getResponse = yield axios.get(`/api/public/photos`);
-        console.log(getResponse.data)
         yield put({type: 'SET_PHOTOS', payload: getResponse.data})
     }
     catch (error){
