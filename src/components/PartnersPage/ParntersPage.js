@@ -10,13 +10,12 @@ import Card from '@material-ui/core/Card';
 
 const styles =  {
     card: {
-        width: 900,
-        height: 'auto',
+        width: '60%',
         textAlign: 'center',
         margin: '0 auto',
-        padding: 30,
-        marginTop: '4%'
-  
+        padding: '2rem',
+        marginTop: '4%',
+        color: '#253155'
     },
     topMargin: {
         marginTop: '8%'
@@ -33,16 +32,21 @@ class ParntersPage extends Component {
     }
 
     render() {
+
         const { classes } = this.props;
+
         let currentLevel = null;
+
         return (
             <div>
                 <Nav />
                 <div className={classes.topMargin}>
-                    <h1>Thank You to our Parnters</h1>
+                    <h1>THANK YOU 2019 PARTNERS</h1>
                     <Card className={classes.card}>
-                    <p style={{textAlign:"center"}}>If you are interested in sponsorship opportunties, please reach out to Maggie Sutton at msutton@pgahq.com, or click 
-                    <a href="https://2974087d-4c0d-4b25-8875-039fee4fd083.filesusr.com/ugd/823de7_68d1b9577dab4a6b8312c12061639400.pdf" target="_blank"> here</a> to download sponsorship information.</p>
+                        <p style={{textAlign:"center"}}>If you are interested in sponsorship opportunties, please reach out to Maggie 
+                            Sutton at msutton@pgahq.com, or click <a href="https://2974087d-4c0d-4b25-8875-039fee4fd083.filesusr.com/ugd/823de7_68d1b9577dab4a6b8312c12061639400.pdf" 
+                            target="_blank">here</a> to download sponsorship information.
+                        </p>
                             {this.props.publicSponsorReducer.map(partner => {
                                 if(partner.sponsor_level === currentLevel){
                                     return (
@@ -56,7 +60,7 @@ class ParntersPage extends Component {
                                     return (
                                         <Fragment>
                                         <div key={partner.id}>
-                                            <h2>{partner.title} - ${partner.amount}</h2>
+                                            <h2 style={{fontSize: '2rem', margin: '1rem'}}>{partner.title} - ${parseInt(partner.amount).toLocaleString()}</h2>
                                         </div>
                                         <div style={{display: 'inline-block'}}>
                                             <img src={partner.img_url} alt={partner.name} />

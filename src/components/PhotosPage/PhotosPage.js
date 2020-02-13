@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import {withStyles} from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-
 import Nav from '../Nav/Nav';
 
+// Material UI
+import {withStyles} from '@material-ui/core/styles';
+import PhotosPageItem from '../PhotosPageItem/PhotosPageItem'
+import Grid from '@material-ui/core/Grid';
+
 const styles = {
-    card: {
-        width: 'auto',
-        height: 'auto',
-        padding: 90,
-        margin: 100,
-        textAlign: 'center'
-    },
     topMargin: {
         marginTop: '8%'
+    },
+    container: {
+        width: '90%',
+        margin: '0 auto',
+        justifyContent: 'center',
+        marginTop: '2rem'
     }
 };
 
@@ -30,30 +30,30 @@ class PhotosPage extends Component {
     }
 
     render() {
+
         const {classes} = this.props;
+
         return (
             <div>
                 <Nav />
                 <div className={classes.topMargin}>
                     <h1>EVENT PHOTOS</h1>
-                        <Card className={classes.card}>
-                            <Grid container spacing={3} justify='center'>
+                            <Grid container spacing={4} className={classes.container}>
                             {this.props.photosReducer.map( (item) => {
                             return(
-                                <Grid item>
-                                <div style={{ textAlign:'center'}}>
-                                    <img src={item.url} alt={item.description} width='240px' height='200px' textAlign='center'/>
-                                </div>
+                                <Grid item key={item.id}>
+                                    <PhotosPageItem item={item} />
                                 </Grid>
                                 )
                                 })}
                             </Grid>
-                        </Card>
                 </div>
             </div>
         )
     }
 }
+
+
 const putReduxStateOnProps = (reduxStore) => ({
     photosReducer: reduxStore.photosReducer
 });

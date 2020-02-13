@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import {withStyles} from '@material-ui/core/styles';
-
 import Nav from '../Nav/Nav';
 
+// Material UI
+import {withStyles} from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 
 const styles = {
-    card: {
-        width: '70%',
-        height: 'auto',
-        margin: '0 auto',
-        marginTop: '4%',
-        padding: '3%'
-    },
     topMargin: {
         marginTop: '8%'
-      }
+      },
+    container: {
+        width: '90%',
+        margin: '0 auto',
+        justifyContent: 'center',
+        marginTop: '1rem'
+    }
 };
 
 class GolfersPage extends Component {
@@ -35,30 +33,30 @@ class GolfersPage extends Component {
     }
     
     render() {
+
         const {classes} = this.props;
+        
         return (
             <div>
                 <Nav />
                 <div className={classes.topMargin}>
                 <h1>GOLFERS</h1>
-                <Card className={classes.card}>
-                <Grid container spacing={3} justify='center'>
+                <Grid container spacing={4} className={classes.container}>
                     {this.props.golferReducer.map( item => {
                     if(item.first_name === 'General'){
                         return null;
                     } else {
                     return(
-                        <Grid item>
-                        <div key={item.id}>
-                            <h3 style={{textAlign:'center'}}>{item.first_name} {item.last_name}</h3>
-                            <img src={item.img_url} alt={item.id} onClick={() => this.viewGolfer(item.id)} width='240px' height='200px' textAlign='center' />
-                        </div>
+                        <Grid item key={item.id}>
+                            <div>
+                                <h3>{item.first_name} {item.last_name}</h3>
+                                <img src={item.img_url} alt={item.id} onClick={() => this.viewGolfer(item.id)} width='240px'/>
+                            </div>
                         </Grid>
                         )
                     }
                         })}
                 </Grid>
-                </Card>
                 </div>
             </div>
         )
