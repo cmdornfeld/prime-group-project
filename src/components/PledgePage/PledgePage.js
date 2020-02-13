@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-
 import Nav from '../Nav/Nav';
 
 //Material UI Stuff
@@ -14,20 +13,35 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const styles =  {
     card: {
-        width: 900,
-        height: 'auto',
+        width: '60%',
         textAlign: 'center',
         margin: ' 0 auto',
-        padding: 30,
+        padding: '2rem',
         backgroundColor: '#ffffff',
-  
-    },
-    title: {
-        width: 600,
+        marginTop: '3rem'
     },
     topMargin: {
         marginTop: '8%'
     },
+    perBirdie: {
+        width: '50%',
+        margin: '0 auto'
+    },
+    introduction: {
+        textAlign: 'left',
+        width: '50%',
+        margin: '0 auto'
+    },
+    paragraph: {
+        textAlign: 'center',
+        width: '50%',
+        margin: '0 auto'
+    },
+    button: {
+        backgroundColor: 'rgb(180,151,89)',
+        color: '#ffffff',
+        marginTop: '1.75rem'
+    }
 }
 
 class Pledge extends Component {
@@ -112,7 +126,7 @@ class Pledge extends Component {
                     amount: '',
                     max: '',
                 }) 
-                alert('Thank you for your donation, please check your the email address you entered for conformation.')
+                alert('Thank you for your donation!  Please check your email for conformation.')
         } 
         else {
             console.log(this.state)
@@ -137,11 +151,11 @@ class Pledge extends Component {
                 amount: '',
                 max: '',
             }) 
-            alert('Thank you for your donation, please check your the email address you entered for conformation.')
+            alert('Thank you for your donation!  Please check your email for conformation.')
         } 
-        }
-        
+        }  
     }
+
     componentDidMount() {
         this.getGolfers();
     }
@@ -154,7 +168,7 @@ class Pledge extends Component {
         const { classes } = this.props;
 
         const perBirdiePledge = this.state.type === 'Per Birdie' ? (
-                <div style={{width: '50%', margin: '0 auto'}}>
+                <div className={classes.perBirdie}>
                     <TextField
                         label="Per birdie donation"
                         variant="outlined"
@@ -177,8 +191,7 @@ class Pledge extends Component {
                     />
                 </div>
         ) : (
-            <Fragment>
-                
+            <Fragment>  
             </Fragment>
         )
 
@@ -195,7 +208,6 @@ class Pledge extends Component {
             </div>
         ) : (
             <Fragment>
-
             </Fragment>
         )
         
@@ -204,121 +216,119 @@ class Pledge extends Component {
                 <Nav />
                 <div className={classes.topMargin}>
                     <h1>PLEDGE</h1>
-                </div>
-                <div style={{textAlign: 'left', width: 800, margin: '0 auto'}}>
-                    <p>By filling out the form below, you are making a commitment to support the golfer of your choice in their 100 Holes for HOPE marathon. 
-                        You will receive an e-mail after the event with a summary of information on your golfer's performance 
-                        and specific instructions on how to honor this pledge directly to his/her pledge total.
-                        <br/><br/>
-                        In order to keep the pace of play going and to ensure that the golfers can play a full 100 holes in daylight, 
-                        we have modified some of the traditional rules of golf. If a ball is anywhere within a flag stick from the hole, 
-                        that ball counts as "in the hole". Please be aware of this when pledging per birdie. An eagle will be worth two birdie pledges.
-                    </p>
-                </div>
+                    <div className={classes.introduction}>
+                        <p>
+                            By filling out the form below, you are making a commitment to support the golfer of your choice in their 100 Holes for HOPE marathon. 
+                            You will receive an e-mail after the event with a summary of information on your golfer's performance 
+                            and specific instructions on how to honor this pledge directly to his/her pledge total.
+                            <br/><br/>
+                            In order to keep the pace of play going and to ensure that the golfers can play a full 100 holes in daylight, 
+                            we have modified some of the traditional rules of golf. If a ball is anywhere within a flag stick from the hole, 
+                            that ball counts as "in the hole". Please be aware of this when pledging per birdie. An eagle will be worth two birdie pledges.
+                        </p>
+                    </div>
 
-                <Card className={classes.card}>
+                    <Card className={classes.card}>
+                            <div>
+                                <h4>Name</h4>
+                            </div>
+                            <TextField 
+                                label="First Name"
+                                variant="outlined"
+                                style={{marginRight: 10}}
+                                placeholder='First Name'
+                                type="text"
+                                onChange={this.handleChangeFirstName} 
+                                value={this.state.first_name} 
+                            />
+                            <TextField 
+                                label="Last Name"
+                                variant="outlined"
+                                style={{marginLeft: 10}}
+                                placeholder='Last Name'
+                                type="text" 
+                                onChange={this.handleChangeLastName} 
+                                value={this.state.last_name}
+                            />
+                            <div>
+                                <h4>Phone Number</h4>
+                            </div>
+                            <TextField
+                                label="Phone Number"
+                                variant="outlined"
+                                placeholder='Phone Number'
+                                type='text' 
+                                onChange={this.handleChangePhone} 
+                                value={this.state.phone_number} 
+                            />
+                            <div>
+                                <h4>Email</h4>
+                            </div>
+                            <TextField
+                                label="Email"
+                                variant="outlined"
+                                placeholder='Email'
+                                type="text"
+                                onChange={this.handleChangeEmail}
+                                value={this.state.email}
+                            />
+                            <div>
+                                <h4>Golfer You are Pledging to</h4>
+                            </div>
+                            <div style={{marginBottom: '1.5rem'}}>
+                                <Select 
+                                    variant="outlined"
+                                    onChange={this.handleChangePledging}
+                                >
+                                    {this.props.golferReducer.map( (item) => {
+                                    return(
+                                        <MenuItem key={item.id} value={item.id}>
+                                            {item.first_name} {item.last_name}
+                                        </MenuItem>)
+                                    })}
+                                </Select>
+                            </div>
+                            <div className={classes.paragraph}>
+                                <p>
+                                    Please indicate your pledge below. After the event and once scores have been calculated, you will be contacted with a total amount 
+                                    and payment can be made at that time.
+                                </p>
+                            </div>
                     <div>
-                        <div>
-                            <h4>Name</h4>
-                        </div>
-                        <TextField 
-                            label="First Name"
+                        <h4>Pledge Type</h4>
+                    </div>
+                    <div>
+                        <Select
                             variant="outlined"
-                            style={{marginRight: 10}}
-                            placeholder='First Name'
-                            type="text"
-                            onChange={this.handleChangeFirstName} 
-                            value={this.state.first_name} 
-                        />
-                        <TextField 
-                            label="Last Name"
-                            variant="outlined"
-                            style={{marginLeft: 10}}
-                            placeholder='Last Name'
-                            type="text" 
-                            onChange={this.handleChangeLastName} 
-                            value={this.state.last_name}
-                        />
+                            onChange={this.handleChangeType} 
+                            value={this.state.type}
+                        >
+                            <MenuItem value="Flat">Flat</MenuItem>
+                            <MenuItem value="Per Birdie">Per Birdie</MenuItem>
+                        </Select>
                     </div>
+                
+                    <br/>
+                    {perBirdiePledge}
+                    <br/>
+                    {flatPledge}
                     <div>
-                        <h4>Phone Number</h4>
+                        <Button
+                            variant="contained"
+                            className={classes.button}
+                            onClick={this.handleSubmit}
+                        >
+                            Pledge
+                        </Button>
                     </div>
-                    <div>
-                        <TextField
-                            label="Phone Number"
-                            variant="outlined"
-                            placeholder='Phone Number'
-                            type='text' 
-                            onChange={this.handleChangePhone} 
-                            value={this.state.phone_number} 
-                        />
-                    </div>
-                    <div>
-                        <h4>Email</h4>
-                    </div>
-                    <div>
-                        <TextField
-                        label="Email"
-                        variant="outlined"
-                        placeholder='Email'
-                        type="text"
-                        onChange={this.handleChangeEmail}
-                        value={this.state.email} />
-                    </div>
-                <div>
-                    <h4>Golfer You are Pledging to</h4>
+                    </Card>
                 </div>
-                <div style={{marginBottom: 20}}>
-                    <Select 
-                    variant="outlined"
-                    onChange={this.handleChangePledging} 
-                    // value={this.state.golfer_id}
-                    >
-                        {this.props.golferReducer.map( (item) => {
-                        return(<MenuItem key={item.id} value={item.id}>{item.first_name} {item.last_name}</MenuItem>)
-                        })}
-                    </Select>
-                </div>
-                <div>
-                    <p style={{textAlign: 'center', width: 500, margin: '0 auto'}}>
-                        Please indicate your pledge below. After the event and once scores have been calculated, you will be contacted with a total amount 
-                        and payment can be made at that time.
-                    </p>
-                </div>
-                <div>
-                    <h4>Pledge Type</h4>
-                </div>
-                <div>
-                    <Select
-                        variant="outlined"
-                        onChange={this.handleChangeType} 
-                        value={this.state.type}
-                    >
-                        <MenuItem value="Flat">Flat</MenuItem>
-                        <MenuItem value="Per Birdie">Per Birdie</MenuItem>
-                    </Select>
-                </div>
-               
-                <br/>
-                {perBirdiePledge}
-                <br/>
-                {flatPledge}
-                <div>
-                    <Button
-                        variant="contained"
-                        style={{backgroundColor: 'rgb(180,151,89)', marginTop:10}}
-                        onClick={this.handleSubmit}
-                    >
-                        Pledge
-                    </Button>
-                </div>
-                </Card>
             </div>
         )
     }
 }
 const putReduxStateOnProps = (reduxStore) => ({
     golferReducer: reduxStore.golferReducer
-  });
+});
 
 export default connect(putReduxStateOnProps)(withStyles(styles)(Pledge));
