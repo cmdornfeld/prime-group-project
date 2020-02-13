@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import Nav from '../Nav/Nav';
 
 // Material UI
 import {withStyles} from '@material-ui/core/styles';
+import PhotosPageItem from '../PhotosPageItem/PhotosPageItem'
 import Grid from '@material-ui/core/Grid';
 
 const styles = {
@@ -41,7 +42,7 @@ class PhotosPage extends Component {
                             {this.props.photosReducer.map( (item) => {
                             return(
                                 <Grid item key={item.id}>
-                                    <img src={item.url} alt={item.description} width='240px'/>
+                                    <PhotosPageItem item={item} />
                                 </Grid>
                                 )
                                 })}
@@ -51,6 +52,8 @@ class PhotosPage extends Component {
         )
     }
 }
+
+
 const putReduxStateOnProps = (reduxStore) => ({
     photosReducer: reduxStore.photosReducer
 });

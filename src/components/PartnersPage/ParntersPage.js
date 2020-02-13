@@ -60,7 +60,7 @@ class ParntersPage extends Component {
                                     return (
                                         <Fragment>
                                         <div key={partner.id}>
-                                            <h2>{partner.title} - ${parseInt(partner.amount).toLocaleString()}</h2>
+                                            <h2 style={{fontSize: '2rem', margin: '1rem'}}>{partner.title} - ${parseInt(partner.amount).toLocaleString()}</h2>
                                         </div>
                                         <div style={{display: 'inline-block'}}>
                                             <img src={partner.img_url} alt={partner.name} />
