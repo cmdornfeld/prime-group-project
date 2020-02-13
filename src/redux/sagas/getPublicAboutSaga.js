@@ -5,7 +5,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* getMission() {
     try{
         const getResponse = yield axios.get(`/api/public/mission`);
-        console.log(getResponse.data)
         yield put({type: 'SET_MISSION', payload: getResponse.data})
     }
     catch (error){
@@ -17,7 +16,6 @@ function* getMission() {
 function* getFoundation() {
     try{
         const getResponse = yield axios.get(`/api/public/foundation`);
-        console.log(getResponse.data)
         yield put({type: 'SET_FOUNDATION', payload: getResponse.data})
     }
     catch (error){
