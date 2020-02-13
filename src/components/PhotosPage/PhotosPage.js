@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import {withStyles} from '@material-ui/core/styles';
+import PhotosPageItem from '../PhotosPageItem/PhotosPageItem'
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
-
 import Nav from '../Nav/Nav';
 
-const styles = {
+
+const styles = theme => ({
     card: {
         width: 'auto',
         height: 'auto',
@@ -16,8 +17,11 @@ const styles = {
     },
     topMargin: {
         marginTop: '8%'
+    },
+    dialog: {
+        width: '80%'
     }
-};
+});
 
 class PhotosPage extends Component {
 
@@ -31,22 +35,19 @@ class PhotosPage extends Component {
 
     render() {
         const {classes} = this.props;
+        
         return (
             <div>
                 <Nav />
                 <div className={classes.topMargin}>
                     <h1>EVENT PHOTOS</h1>
                         <Card className={classes.card}>
-                            <Grid container spacing={3} justify='center'>
-                            {this.props.photosReducer.map( (item) => {
-                            return(
-                                <Grid item>
-                                <div style={{ textAlign:'center'}}>
-                                    <img src={item.url} alt={item.description} width='240px' height='200px' textAlign='center'/>
-                                </div>
-                                </Grid>
-                                )
-                                })}
+                            <Grid container spacing={4} justify='center'>
+                            {this.props.photosReducer.map( item => ( 
+                            <Grid item xs={6} md={4} key={item.id}>
+                                <PhotosPageItem item={item} /> 
+                            </Grid>
+                            ))}
                             </Grid>
                         </Card>
                 </div>
@@ -54,6 +55,8 @@ class PhotosPage extends Component {
         )
     }
 }
+
+
 const putReduxStateOnProps = (reduxStore) => ({
     photosReducer: reduxStore.photosReducer
 });
