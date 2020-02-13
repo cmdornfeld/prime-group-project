@@ -2,7 +2,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0px;
     background-color: #DBCCAC;
-    color: rgb(37,49,85);
+    color: #253155;
 }
 
 h1 {
@@ -24,6 +24,10 @@ h3 {
     padding: 0;
     margin: 1rem;
     text-align: center;
+}
+
+p {
+    font-size: 1.12rem;
 }
 
 .alert {
