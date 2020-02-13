@@ -1,24 +1,45 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import dayjs from 'dayjs';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-
 import AdminNav from '../AdminNav/AdminNav';
 
 //Material UI Stuff
 import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 const styles =  {
     topMargin: {
-        marginTop: '100px'
+        marginTop: '8%'
     },
-    nameTextField: {
-        width: 250
+    textField: {
+        marginBottom: '1rem'
     },
     center: {
         textAlign: 'center'
+    },
+    container: {
+        textAlign: 'center',
+        width: '60%',
+        margin: '0 auto'
+    },
+    primaryButton: {
+        backgroundColor: '#b49759',
+        color: '#ffffff',
+        margin: '.5rem',
+        hover: 'pointer',
+            '&:hover': {
+                backgroundColor: '#b49759'
+            }
+    },
+    secondaryButton: {
+        backgroundColor: '#253155',
+        color: '#ffffff',
+        margin: '.5rem',
+        hover: 'pointer',
+            '&:hover': {
+                backgroundColor: '#253155'
+            }
     }
 }
 
@@ -140,136 +161,132 @@ class AdminHomePage extends Component {
 
         const editLocation = this.state.editLocation === false ? (
             <Fragment>
-                {this.props.eventInfoReducer.location}
+                <h4>Event location: {this.props.eventInfoReducer.location}</h4>
                     <Button
-                    onClick={this.editLocation}
-                    variant="contained"
-                    style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
+                        onClick={this.editLocation}
+                        variant="contained"
+                        className={classes.primaryButton}
                     >
                         Edit
                     </Button>
             </Fragment>
         ) : (
             <Fragment>
-                <div style={{marginBottom: 10}}>
-                <TextField
-                label="Location"
-                variant="outlined"
-                className={classes.nameTextField}
-                type="text" 
-                value={this.state.location}
-                onChange={this.handleInputChangeFor('location')}
-                />
-                <div>
-                <Button
-                onClick={this.cancelLocationSave}
-                variant="contained"
-                style={{backgroundColor: '#253155', color: '#ffffff', marginLeft: '10px', marginTop: '5px'}}
-                >
-                    Cancel
-                </Button>
-                <Button
-                onClick={this.editLocation}
-                variant="contained"
-                style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
-                >
-                    Save
-                </Button>
-                </div>
-                </div>
+                    <TextField
+                        label="Location"
+                        variant="outlined"
+                        type="text" 
+                        value={this.state.location}
+                        onChange={this.handleInputChangeFor('location')}
+                        style={{width: '30%'}}
+                    />
+                    <div>
+                        <Button
+                            onClick={this.cancelLocationSave}
+                            variant="contained"
+                            className={classes.secondaryButton}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={this.editLocation}
+                            variant="contained"
+                            className={classes.primaryButton}
+                        >
+                            Save
+                        </Button>
+                    </div>
             </Fragment>
         )
 
         const editGoal = this.state.editGoal === false ? (
             <Fragment>
-                Goal Year: {this.props.entireGoal.year} Goal Amount: {this.props.entireGoal.goal} 
+                <h4>Goal Year: {this.props.entireGoal.year} | Goal Amount: ${parseInt(this.props.entireGoal.goal).toLocaleString()}</h4>
                     <Button
-                    onClick={this.editGoal}
-                    variant="contained"
-                    style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '35px', marginTop: '5px'}}
+                        onClick={this.editGoal}
+                        variant="contained"
+                        className={classes.primaryButton}
                     >
                         Edit
                     </Button>
             </Fragment>
         ) : (
             <Fragment>
-                <div style={{marginBottom: 5}}>
                 <TextField
-                    label="Year"
+                    label="Year of event"
                     variant="outlined"
                     type="text" 
                     value={this.state.goalYear}
                     onChange={this.handleInputChangeFor('goalYear')}
+                    className={classes.textField}
                 />
-                </div>
-                <div style={{marginBottom: 8 }}>
+                <br/>
                 <TextField
-                    label="Amount"
+                    label="Goal amount"
                     variant="outlined"
-                    type="text" 
-                    type="text" 
+                    type="text"
                     value={this.state.goalAmount}
                     onChange={this.handleInputChangeFor('goalAmount')}
+                    className={classes.textField}
                 />
+                <div>
+                    <Button
+                        onClick={this.cancelGoalSave}
+                        variant="contained"
+                        className={classes.secondaryButton}
+                    >
+                        Cancel
+                    </Button>
+                    <Button
+                        onClick={this.editGoal}
+                        variant="contained"
+                        className={classes.primaryButton}
+                    >
+                        Save
+                    </Button>
                 </div>
-                <Button
-                onClick={this.cancelGoalSave}
-                variant="contained"
-                style={{backgroundColor: '#253155', color: '#ffffff', marginTop: '5px'}}
-                >
-                    Cancel
-                </Button>
-                <Button
-                onClick={this.editGoal}
-                variant="contained"
-                style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
-                >
-                    Save
-                </Button>
             </Fragment>
         )
 
         const editDate = this.state.editDate === false ? (
             <Fragment>
-                {dayjs(this.props.eventInfoReducer.date).format('MMMM DD YYYY')}
+                <h4>Date of event: {dayjs(this.props.eventInfoReducer.date).format('MMMM DD YYYY')}</h4>
                     <Button
-                    onClick={this.editDate}
-                    variant="contained"
-                    style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '115px', marginTop: '5px'}}
+                        onClick={this.editDate}
+                        variant="contained"
+                        className={classes.primaryButton}
                     >
                         Edit
                     </Button>
             </Fragment>
         ) : (
             <Fragment>
-                <div style={{marginBottom: 10, marginTop: 10}}>
-                <TextField 
-                label="Event Date"
-                variant="outlined"
-                type="date"
-                value={this.state.date}
-                onChange={this.handleInputChangeFor('date')}
-                InputLabelProps={{
-                    shrink: true,
-                    }}
-                />
-                <div>
-                <Button
-                onClick={this.cancelDateSave}
-                variant="contained"
-                style={{backgroundColor: '#253155', color: '#ffffff', marginTop: '5px'}}
-                >
-                    Cancel
-                </Button>
-                <Button
-                onClick={this.editDate}
-                variant="contained"
-                style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
-                >
-                    Save
-                </Button>
-                </div>
-                </div>
+                    <TextField 
+                        label="Event Date"
+                        variant="outlined"
+                        type="date"
+                        value={this.state.date}
+                        onChange={this.handleInputChangeFor('date')}
+                        InputLabelProps={{
+                            shrink: true,
+                            }}
+                    />
+                    <div>
+                        <Button
+                            onClick={this.cancelDateSave}
+                            variant="contained"
+                            className={classes.secondaryButton}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={this.editDate}
+                            variant="contained"
+                            className={classes.primaryButton}
+                        >
+                            Save
+                        </Button>
+                    </div>
             </Fragment>
         )
 
@@ -285,42 +302,38 @@ class AdminHomePage extends Component {
             </Fragment>
         ) : (
             <Fragment>
-                <div style={{marginTop: 10}}>
-                <div >
                 <TextField
-                label="Video Title"
-                variant="outlined"
-                type="text" 
-                value={this.state.videoTitle}
-                onChange={this.handleInputChangeFor('videoTitle')}
+                    label="Video Title"
+                    variant="outlined"
+                    type="text" 
+                    value={this.state.videoTitle}
+                    onChange={this.handleInputChangeFor('videoTitle')}
+                    className={classes.textField}
                 />
-                </div>
-                <br />
-                <div style={{marginBottom: 10}}>
+                <br/>
                 <TextField
-                label="Video URL"
-                variant="outlined"
-                type="text" 
-                value={this.state.videoUrl}
-                onChange={this.handleInputChangeFor('videoUrl')}
+                    label="Video URL"
+                    variant="outlined"
+                    type="text" 
+                    value={this.state.videoUrl}
+                    onChange={this.handleInputChangeFor('videoUrl')}
+                    className={classes.textField}
                 />
-                </div>
-                </div>
                 <div>
-                <Button
-                onClick={this.cancelVideoAdd}
-                variant="contained"
-                style={{backgroundColor: '#253155', color: '#ffffff', marginRight: '5px', marginTop: '5px'}}
-                >
-                    Cancel
-                </Button>
-                <Button
-                onClick={this.addVideo}
-                variant="contained"
-                style={{backgroundColor: '#b49759', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
-                >
-                    Save
-                </Button>
+                    <Button
+                        onClick={this.cancelVideoAdd}
+                        variant="contained"
+                        className={classes.secondaryButton}
+                    >
+                        Cancel
+                    </Button>
+                    <Button
+                        onClick={this.addVideo}
+                        variant="contained"
+                        className={classes.primaryButton}
+                    >
+                        Save
+                    </Button>
                 </div>
             </Fragment>
         )
@@ -329,18 +342,17 @@ class AdminHomePage extends Component {
             <div>
                 <AdminNav />
                 <div className={classes.topMargin}>
-
-                    <h1>Admin Home</h1>
-                  
-                    <div style={{textAlign:'center'}}> 
-
-                        {editLocation}
-                    </div>
-                    <div style={{textAlign:'center'}}>
-                        {editDate}
-                    </div>
-                    <div style={{textAlign:'center'}}>
-                        {editGoal}
+                    <h1>HOME</h1>
+                    <div className={classes.container}>
+                        <div>
+                            {editLocation}
+                        </div>
+                        <div>
+                            {editDate}
+                        </div>
+                        <div>
+                            {editGoal}
+                        </div>
                     </div>
                     <div style={{textAlign:'center'}}>
                         {addVideo}
@@ -348,17 +360,17 @@ class AdminHomePage extends Component {
                     {this.props.videoReducer.map( (item) => {
                     return(
                         <div className={classes.center}key={item.id} sm={6}>
-                            <h2 style={{textAlign:'center'}}>{item.title}</h2>
+                            <h2>{item.title}</h2>
                             <iframe src={item.url} width='450px' height='250px'  />
                             <br />
                             <div style={{textAlign:'center'}}>
-                            <Button
-                            onClick={() => this.deleteVideo(item.id)}
-                            variant="contained"
-                            style={{backgroundColor: '#253155', color: '#ffffff', marginLeft: '5px', marginTop: '5px'}}
-                            >
-                                Delete
-                            </Button>
+                                <Button
+                                    onClick={() => this.deleteVideo(item.id)}
+                                    variant="contained"
+                                    className={classes.secondaryButton}
+                                >
+                                    Delete
+                                </Button>
                             </div>
                         </div>
                     )

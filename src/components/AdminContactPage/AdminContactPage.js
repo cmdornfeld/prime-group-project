@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AdminNav from '../AdminNav/AdminNav';
 
@@ -12,6 +12,8 @@ import Button from '@material-ui/core/Button';
 const styles = theme => ({
     root: {
       flexGrow: 1,
+      width: '65%',
+      margin: '0 auto'
     },
     paper: {
       padding: theme.spacing.unit,
@@ -25,7 +27,25 @@ const styles = theme => ({
         marginRight: theme.spacing.unit,
       },
     topMargin: {
-        marginTop: '100px'
+        marginTop: '8%'
+    },
+    primaryButton: {
+        backgroundColor: '#b49759',
+        margin: '.5rem',
+        color: '#ffffff',
+        hover: 'pointer',
+            '&:hover': {
+                backgroundColor: '#b49759'
+            }
+    },
+    secondaryButton: {
+        backgroundColor: '#253155',
+        margin: '.5rem',
+        color: '#ffffff',
+        hover: 'pointer',
+            '&:hover': {
+                backgroundColor: '#253155'
+            }
     }
 });
 
@@ -125,9 +145,7 @@ class AdminContactPage extends Component {
         const editAddress = this.state.editAddress === false ? (
             <Paper className={classes.paper}>
                 <h2>Address</h2>
-                <Button onClick={this.editAddress} variant="contained" className={classes.button}
-                    style={{backgroundColor: '#b49759', marginBottom: '.5rem', color: '#FFFFFF'}}
-                >
+                <Button onClick={this.editAddress} variant="contained" className={classes.primaryButton}>
                     Edit
                 </Button>
                 <p>{this.props.addressReducer.street}<br/>
@@ -190,14 +208,10 @@ class AdminContactPage extends Component {
                     variant="outlined"
                 />
                 <div>
-                    <Button onClick={this.cancelEditAddress} variant="contained" className={classes.button}
-                        style={{backgroundColor: '#253155', margin: '.5rem', color: '#FFFFFF'}}
-                    >
+                    <Button onClick={this.cancelEditAddress} variant="contained" className={classes.secondaryButton}>
                         Cancel
                     </Button>
-                    <Button onClick={this.editAddress} variant="contained" className={classes.button}
-                        style={{backgroundColor: '#b49759', margin: '.5rem', color: '#FFFFFF'}}
-                    >
+                    <Button onClick={this.editAddress} variant="contained" className={classes.primaryButton}>
                         Save
                     </Button>
                 </div>
@@ -207,9 +221,7 @@ class AdminContactPage extends Component {
         const editContact = this.state.editContact === false ? (
             <Paper className={classes.paper}>
                 <h2>Contact</h2>
-                <Button onClick={this.editContact} variant="contained" className={classes.button}
-                        style={{backgroundColor: '#b49759', marginBottom: '.5rem', color: '#FFFFFF'}}
-                >
+                <Button onClick={this.editContact} variant="contained" className={classes.primaryButton}>
                     Edit
                 </Button>
                 <p>For any additional information, please contact:<br/>
@@ -236,22 +248,20 @@ class AdminContactPage extends Component {
                     margin="normal"
                     variant="outlined"
                 />
-                <Button onClick={this.cancelEditContact} variant="contained" className={classes.button}
-                    style={{backgroundColor: '#253155', margin: '.5rem', color: '#FFFFFF'}}>
+                <Button onClick={this.cancelEditContact} variant="contained" className={classes.secondaryButton}>
                     Cancel
                 </Button>
-                <Button onClick={this.editContact} variant="contained" className={classes.button}
-                    style={{backgroundColor: '#b49759', margin: '.5rem', color: '#FFFFFF'}}>
+                <Button onClick={this.editContact} variant="contained" className={classes.primaryButton}>
                     Save
                 </Button>
             </Paper>
         )
         return (
-            <Fragment>
+            <div>
                 <AdminNav />
                 <div className={classes.topMargin}>
-                    <h1>Contact</h1>
-                    <div className={classes.root} style={{width: '65%', margin: '0 auto'}}>
+                    <h1>CONTACT</h1>
+                    <div className={classes.root}>
                     <Grid container spacing={2}>
                         <Grid item xs>
                             {editAddress}
@@ -262,7 +272,7 @@ class AdminContactPage extends Component {
                     </Grid>
                     </div>
                 </div>
-            </Fragment>
+            </div>
         )
     }
 }
