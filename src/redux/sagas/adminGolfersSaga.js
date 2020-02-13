@@ -4,7 +4,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* getAdminGolfers() {
     try{
         const getResponse = yield axios.get(`/api/admin/golfers`);
-        console.log(getResponse.data)
         yield put({type: 'SET_ALL_GOLFERS', payload: getResponse.data})
     }
     catch (error){
