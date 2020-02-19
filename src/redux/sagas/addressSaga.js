@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
-
+//getting all address
 function* getAddressInfo() {
     try{
         const getResponse = yield axios.get(`/api/admin/address-info`);
@@ -10,7 +10,7 @@ function* getAddressInfo() {
         console.log(error); 
     }
 }
-
+//sagas for getting all the address
 function* editAddressInfo(action) {
     try{
         yield axios.put(`/api/admin/address-info/${action.payload.id}`, action.payload);

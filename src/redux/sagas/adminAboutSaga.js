@@ -43,6 +43,7 @@ function* getAdminFoundation() {
     }
 }
 
+//delete foundation
 function* deleteFoundation(action){
     try{
         yield axios.delete(`api/admin/foundation/${action.payload}`);
@@ -52,6 +53,7 @@ function* deleteFoundation(action){
     }
 }
 
+//edit foundation
 function* editFoundation(action) {
     try {
         yield axios.put(`/api/admin/foundation/${action.payload.id}`, action.payload);

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-//get public sponsor saga
+//get sponsor for the public
 function* getPublicSponsor() {
     try{
         const getResponse = yield axios.get(`/api/public/sponsor`);

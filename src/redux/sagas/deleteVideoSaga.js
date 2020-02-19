@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+// delete videos from the admin
 function* deleteVideo(action){
     try{
         yield axios.delete(`api/admin/videos/${action.payload}`);

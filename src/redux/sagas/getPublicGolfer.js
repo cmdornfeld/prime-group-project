@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+//getting holfers for the public
 function* getPublicGolfer() {
     try{
         const getResponse = yield axios.get(`/api/public/golfers`);
@@ -11,6 +12,7 @@ function* getPublicGolfer() {
     }
 }
 
+//getting golfer details for the public
 function* getPublicGolferId(action) {
     try{
         const getResponse = yield axios.get(`/api/public/golfers/${action.payload}`);

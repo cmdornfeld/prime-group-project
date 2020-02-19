@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+//getting golfers for the admin
 function* getAdminGolfers() {
     try{
         const getResponse = yield axios.get(`/api/admin/golfers`);
@@ -11,7 +12,7 @@ function* getAdminGolfers() {
     }
 }
 
-// post a new golfer
+// post a new golfer in admin
 function* postAdminGolfer(action){
     try{
         yield axios.post(`/api/admin/golfers`, action.payload);
@@ -21,7 +22,7 @@ function* postAdminGolfer(action){
     }
 }
 
-// delete a golfer
+// delete a golfer in admin
 function* deleteAdminGolfer(action){
     try{
         yield axios.delete(`api/admin/golfers/${action.payload}`);

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-// GET all photos
+// GET all photos that are in the admin
 function* getAdminPhotos() {
     try{
         const getResponse = yield axios.get(`/api/admin/photos`);
@@ -22,7 +22,7 @@ function* postAdminPhotos(action){
     }
 }
 
-// delete a photo
+// delete a photo from the admin
 function* deleteAdminPhotos(action){
     try{
         yield axios.delete(`api/admin/photos/${action.payload}`);

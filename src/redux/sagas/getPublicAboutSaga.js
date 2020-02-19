@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-//get mission
+//get mission for the public
 function* getMission() {
     try{
         const getResponse = yield axios.get(`/api/public/mission`);
@@ -12,7 +12,7 @@ function* getMission() {
     }
 }
 
-//get foundation
+//get foundation for the public
 function* getFoundation() {
     try{
         const getResponse = yield axios.get(`/api/public/foundation`);

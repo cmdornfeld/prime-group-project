@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+//post video for the admin
 function* postVideo(action){
     try{
         let data = {

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+//getting donation from the admin
 function* getDonationInfo() {
     try{
         const getResponse = yield axios.get(`/api/admin/donation-info`);
@@ -11,6 +12,7 @@ function* getDonationInfo() {
     }
 }
 
+//updating donation payment status from the admin
 function* updateDonationPaymentStatus(action) {
     try{        
         yield axios.put(`/api/admin/donation-info/${action.payload.id}`, action.payload);
@@ -21,6 +23,7 @@ function* updateDonationPaymentStatus(action) {
     }
 }
 
+//export donation from the admin
 function* exportDonations() {
     try{
         yield axios.get(`/api/admin/donation-export`);
@@ -30,6 +33,7 @@ function* exportDonations() {
     }
 }
 
+//filtering dates from the admin
 function* filterDates(action){
     try{
         const getResponse = yield axios.get(`/api/admin/donation?startingDate=${action.payload.startingDate}&endingDate=${action.payload.endingDate}`);
@@ -39,6 +43,7 @@ function* filterDates(action){
     }
 }
 
+//deleting rows from the admin
 function* deleteRows(action){
     try{
         yield axios.delete(`api/admin/donation?startingDate=${action.payload.startingDate}&endingDate=${action.payload.endingDate}`);
