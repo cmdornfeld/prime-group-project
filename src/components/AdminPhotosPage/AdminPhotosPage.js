@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import AdminNav from '../AdminNav/AdminNav';
 import DropzoneS3Uploader from 'react-dropzone-s3-uploader';
-import Grid from '@material-ui/core/grid';
+import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -91,7 +91,7 @@ class AdminPhotosPage extends Component {
         const { classes } = this.props;
 
         const uploadOptions = {
-            server: 'http://localhost:5000',
+            server: 'https://lit-eyrie-42982.herokuapp.com/',
             // signingUrlQueryParams: {uploadType: 'avatar'},
         }
 

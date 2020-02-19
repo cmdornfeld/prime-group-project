@@ -186,7 +186,7 @@ export class AdminPartnersPage extends Component {
         const { classes } = this.props;
 
         const uploadOptions = {
-            server: 'http://localhost:5000',
+            server: 'https://lit-eyrie-42982.herokuapp.com/',
             // signingUrlQueryParams: {uploadType: 'avatar'},
         }
 
