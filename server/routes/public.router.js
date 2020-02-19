@@ -171,7 +171,7 @@ router.post( '/pledges', (req, res) => {
               })
 
               const mailOptions = {
-                from: `jamie.richison19@gmail.com`,
+                from: `100holesnotification@gmail.com`,
                 to: `${email}`,
                 subject: `Donation Comformation`,
                 text: `Hello ${first},
@@ -208,7 +208,7 @@ router.post( '/pledges', (req, res) => {
               })
 
               const mailOptions = {
-                from: `jamie.richison19@gmail.com`,
+                from: `100holesnotification@gmail.com`,
                 to: `${email}`,
                 subject: `Donation Comformation`,
                 text: `Hello ${first},
@@ -245,7 +245,7 @@ router.post( '/pledges', (req, res) => {
               })
 
               const mailOptions = {
-                from: `jamie.richison19@gmail.com`,
+                from: `100holesnotification@gmail.com`,
                 to: `${email}`,
                 subject: `Donation Comformation`,
                 text: `Hello ${first},
@@ -324,7 +324,7 @@ router.get('/email', (req, res)=>{
       }
     })
     const mailOptions = {
-      from: `jamie.richison19@gmail.com`,
+      from: `100holesnotification@gmail.com`,
       to: `${to}`,
       subject: `${subject}`,
       text: `Hello, 
