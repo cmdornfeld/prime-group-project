@@ -1,5 +1,5 @@
 {
-  "name": "prime-solo-project",
+  "name": "100-Holes-for-HOPE",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:5000",
@@ -47,15 +47,7 @@
   "heroku-run-build-script": true,
   "description": "This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).",
   "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cmdornfeld/prime-group-project.git"
-  },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/cmdornfeld/prime-group-project/issues"
-  },
-  "homepage": "https://github.com/cmdornfeld/prime-group-project#readme"
+  "license": "ISC"
 }
