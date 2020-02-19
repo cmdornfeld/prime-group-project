@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/cmdornfeld/prime-group-project/static/css/main.23ded5ed.chunk.css",
+    "main.js": "/cmdornfeld/prime-group-project/static/js/main.acf7d9f2.chunk.js",
+    "main.js.map": "/cmdornfeld/prime-group-project/static/js/main.acf7d9f2.chunk.js.map",
+    "runtime-main.js": "/cmdornfeld/prime-group-project/static/js/runtime-main.db549576.js",
+    "runtime-main.js.map": "/cmdornfeld/prime-group-project/static/js/runtime-main.db549576.js.map",
+    "static/js/2.68990c9f.chunk.js": "/cmdornfeld/prime-group-project/static/js/2.68990c9f.chunk.js",
+    "static/js/2.68990c9f.chunk.js.map": "/cmdornfeld/prime-group-project/static/js/2.68990c9f.chunk.js.map",
+    "index.html": "/cmdornfeld/prime-group-project/index.html",
+    "precache-manifest.a84268d0538ef70e4f9d1101fc211bb9.js": "/cmdornfeld/prime-group-project/precache-manifest.a84268d0538ef70e4f9d1101fc211bb9.js",
+    "service-worker.js": "/cmdornfeld/prime-group-project/service-worker.js",
+    "static/css/main.23ded5ed.chunk.css.map": "/cmdornfeld/prime-group-project/static/css/main.23ded5ed.chunk.css.map",
+    "static/js/2.68990c9f.chunk.js.LICENSE": "/cmdornfeld/prime-group-project/static/js/2.68990c9f.chunk.js.LICENSE",
+    "static/media/100HolesforHope.png": "/cmdornfeld/prime-group-project/static/media/100HolesforHope.ea75e5d7.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.db549576.js",
+    "static/js/2.68990c9f.chunk.js",
+    "static/css/main.23ded5ed.chunk.css",
+    "static/js/main.acf7d9f2.chunk.js"
+  ]
+}
