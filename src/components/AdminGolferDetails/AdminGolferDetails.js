@@ -217,6 +217,8 @@ class AdminGolferDetails extends Component {
             <Fragment>
                 <div style={{marginTop:6}}>
                     <TextField
+                    label="First Name"
+                    variant="outlined"
                     type="text"
                     value={this.state.first}
                     onChange={this.handleInputChangeFor('first')}
@@ -224,6 +226,8 @@ class AdminGolferDetails extends Component {
                 </div>
                 <div style={{marginTop:6}}>
                     <TextField
+                    label="Last Name"
+                    variant="outlined"
                     type="text"
                     value={this.state.last}
                     onChange={this.handleInputChangeFor('last')}
@@ -250,8 +254,7 @@ class AdminGolferDetails extends Component {
         const editGoal = this.state.editGoal === false ? (
             <Fragment>
                 <div>
-                <h3>Goal: ${this.props.golferIdReducer.goal}</h3>
-                
+                    <h3>Goal: ${parseInt(this.props.golferIdReducer.goal).toLocaleString()}</h3>
                 </div>
                 <div>
                 <Button
@@ -266,7 +269,9 @@ class AdminGolferDetails extends Component {
             <Fragment>
                 <div>
                     <TextField
+                    label="Goal"
                     type="number"
+                    variant="outlined"
                     value={this.state.goal}
                     onChange={this.handleInputChangeFor('goal')}
                     />
@@ -374,7 +379,7 @@ class AdminGolferDetails extends Component {
 
         const editImage = this.state.editImage === false ? (
             <Fragment>
-                <img src={this.props.golferIdReducer.img_url} alt={this.props.golferIdReducer.id} width='220px' height='200px' />
+                <img src={this.props.golferIdReducer.img_url} alt={this.props.golferIdReducer.id} style={{objectFit: 'cover'}} width='220px' height='200px' />
                 <div style={{textAlign:'center'}}>
                     <Button
                     onClick={this.editPhoto}

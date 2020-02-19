@@ -37,7 +37,12 @@ const styles = {
     table: {
         marginLeft: 'auto',
         marginRight: 'auto'
+    },
+    height: {
+        height: 800,
+        overflow: 'auto'
     }
+   
 }
 
 export class AdminPledgesPage extends Component {
@@ -255,7 +260,7 @@ export class AdminPledgesPage extends Component {
                             Refresh
                         </Button>
                     </div>
-                    <div>
+                    <div className={classes.height}>
                         <Paper className={classes.root}>
                             <Table className={classes.table}>
                                 <TableHead>
@@ -281,7 +286,7 @@ export class AdminPledgesPage extends Component {
                                                 <TableCell>{donation.phone_number}</TableCell>
                                                 <TableCell>{donation.email}</TableCell>
                                                 <TableCell>{donation.type}</TableCell>
-                                                <TableCell>{donation.amount}</TableCell>
+                                                <TableCell>${parseInt(donation.amount).toLocaleString()}</TableCell>
                                                 <TableCell>{donation.max}</TableCell>
                                                 <TableCell>{donation.firstname} {donation.lastname}</TableCell>
                                                 <TableCell>{donation.status}</TableCell>

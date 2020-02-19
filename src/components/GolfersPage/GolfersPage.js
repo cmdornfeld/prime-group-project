@@ -40,7 +40,7 @@ class GolfersPage extends Component {
             <div>
                 <Nav />
                 <div className={classes.topMargin}>
-                <h1>GOLFERS</h1>
+                <h1>Golfers</h1>
                 <Grid container spacing={4} className={classes.container}>
                     {this.props.golferReducer.map( item => {
                     if(item.first_name === 'General'){
@@ -49,8 +49,8 @@ class GolfersPage extends Component {
                     return(
                         <Grid item key={item.id}>
                             <div>
-                                <h3>{item.first_name} {item.last_name}</h3>
-                                <img src={item.img_url} alt={item.id} onClick={() => this.viewGolfer(item.id)} width='240px'/>
+                                <h3 style={{margin: '0 auto', padding: '1rem'}}>{item.first_name} {item.last_name}</h3>
+                                <img src={item.img_url} alt={item.id} style={{objectFit: 'cover'}} onClick={() => this.viewGolfer(item.id)} width='240px' height="200px"/>
                             </div>
                         </Grid>
                         )

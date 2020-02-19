@@ -288,7 +288,7 @@ export class AdminPartnersPage extends Component {
             <Fragment>
                 <AdminNav />
                 <div className={classes.topMargin}>
-                    <h1>MANAGE PARTNERS</h1>
+                    <h1>Partners</h1>
                     <div className={classes.center}>
                         {addPartnerButton}
                     </div>
