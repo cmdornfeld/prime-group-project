@@ -29,7 +29,7 @@ export class PhotosPageItem extends Component {
     render() {
         return(
                 <Fragment>
-                <img src={this.props.item.url} alt={this.props.item.description} width='240px' height='200px' textAlign='center' onClick={this.handleClickOpen}/>
+                <img src={this.props.item.url} alt={this.props.item.description} width='240px' height='200px' style={{objectFit: 'scale-down'}} textAlign='center' onClick={this.handleClickOpen}/>
                 <Dialog
                 open={this.state.open}
                 TransitionComponent={Transition}

@@ -37,7 +37,7 @@ class PhotosPage extends Component {
             <div>
                 <Nav />
                 <div className={classes.topMargin}>
-                    <h1>EVENT PHOTOS</h1>
+                    <h1>Event Photos</h1>
                             <Grid container spacing={4} className={classes.container}>
                             {this.props.photosReducer.map( (item) => {
                             return(

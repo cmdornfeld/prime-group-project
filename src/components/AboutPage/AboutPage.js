@@ -55,7 +55,7 @@ class AboutPage extends Component {
       <div>
         <Nav />
         <div className={classes.topMargin}>
-          <h1>ABOUT</h1>
+          <h1>About</h1>
             <div className={classes.mission}>
               <p>
                 {this.props.missionReducer.about}

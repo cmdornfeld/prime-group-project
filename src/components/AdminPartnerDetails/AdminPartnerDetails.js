@@ -209,12 +209,21 @@ class AdminPartnerDetails extends Component {
             <Fragment>
                 <div style={{marginTop: '10px'}}>
                 <Select variant="outlined" onChange={(event) => {this.assignPartnerLevel(event)}}>
-                    {this.props.level.map(level => (
-                        <MenuItem key={level.id} value={level.id}>
-                            {level.title} ({level.amount})
-                        </MenuItem>
-                    )
-                    )}
+                    {this.props.level.map(level => {
+                        if(level.title === 'IN-KIND'){
+                            return (
+                                <MenuItem>
+                                    {level.title}
+                                </MenuItem>
+                            )
+                        }else {
+                            return(
+                                <MenuItem key={level.id} value={level.id}>
+                                {level.title} (${parseInt(level.amount).toLocaleString()})
+                            </MenuItem>
+                            )
+                        }
+                    })}
                 </Select>
                 </div>
                 <Button

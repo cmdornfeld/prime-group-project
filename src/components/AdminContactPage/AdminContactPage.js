@@ -260,7 +260,7 @@ class AdminContactPage extends Component {
             <div>
                 <AdminNav />
                 <div className={classes.topMargin}>
-                    <h1>CONTACT</h1>
+                    <h1>Contact</h1>
                     <div className={classes.root}>
                     <Grid container spacing={2}>
                         <Grid item xs>
