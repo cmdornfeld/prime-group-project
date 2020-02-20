@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
+//style for the admin home page
 const styles =  {
     topMargin: {
         marginTop: '8%'
@@ -58,6 +59,7 @@ class AdminHomePage extends Component {
         goalYear: ''
     }
 
+    //display the event, video and the goal for the admin home page
     componentDidMount(){
         this.props.dispatch({ type: 'GET_EVENT_INFO' })
         this.props.dispatch({ type: 'GET_VIDEOS_ADMIN' })

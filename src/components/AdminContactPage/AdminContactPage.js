@@ -9,6 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+
+//style for the contact page 
 const styles = theme => ({
     root: {
       flexGrow: 1,
@@ -64,11 +66,13 @@ class AdminContactPage extends Component {
         contactEmail: ''
     }
 
+    //display the contact info and and address info
     componentDidMount(){
         this.props.dispatch({ type: 'GET_CONTACT_INFO' });
         this.props.dispatch({ type: 'GET_ADDRESS_INFO' });
     }
 
+    //edit address for the address
     editAddress = () => {
         if(this.state.editAddress === false){
             this.setState({
@@ -98,6 +102,7 @@ class AdminContactPage extends Component {
         }
     }
 
+    //edit address for the contact
     editContact = () => {
         if(this.state.editContact === false){
             this.setState({
@@ -118,12 +123,14 @@ class AdminContactPage extends Component {
         }
     }
 
+    //delete address for the address
     cancelEditAddress = () => {
         this.setState({
             editAddress: false
         })
     }
 
+    //cancle contact for the address
     cancelEditContact = () => {
         this.setState({
             editContact: false

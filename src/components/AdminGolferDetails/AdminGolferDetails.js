@@ -9,6 +9,7 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 //Material UI Stuff
 import { withStyles } from '@material-ui/core/styles';
 
+//style for the golfers details page 
 const styles =  {
     topMargin: {
         marginTop: '100px'
@@ -42,10 +43,12 @@ class AdminGolferDetails extends Component {
         editPurpose: false,
     }
 
+    //this will display the golfers details on the admin
     componentDidMount() {
         this.props.dispatch({ type: 'ADMIN_GET_GOLFER_DETAILS', payload: this.props.match.params.id })
     }
 
+     //this edit name for the golfer detail
     editName = () => {
         this.setState({
             editName: true,
@@ -54,6 +57,7 @@ class AdminGolferDetails extends Component {
         })
     }
 
+    //this cancle edit name for the golfer detail
     cancelEditName = () => {
         this.setState({
             editName: false,
@@ -62,6 +66,7 @@ class AdminGolferDetails extends Component {
         })
     }
 
+    //this save edit name for the golfer detail
     saveEditName = () => {
         this.props.dispatch({ type: 'EDIT_GOLFER_NAME', payload: {
             first: this.state.first,
@@ -75,6 +80,7 @@ class AdminGolferDetails extends Component {
         })
     }
 
+    //this edit goal for the golfers details
     editGoal = () => {
         this.setState({
             editGoal: true,
@@ -82,6 +88,7 @@ class AdminGolferDetails extends Component {
         })
     }
 
+    //this cancle edit goal for the golfers details
     cancelEditGoal = () => {
         this.setState({
             editGoal: false,
@@ -89,6 +96,7 @@ class AdminGolferDetails extends Component {
         })
     }
 
+    //this save edit goal for the golfers details
     saveEditGoal = () => {
         this.props.dispatch({ type: 'EDIT_GOLFER_GOAL', payload: {
             goal: this.state.goal,
@@ -100,6 +108,7 @@ class AdminGolferDetails extends Component {
         })
     }
 
+    //this edit for the bio
     editBio = () => {
         this.setState({
             editBio: true,
@@ -107,6 +116,7 @@ class AdminGolferDetails extends Component {
         })
     }
 
+    //this cancle edit for the bio
     cancelEditBio = () => {
         this.setState({
             editBio: false,
@@ -114,6 +124,7 @@ class AdminGolferDetails extends Component {
         })
     }
 
+    //this save edit for the bio
     saveEditBio = () => {
         this.props.dispatch({ type: 'EDIT_GOLFER_BIO', payload: {
             bio: this.state.bio,
@@ -125,6 +136,7 @@ class AdminGolferDetails extends Component {
         })
     }
 
+    //this will edit the purpose 
     editPurpose = () => {
         this.setState({
             editPurpose: true,
@@ -132,6 +144,7 @@ class AdminGolferDetails extends Component {
         })
     }
 
+    //this will cancle the edit for the purpose
     cancelEditPurpose = () => {
         this.setState({
             editPurpose: false,
@@ -139,6 +152,7 @@ class AdminGolferDetails extends Component {
         })
     }
 
+    ////this will save the edit for the purpose
     saveEditPurpose = () => {
         this.props.dispatch({ type: 'EDIT_GOLFER_PURPOSE', payload: {
             purpose: this.state.purpose,
@@ -150,12 +164,14 @@ class AdminGolferDetails extends Component {
         })
     }
 
+    //this edit photo for the golfers details
     editPhoto = () => {
         this.setState({
             editImage: true
         })
     }
 
+    //this cancle photo for the golfers details
     cancelEditPhoto = () => {
         this.setState({
             editImage: false

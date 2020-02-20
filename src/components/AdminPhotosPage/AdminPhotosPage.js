@@ -10,6 +10,7 @@ import TextField from '@material-ui/core/TextField';
 //Material UI Stuff
 import { withStyles } from '@material-ui/core/styles';
 
+//style for the admin photos 
 const styles =  {
     card: {
         width: 'auto',

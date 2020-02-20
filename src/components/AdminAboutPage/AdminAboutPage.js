@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
+//style about page for the admin
 const styles =  {
     topMargin: {
         marginTop: '8%'
@@ -62,11 +63,13 @@ class AdminAboutPage extends Component {
         addFoundation: false,
     }
 
+    //display mission and foundation for the about page
     componentDidMount(){
         this.props.dispatch({type: 'GET_ADMIN_MISSION'});
         this.props.dispatch({ type: 'GET_ADMIN_FOUNDATION'});
     }
 
+    //cancle mission on the admin
     cancelMissionSave = () => {
         this.setState({
             editMission: false,
@@ -74,6 +77,7 @@ class AdminAboutPage extends Component {
         })
     }
 
+    //cancel foundation on the admin
     cancelAddFoundation = () => {
         this.setState({
             addFoundation: false,
@@ -82,6 +86,7 @@ class AdminAboutPage extends Component {
         })
     }
 
+    //edit the mission on the admin
     editMission = () => {
         if(this.state.editMission === false){
             this.setState({
@@ -96,16 +101,19 @@ class AdminAboutPage extends Component {
         }
     }
 
+    //add foundation on the admin
     addFoundation = () => {
         this.setState({
             addFoundation: true
         })
     }
 
+    //delete foundation on the admin
     deleteFoundation = (id) => {
         this.props.dispatch({type: 'DELETE_FOUNDATION', payload: id})
     }
 
+    //saves the foundation on the admin about page
     saveAddFoundation = () => {
         this.props.dispatch({ type: 'ADD_FOUNDATION', payload: {
             title: this.state.title,
@@ -120,6 +128,7 @@ class AdminAboutPage extends Component {
         })
     }
 
+    //upload image on the admin about page
     handleFinishedUpload = info => {
         this.setState({
             url: info.fileUrl

@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 
+//style for the change password on the admin
 const styles =  {
   card: {
     minWidth: 275,
@@ -46,6 +47,7 @@ class AdminChangePassword extends Component {
         });
     }
 
+    //update the password
     updatePassword = (event) => {
         event.preventDefault();
     

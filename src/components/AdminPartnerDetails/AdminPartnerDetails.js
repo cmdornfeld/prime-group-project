@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
+//style for the partner details 
 const styles =  {
     topMargin: {
         marginTop: '120px',
@@ -42,6 +43,7 @@ class AdminPartnerDetails extends Component {
         this.props.dispatch({ type: 'GET_PARTNER_DETAILS', payload: this.props.match.params.id });
     }
 
+    //edit the name on the partner details 
     editName = () => {
         this.setState({
             editName: true,
@@ -49,6 +51,7 @@ class AdminPartnerDetails extends Component {
         })
     }
 
+    //cancle name on the partner details 
     cancelEditName = () => {
         this.setState({
             editName: false,
@@ -56,6 +59,7 @@ class AdminPartnerDetails extends Component {
         })
     }
 
+    //save edit name on the partner detail
     saveEditName = () => {
         this.props.dispatch({ type: 'EDIT_PARTNER_NAME', payload: {
             name: this.state.name,
@@ -67,18 +71,21 @@ class AdminPartnerDetails extends Component {
         })
     }
 
+    //edit level on the partner details 
     editLevel = () => {
         this.setState({
             editLevel: true,
         })
     }
 
+    //assign partner level on the parter details
     assignPartnerLevel = (event) => {
         this.setState({
             level: event.target.value
         })
     }
 
+    //delete edit level on the partner details 
     cancelEditLevel = () => {
         this.setState({
             editLevel: false,
@@ -86,6 +93,7 @@ class AdminPartnerDetails extends Component {
         })
     }
 
+    ////save level on the partner details 
     saveEditLevel = () => {
         this.props.dispatch({ type: 'EDIT_PARTNER_LEVEL', payload: {
             level: this.state.level,
@@ -98,24 +106,28 @@ class AdminPartnerDetails extends Component {
     }
 
 
+    //edit image on the partner details 
     editImage = () => {
         this.setState({
             editImage: true
         })
     }
 
+    //cancle image on the partner details 
     cancelEditImage = () => {
         this.setState({
             editImage: false
         })
     }
 
+    //upload image on the partner details
     handleFinishedUpload = info => {
         this.setState({
             url: info.fileUrl
         })
     }
 
+    //save image on the partner details 
     saveEditImage = () => {
         this.props.dispatch({ type: 'EDIT_PARTNER_IMAGE', payload: {
             url: this.state.url,
@@ -145,6 +157,7 @@ class AdminPartnerDetails extends Component {
             // signingUrlQueryParams: {uploadType: 'avatar'},
         }
 
+        //this will upload images
         const s3Url = 'https://hundred-holes-bucket.s3.amazonaws.com'
 
         const innderDropElement = (

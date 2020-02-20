@@ -14,7 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-
+//style for the public pledge 
 const styles = {
     root: {
         width: '100%',
@@ -49,6 +49,7 @@ export class AdminPledgesPage extends Component {
         deleteRows: false
     }
 
+    //display the donation info for the admin 
     componentDidMount(){
         this.props.dispatch({ type: 'GET_DONATION_INFO' });
     }
