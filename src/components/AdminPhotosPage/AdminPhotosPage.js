@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import AdminNav from '../AdminNav/AdminNav';
 import DropzoneS3Uploader from 'react-dropzone-s3-uploader';
-import Grid from '@material-ui/core/grid';
+import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -15,8 +15,8 @@ const styles =  {
     card: {
         width: 'auto',
         height: 'auto',
-        padding: 90,
-        margin: 100,
+        padding: 80,
+        margin: 40,
         textAlign: 'center'
     },
     topMargin: {
@@ -92,7 +92,7 @@ class AdminPhotosPage extends Component {
         const { classes } = this.props;
 
         const uploadOptions = {
-            server: 'http://localhost:5000',
+            server: 'https://lit-eyrie-42982.herokuapp.com/',
             // signingUrlQueryParams: {uploadType: 'avatar'},
         }
 
@@ -118,6 +118,7 @@ class AdminPhotosPage extends Component {
             <Fragment>
                 <div style={{ marginBottom: 20}}>
                     <TextField
+                    label="Description"
                     type="text"
                     variant="outlined"
                     value={this.state.description}
@@ -157,7 +158,7 @@ class AdminPhotosPage extends Component {
                 <AdminNav />
                 <div className={classes.topMargin}>
                     <h1>Photos</h1>
-                    <Card className={classes.card}>
+                    <div className={classes.card}>
                         <Grid container spacing={3} justify='center'>
                         <div style={{ textAlign:'center', marginBottom:20}}>
                             {addPhoto}
@@ -167,7 +168,7 @@ class AdminPhotosPage extends Component {
                             return(
                                 <Grid item>
                                     <div key={item.id}>
-                                    <img src={item.url} alt={item.description} width='220px' height='200px' textAlign='center' />
+                                    <img src={item.url} alt={item.description} width='220px' height='200px' style={{objectFit: 'cover'}} textAlign='center' />
                                     <br />
                                     <Button
                                     onClick={() => this.deletePhoto(item.id)}
@@ -182,7 +183,7 @@ class AdminPhotosPage extends Component {
                             })}
                             </Grid>
                         </Grid>
-                    </Card>
+                    </div>
                 </div>
             </div>
         )

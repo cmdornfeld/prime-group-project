@@ -42,7 +42,7 @@ class ParntersPage extends Component {
             <div>
                 <Nav />
                 <div className={classes.topMargin}>
-                    <h1>THANK YOU 2019 PARTNERS</h1>
+                    <h1>Thank You 2019 Partners</h1>
                     <Card className={classes.card}>
                         <p style={{textAlign:"center"}}>If you are interested in sponsorship opportunties, please reach out to Maggie 
                             Sutton at msutton@pgahq.com, or click <a href="https://2974087d-4c0d-4b25-8875-039fee4fd083.filesusr.com/ugd/823de7_68d1b9577dab4a6b8312c12061639400.pdf" 

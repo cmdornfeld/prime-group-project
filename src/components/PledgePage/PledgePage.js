@@ -33,7 +33,7 @@ const styles =  {
         margin: '0 auto'
     },
     paragraph: {
-        textAlign: 'center',
+        textAlign: 'left',
         width: '50%',
         margin: '0 auto'
     },
@@ -53,7 +53,7 @@ class Pledge extends Component {
         golfer_id: '',
         type: 'Flat',
         amount: '',
-        max: '',
+        max: ''
     }
 
     handleChangeFirstName = (e) => {
@@ -128,7 +128,7 @@ class Pledge extends Component {
                     amount: '',
                     max: '',
                 }) 
-                alert('Thank you for your donation!  Please check your email for conformation.')
+                alert('Thank you for your donation!  Please check your email for confirmation.')
         } 
         else {
             console.log(this.state)
@@ -153,7 +153,7 @@ class Pledge extends Component {
                 amount: '',
                 max: '',
             }) 
-            alert('Thank you for your donation!  Please check your email for conformation.')
+            alert('Thank you for your donation!  Please check your email for confirmation.')
         } 
         }  
     }
@@ -218,7 +218,7 @@ class Pledge extends Component {
             <div>
                 <Nav />
                 <div className={classes.topMargin}>
-                    <h1>PLEDGE</h1>
+                    <h1>Pledge</h1>
                     <div className={classes.introduction}>
                         <p>
                             By filling out the form below, you are making a commitment to support the golfer of your choice in their 100 Holes for HOPE marathon. 
@@ -282,7 +282,7 @@ class Pledge extends Component {
                                 <Select 
                                     variant="outlined"
                                     onChange={this.handleChangePledging}
-                                >
+                                    >
                                     {this.props.golferReducer.map( (item) => {
                                     return(
                                         <MenuItem key={item.id} value={item.id}>

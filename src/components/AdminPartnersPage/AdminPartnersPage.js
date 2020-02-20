@@ -189,7 +189,7 @@ export class AdminPartnersPage extends Component {
         const { classes } = this.props;
 
         const uploadOptions = {
-            server: 'http://localhost:5000',
+            server: 'https://lit-eyrie-42982.herokuapp.com/',
             // signingUrlQueryParams: {uploadType: 'avatar'},
         }
 
@@ -291,7 +291,7 @@ export class AdminPartnersPage extends Component {
             <Fragment>
                 <AdminNav />
                 <div className={classes.topMargin}>
-                    <h1>MANAGE PARTNERS</h1>
+                    <h1>Partners</h1>
                     <div className={classes.center}>
                         {addPartnerButton}
                     </div>

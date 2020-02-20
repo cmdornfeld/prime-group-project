@@ -62,7 +62,7 @@ router.get('/donation-info', rejectUnauthenticated, (req, res)=>{
 
 //Export donation table
 router.get('/donation-export', rejectUnauthenticated, (req, res)=>{
-    const queryString = `COPY (SELECT * FROM "donation") TO '/Users/jamierichi/Desktop/query_result.csv'
+    const queryString = `COPY (SELECT * FROM "donation") TO '/Users/jamierichi/Desktop/pledges.csv'
                         DELIMITER ',' CSV HEADER;`;
     pool.query(queryString).then(( results ) =>{
         res.send(results.rows);

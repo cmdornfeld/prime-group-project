@@ -81,6 +81,7 @@ class ContactPage extends Component {
                 subject: '',
                 body: ''
             })
+            alert('Your email has been sent successfully.')
         }
     }
 

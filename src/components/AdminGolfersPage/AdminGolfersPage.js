@@ -154,7 +154,7 @@ export class AdminGolfersPage extends Component {
         const { classes } = this.props;
 
         const uploadOptions = {
-            server: 'http://localhost:5000',
+            server: 'https://lit-eyrie-42982.herokuapp.com/',
             // signingUrlQueryParams: {uploadType: 'avatar'},
         }
 
@@ -268,7 +268,7 @@ export class AdminGolfersPage extends Component {
             <div>
                 <AdminNav />
                 <div className={classes.topMargin}>
-                    <h1>GOLFERS</h1>
+                    <h1>Golfers</h1>
                     {addGolfer}
                     <div className={classes.root}>
                         <Grid container spacing={2}>
@@ -278,8 +278,8 @@ export class AdminGolfersPage extends Component {
                             } else {
                             return(
                                 <Grid item xs key={item.id} className={classes.golfer}>
-                                    <h4>{item.first_name} {item.last_name}</h4>
-                                    <img src={item.img_url} alt={item.id} onClick={() => this.viewGolfer(item.id)} width='240px'/>
+                                    <h4 >{item.first_name} {item.last_name}</h4>
+                                    <img src={item.img_url} alt={item.id} style={{objectFit: 'cover'}} onClick={() => this.viewGolfer(item.id)} width='240px' height="200px"/>
                                     <div>
                                         <Button
                                             className={classes.cancelButton}

@@ -1,10 +1,10 @@
 {
-  "name": "prime-solo-project",
+  "name": "100-Holes-for-HOPE",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
-    "@material-ui/core": "^4.9.1",
+    "@material-ui/core": "^4.9.3",
     "@material-ui/icons": "^4.9.1",
     "axios": "^0.19.0",
     "bcrypt": "^3.0.6",
@@ -57,5 +57,5 @@
   "bugs": {
     "url": "https://github.com/cmdornfeld/prime-group-project/issues"
   },
-  "homepage": "https://github.com/cmdornfeld/prime-group-project#readme"
+  "homepage": "/"
 }
