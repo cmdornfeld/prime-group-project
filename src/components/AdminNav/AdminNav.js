@@ -10,6 +10,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
+// style for the admin nav
 const styles =  {
   buttonLeft: {
     float: 'left'

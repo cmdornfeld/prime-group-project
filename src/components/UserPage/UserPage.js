@@ -10,6 +10,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 import Grid from '@material-ui/core/Grid';
 
+//styled for the public home page
 const styles = theme => ({
   progress: {
       margin: theme.spacing(2),
@@ -36,6 +37,7 @@ const styles = theme => ({
 
 class UserPage extends Component {
 
+  // this will diplay everything in the public home page
   componentDidMount() {
     this.getVideo();
     this.getEvent();

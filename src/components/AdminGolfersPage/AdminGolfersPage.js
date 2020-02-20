@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+//style for the admin golfers 
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -102,6 +103,7 @@ export class AdminGolfersPage extends Component {
         })
     }
 
+    // this will save and add for the admin golfer
     saveAddGolfer = () => {
         this.props.dispatch({ type: 'ADMIN_ADD_GOLFER', payload: {
             first: this.state.first,
@@ -138,6 +140,7 @@ export class AdminGolfersPage extends Component {
         });
     };
 
+    //this will display the golfers info on the admin
     componentDidMount(){
         this.props.dispatch({type: 'GET_ADMIN_GOLFERS'})
     }

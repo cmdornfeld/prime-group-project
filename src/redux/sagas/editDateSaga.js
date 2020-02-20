@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+//edit date from the admin
 function* editDate(action) {
     try {
         yield axios.put(`/api/admin/date/${action.payload.id}`, action.payload);

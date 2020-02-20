@@ -144,7 +144,7 @@ router.post( '/pledges', (req, res) => {
     const max = req.body.max;
     const golfer = req.body.golfer_id;
 
-    //insert data
+    //insert data for flat or per birdie
     let queryString = ``;
     if(type === 'Flat'){
         queryString = `INSERT INTO "donation" ("first_name", "last_name", "phone_number", "email", "type", "amount", "golfer_id") 
@@ -303,7 +303,7 @@ router.get('/email', (req, res)=>{
      res.sendStatus(500);
     })
  });
-
+// post route for email
  router.post('/email', function(req, res, next) {
     const email = req.body.email;
     const name = req.body.name;

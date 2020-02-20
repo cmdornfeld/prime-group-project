@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+// get public address for the public
 function* getPublicAddress() {
     try{
         const getResponse = yield axios.get(`/api/public/address`);
@@ -11,6 +12,7 @@ function* getPublicAddress() {
     }
 }
 
+// getting the address for the public
 function* getPublicContact() {
     try{
         const getResponse = yield axios.get(`/api/public/contact`);
@@ -21,7 +23,7 @@ function* getPublicContact() {
     }
 }
 
-//post to send email
+//saga that get and post to send email
 function* sendEmail(action){
     try{
         const getResponse = yield axios.get(`/api/public/email`);

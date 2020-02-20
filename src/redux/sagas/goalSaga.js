@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+//getting goal total for the public
 function* getGolfersGoalTotal() {
     try{
         const getResponse = yield axios.get(`/api/public/golfer-goal-total`);
@@ -11,6 +12,7 @@ function* getGolfersGoalTotal() {
     }
 }
 
+//getting golfer donation total for the public
 function* getGolfersDonationTotal() {
     try{
         const getResponse = yield axios.get(`/api/public/golfer-donation-total`);
@@ -21,6 +23,7 @@ function* getGolfersDonationTotal() {
     }
 }
 
+//getting partner pledge total for public
 function* getPartnerPledgeTotal() {
     try{
         const getResponse = yield axios.get(`/api/public/partner-pledge-total`);
@@ -31,6 +34,7 @@ function* getPartnerPledgeTotal() {
     }
 }
 
+//getting overall goal info for public
 function* getEntireGoalInfo() {
     try{
         const getResponse = yield axios.get(`/api/public/entire-goal-info`);
@@ -41,6 +45,7 @@ function* getEntireGoalInfo() {
     }
 }
 
+//edit goal info for public
 function* editGoalInfo(action) {
     try{
         yield axios.put(`/api/admin/goal-info/${action.payload.id}`, action.payload);

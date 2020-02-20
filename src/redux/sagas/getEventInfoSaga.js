@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+//get event information for admin
 function* getEventInfo() {
     try{
         const getResponse = yield axios.get(`/api/admin/event-info`);

@@ -11,6 +11,7 @@ import Card from '@material-ui/core/Card';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
+//style for the admin partners page
 const styles =  {
     header: {
         textAlign: 'center',
@@ -83,6 +84,7 @@ export class AdminPartnersPage extends Component {
         addPartner: false
     }
 
+    //display partner and there level for the admin
     componentDidMount(){
         this.props.dispatch({ type: 'GET_PARTNERS' });
         this.props.dispatch({ type: 'GET_PARTNER_LEVELS'});
@@ -176,6 +178,7 @@ export class AdminPartnersPage extends Component {
         this.props.history.push(`/admin/partners/${id}`);
     }
 
+    // this remove sponsors from the admin partner
     removePartner = (id)  => {
         console.log('in removePartner with ID:', id);
         this.props.dispatch({ type: 'REMOVE_PARTNER', payload: id });

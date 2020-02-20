@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+//getting videos for the public
 function* getPublicVideos() {
     try{
         const getResponse = yield axios.get(`/api/public/videos`);
@@ -11,6 +12,7 @@ function* getPublicVideos() {
     }
 }
 
+//getting events for the public
 function* getPublicEvents() {
     try{
         const getResponse = yield axios.get(`/api/public/event-info`);

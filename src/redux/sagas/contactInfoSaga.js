@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+//gettin contact informations for the admin
 function* getContactInfo() {
     try{
         const getResponse = yield axios.get(`/api/admin/contact-info`);
@@ -11,6 +12,7 @@ function* getContactInfo() {
     }
 }
 
+//edditing contact informations for the admin
 function* editContactInfo(action) {
     try{
         yield axios.put(`/api/admin/contact-info/${action.payload.id}`, action.payload);

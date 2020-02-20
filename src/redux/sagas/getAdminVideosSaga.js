@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+//getting videos for the admin
 function* getAdminVideos() {
     try{
         const getResponse = yield axios.get(`/api/admin/videos`);

@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
+//style for the foundation details 
 const styles = {
     center: {
         textAlign: 'center'
@@ -71,12 +72,14 @@ export class AdminFoundationDetails extends Component {
         this.props.dispatch({ type: 'GET_FOUNDATION_DETAILS', payload: this.props.match.params.id })
     }
 
+    //this will change for the foun
     handleInputChangeFor = propertyName => (event) => {
         this.setState({
           [propertyName]: event.target.value,
         });
     };
 
+    //this will upload image 
     handleFinishedUpload = info => {
         this.setState({
             url: info.fileUrl
@@ -106,18 +109,21 @@ export class AdminFoundationDetails extends Component {
         })
     }
 
+    //this will edit image for the th about page
     editImage = () => {
         this.setState({
             editImage: true
         })
     }
 
+    // this will cancle image for the admin about page 
     cancelEditImage = () => {
         this.setState({
             editImage: false
         })
     }
 
+    //saves the image for the admin about page 
     saveEditImage = () => {
         this.props.dispatch({type: 'EDIT_FOUNDATION_IMAGE', payload: {
             id: this.props.foundationDetailsReducer.id,
@@ -129,6 +135,7 @@ export class AdminFoundationDetails extends Component {
         })
     }
 
+    // edit foundation bio for the admin about page 
     editBio = () => {
         this.setState({
             editBio: true,
@@ -136,12 +143,14 @@ export class AdminFoundationDetails extends Component {
         })
     }
 
+    // cancle foundation bio for the admin about page 
     cancelEditBio = () => {
         this.setState({
             editBio: false
         })
     }
 
+    // save foundation bio for the admin about page 
     saveEditBio = () => {
         this.props.dispatch({type: 'EDIT_FOUNDATION_BIO', payload: {
             id: this.props.foundationDetailsReducer.id,

@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-
+//style for the public pledge page
 const styles =  {
     card: {
         width: '60%',
@@ -96,6 +96,8 @@ class Pledge extends Component {
             amount: e.target.value
         })
     }
+
+    // this will submit the pledge form appliction for pledge page
     handleSubmit = () => {
         if (this.state.phone_number.length < 10 || !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email) || 
             this.state.first_name === '' || this.state.last_name === '' || this.state.phone_number === '' || 
@@ -156,6 +158,7 @@ class Pledge extends Component {
         }  
     }
 
+    //this will dispaly the golfers on the dom
     componentDidMount() {
         this.getGolfers();
     }

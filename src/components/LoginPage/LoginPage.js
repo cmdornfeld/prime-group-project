@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 
+//style for the login page
 const styles =  {
   card: {
     minWidth: 275,

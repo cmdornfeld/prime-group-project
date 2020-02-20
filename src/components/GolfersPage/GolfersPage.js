@@ -6,6 +6,7 @@ import Nav from '../Nav/Nav';
 import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
+//style for the public golfer page 
 const styles = {
     topMargin: {
         marginTop: '8%'
@@ -20,6 +21,7 @@ const styles = {
 
 class GolfersPage extends Component {
 
+    //display golfers on the public
     componentDidMount() {
         this.getGolfers();
     }

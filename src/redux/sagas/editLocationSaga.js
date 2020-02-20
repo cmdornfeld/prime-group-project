@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+//saga that edit location from admin
 function* editLocation(action) {
     try {
         yield axios.put(`/api/admin/location/${action.payload.id}`, action.payload);

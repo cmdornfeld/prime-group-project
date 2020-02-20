@@ -7,6 +7,7 @@ import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 
+//style for the public home page
 const styles = {
   card: {
       width: '60%',
@@ -34,6 +35,7 @@ const styles = {
 
 class AboutPage extends Component {
 
+// this will display the mission and foundation for the public about page
   componentDidMount() {
     this.getMission();
     this.getFoundation();

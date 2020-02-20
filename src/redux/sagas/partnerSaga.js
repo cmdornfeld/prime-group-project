@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+//getting parter info for public
 function* getPartnerInfo() {
     try{
         const getResponse = yield axios.get(`/api/admin/partners`);
@@ -11,6 +12,7 @@ function* getPartnerInfo() {
     }
 }
 
+//getting partner level for the admin
 function* getPartnerLevels() {
     try{
         const getResponse = yield axios.get(`/api/admin/partner-levels`);
@@ -21,6 +23,7 @@ function* getPartnerLevels() {
     }
 }
 
+//posting new partners for the admin
 function* addNewPartner(action) {
     try{
         yield axios.post(`/api/admin/partners`, action.payload);
@@ -31,6 +34,7 @@ function* addNewPartner(action) {
     }
 }
 
+//deleting partners for the admin 
 function* removePartner(action) {
     try{
         yield axios.delete(`/api/admin/partners/delete/${action.payload}`);
@@ -41,6 +45,7 @@ function* removePartner(action) {
     }
 }
 
+//getting partner details for the admin
 function* getPartnerDetails(action) {
     try{
         const getResponse = yield axios.get(`/api/admin/partners/${action.payload}`);
@@ -51,6 +56,7 @@ function* getPartnerDetails(action) {
     }
 }
 
+//edit parnter name for the admin
 function* editPartnerName(action) {
     try {
         yield axios.put(`/api/admin/partners/name/${action.payload.id}`, action.payload);
@@ -61,6 +67,7 @@ function* editPartnerName(action) {
     }
 }
 
+//edit partner image for admin
 function* editPartnerImage(action) {
     try {
         yield axios.put(`/api/admin/partners/image/${action.payload.id}`, action.payload);
@@ -71,6 +78,7 @@ function* editPartnerImage(action) {
     }
 }
 
+//edit partner level for the admin
 function* editPartnerLevel(action) {
     try {
         yield axios.put(`/api/admin/partners/level/${action.payload.id}`, action.payload);
@@ -81,6 +89,7 @@ function* editPartnerLevel(action) {
     }
 }
 
+//add partner level for the admin
 function* addPartnerLevel(action) {
     try{
         yield axios.post(`/api/admin/partner-level`, action.payload);

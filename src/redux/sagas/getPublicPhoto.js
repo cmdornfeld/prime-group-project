@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+//getting photos for the public
 function* getPublicPhoto() {
     try{
         const getResponse = yield axios.get(`/api/public/photos`);
