@@ -7,6 +7,7 @@ import {withStyles} from '@material-ui/core/styles';
 import PhotosPageItem from '../PhotosPageItem/PhotosPageItem'
 import Grid from '@material-ui/core/Grid';
 
+//style for public photos page
 const styles = {
     topMargin: {
         marginTop: '8%'
@@ -21,6 +22,7 @@ const styles = {
 
 class PhotosPage extends Component {
 
+    //this will display photos on the public page
     componentDidMount() {
         this.getPhotos()
     }

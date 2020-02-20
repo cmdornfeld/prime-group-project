@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 
+//style for the golfers details 
 const styles = theme => ({
     progress: {
       margin: theme.spacing(2)
@@ -54,6 +55,7 @@ const styles = theme => ({
 
 class golferDetails extends Component {
 
+    //display golfers details
     componentDidMount() {
         this.props.dispatch({ type: 'GET_GOLFER_DETAILS', payload: this.props.match.params.id })
     }

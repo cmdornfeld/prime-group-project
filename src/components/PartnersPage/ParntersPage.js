@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 
 
-
+//style for the public partners page
 const styles =  {
     card: {
         width: '60%',
@@ -24,6 +24,7 @@ const styles =  {
 
 class ParntersPage extends Component {
 
+    //this will display the sponsors on the public partners page 
     componentDidMount() {
         this.getSponsor();
     }
